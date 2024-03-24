@@ -11,12 +11,22 @@ config_version=5
 [application]
 
 config/name="Game 1-flappy"
-config/features=PackedStringArray("4.2", "GL Compatibility")
+run/main_scene="res://BaseScene.tscn"
+config/features=PackedStringArray("4.2", "C#", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=1600
+window/size/viewport_height=720
 
 [dotnet]
 
 project/assembly_name="Game 1-flappy"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg")
 
 [input_devices]
 
@@ -27,8 +37,10 @@ pointing/emulate_mouse_from_touch=false
 
 2d_render/layer_1="Background"
 2d_render/layer_2="Foreground"
+2d_render/layer_3="Overlay"
 2d_physics/layer_1="Player"
-2d_physics/layer_2="Obsticles"
+2d_physics/layer_2="Obstacles"
+2d_physics/layer_3="ScoreGate"
 
 [rendering]
 

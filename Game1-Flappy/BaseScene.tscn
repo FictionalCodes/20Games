@@ -1,0 +1,114 @@
+[gd_scene load_steps=11 format=3 uid="uid://das2u2sjwldou"]
+
+[ext_resource type="Script" path="res://Scripts/Flappy.cs" id="1_rbslw"]
+[ext_resource type="Script" path="res://LevelControl.cs" id="1_s8dca"]
+[ext_resource type="Texture2D" uid="uid://ci8mn70tpkfkj" path="res://Images/BirdBody.png" id="2_nxic8"]
+[ext_resource type="PackedScene" uid="uid://byy4toimcfdyd" path="res://Prefabs/PipeSet.tscn" id="4_d4ayd"]
+[ext_resource type="Script" path="res://OverlayController.cs" id="5_nutc0"]
+[ext_resource type="Texture2D" uid="uid://duhvrjv61cvbq" path="res://Images/grassHalfMid.png" id="6_jcil8"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nrrvq"]
+radius = 24.0
+height = 54.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_afwx5"]
+radius = 7.0
+
+[sub_resource type="SystemFont" id="SystemFont_2xyrw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tidqh"]
+size = Vector2(691, 20)
+
+[node name="LevelRoot" type="Node2D" node_paths=PackedStringArray("_obstacleSpawnPoint", "_spawnTimer")]
+script = ExtResource("1_s8dca")
+_obstacleList = Array[PackedScene]([ExtResource("4_d4ayd")])
+_obstacleSpawnPoint = NodePath("SpawnPoint")
+_spawnTimer = NodePath("Timer")
+
+[node name="BirbBody" type="RigidBody2D" parent="."]
+position = Vector2(150, 335)
+collision_mask = 6
+mass = 0.6
+gravity_scale = 0.4
+lock_rotation = true
+max_contacts_reported = 2
+contact_monitor = true
+script = ExtResource("1_rbslw")
+_pushSpeed = 250.0
+
+[node name="Sprite2D" type="Sprite2D" parent="BirbBody"]
+modulate = Color(0.54902, 0.121569, 0.494118, 1)
+texture_filter = 1
+texture = ExtResource("2_nxic8")
+metadata/_aseprite_wizard_config_ = {
+"i_mode": 1,
+"keep_anim_length": false,
+"layer": "",
+"o_ex_p": "",
+"o_folder": "res://Images",
+"o_name": "",
+"only_visible": false,
+"player": "",
+"slice": "",
+"source": "res://Images/BirdBody.aseprite"
+}
+metadata/_aseprite_wizard_interface_config_ = {
+"layer_section": true,
+"output_section": true,
+"slice_section": true
+}
+
+[node name="BodyShape" type="CollisionShape2D" parent="BirbBody"]
+position = Vector2(-1, 5)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_nrrvq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BirbBody"]
+position = Vector2(15, -20)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_afwx5")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[node name="SpawnPoint" type="Node2D" parent="."]
+position = Vector2(1700, 360)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." node_paths=PackedStringArray("_scoreText")]
+script = ExtResource("5_nutc0")
+_scoreText = NodePath("ScoreLabel2")
+
+[node name="ScoreLabel" type="Label" parent="CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_fonts/font = SubResource("SystemFont_2xyrw")
+theme_override_font_sizes/font_size = 32
+text = "SCORE"
+
+[node name="ScoreLabel2" type="Label" parent="CanvasLayer"]
+offset_left = 105.0
+offset_right = 206.0
+offset_bottom = 45.0
+theme_override_fonts/font = SubResource("SystemFont_2xyrw")
+theme_override_font_sizes/font_size = 32
+text = "00000"
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(0, 722)
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(335.5, 0)
+shape = SubResource("RectangleShape2D_tidqh")
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+texture_repeat = 2
+position = Vector2(797, 20)
+texture = ExtResource("6_jcil8")
+region_enabled = true
+region_rect = Rect2(0, 0, 1600, 70)
+
+[connection signal="OnScoreUpdated" from="." to="CanvasLayer" method="ScoreUpdated"]
+[connection signal="body_entered" from="BirbBody" to="." method="OnObstacleCollisionDirect"]
+[connection signal="timeout" from="Timer" to="." method="SpawnPipe"]
