@@ -1,0 +1,13 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://d5oxpjcvfwdf"]
+
+[ext_resource type="StyleBox" uid="uid://ctufytdi8le6n" path="res://UI Theme/PanelStyle.tres" id="1_1olwt"]
+[ext_resource type="FontFile" uid="uid://bpeda2b6xod5r" path="res://UI Theme/fonts/OpenDyslexicMono-Regular.otf" id="2_gir7y"]
+
+[resource]
+default_font = ExtResource("2_gir7y")
+default_font_size = 32
+MarginContainer/constants/margin_bottom = 20
+MarginContainer/constants/margin_left = 20
+MarginContainer/constants/margin_right = 20
+MarginContainer/constants/margin_top = 20
+Panel/styles/panel = ExtResource("1_1olwt")

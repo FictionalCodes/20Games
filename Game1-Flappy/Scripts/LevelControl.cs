@@ -18,7 +18,14 @@ public partial class LevelControl : Node2D
     Random _random = new Random{};
 
     [Export] Timer _spawnTimer;
+    [Export] private ParallaxBackground background;
 
+
+    public override void _Process(double delta)
+    {
+        base._Process(delta);
+        background.ScrollOffset -= new Vector2(_obstacleSpeed* (float)delta, 0);
+    }
 
     public void OnObstacleCollision()
     {

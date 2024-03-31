@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Diagnostics;
 public partial class PipeControl : Node2D
 {
     [Export] Node2D _upperZone;
@@ -53,6 +54,12 @@ public partial class PipeControl : Node2D
         _upperZone.Position += Vector2.Up * seperationAmount/2;
         _lowerZone.Position += Vector2.Down * seperationAmount/2;
 
+    }
+
+    public void ExitScreen()
+    {
+        this.QueueFree();
+        GD.Print("Removing Pipe");
     }
 
 }

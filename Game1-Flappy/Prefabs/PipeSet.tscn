@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://byy4toimcfdyd"]
 
-[ext_resource type="Script" path="res://PipeControl.cs" id="1_jboxh"]
-[ext_resource type="Texture2D" uid="uid://2xeikyd3jsq0" path="res://Pipe.png" id="2_pi4yl"]
+[ext_resource type="Script" path="res://Scripts/PipeControl.cs" id="1_jboxh"]
+[ext_resource type="Texture2D" uid="uid://cw8nfgacjs1sn" path="res://Images/Pipe.png" id="2_2awor"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_57vkq"]
 size = Vector2(97, 493)
@@ -24,7 +24,7 @@ input_pickable = false
 [node name="UpperPipe" type="Sprite2D" parent="Upper"]
 texture_filter = 1
 rotation = 3.14159
-texture = ExtResource("2_pi4yl")
+texture = ExtResource("2_2awor")
 metadata/_aseprite_wizard_config_ = {
 "i_mode": 1,
 "keep_anim_length": false,
@@ -53,7 +53,7 @@ input_pickable = false
 [node name="UpperPipe" type="Sprite2D" parent="Lower"]
 texture_filter = 1
 rotation = 3.14159
-texture = ExtResource("2_pi4yl")
+texture = ExtResource("2_2awor")
 metadata/_aseprite_wizard_config_ = {
 "i_mode": 1,
 "keep_anim_length": false,
@@ -88,4 +88,4 @@ position = Vector2(78, 0)
 [connection signal="body_entered" from="Upper" to="." method="PipeHit"]
 [connection signal="body_entered" from="Lower" to="." method="PipeHit"]
 [connection signal="body_exited" from="PointZone" to="." method="PointGet"]
-[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="queue_free"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="ExitScreen"]
