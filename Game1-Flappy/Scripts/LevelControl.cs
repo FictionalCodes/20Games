@@ -10,15 +10,28 @@ public partial class LevelControl : Node2D
     int _score = 0;
 
     [Export] 
-    private PackedScene[] _obstacleList;
+    private PackedScene _obstacleList;
 
     [Export] private Node2D _obstacleSpawnPoint;
 
-
-    Random _random = new Random{};
+    Random _random = new Random();
 
     [Export] Timer _spawnTimer;
     [Export] private ParallaxBackground background;
+
+    private NodePool<PipeControl> _pipePool;
+
+public LevelControl() :base()
+{
+    
+}
+    public override void _Ready()
+    {
+        base._Ready();
+        GD.Print($"Creating Level Control");
+
+        _pipePool = new NodePool<PipeControl>(_obstacleList);
+    }
 
 
     public override void _Process(double delta)
@@ -49,8 +62,8 @@ public partial class LevelControl : Node2D
     public void SpawnPipe()
     {
         GD.Print("Spawning Pipe");
-        var sceneToSpawn = _obstacleList[_random.Next(_obstacleList.Length)];
-        var pipe = sceneToSpawn.Instantiate<PipeControl>();
+
+        var pipe = _pipePool.GetPooledItem();
         AddChild(pipe);
         pipe.GlobalPosition = _obstacleSpawnPoint.GlobalPosition;
         pipe.ObstacleSpeed = _obstacleSpeed;

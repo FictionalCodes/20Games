@@ -20,11 +20,12 @@ radius = 7.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tidqh"]
 size = Vector2(691, 20)
 
-[node name="LevelRoot" type="Node2D" node_paths=PackedStringArray("_obstacleSpawnPoint", "_spawnTimer")]
+[node name="LevelRoot" type="Node2D" node_paths=PackedStringArray("_obstacleSpawnPoint", "_spawnTimer", "background")]
 script = ExtResource("1_nxgu1")
-_obstacleList = Array[PackedScene]([ExtResource("2_tlqyd")])
+_obstacleList = ExtResource("2_tlqyd")
 _obstacleSpawnPoint = NodePath("SpawnPoint")
 _spawnTimer = NodePath("Timer")
+background = NodePath("ParallaxBackground")
 
 [node name="BirbBody" type="RigidBody2D" parent="."]
 position = Vector2(150, 335)

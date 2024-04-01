@@ -58,7 +58,7 @@ public partial class PipeControl : Node2D
 
     public void ExitScreen()
     {
-        this.QueueFree();
+        GetParent().RemoveChild(this);
         GD.Print("Removing Pipe");
     }
 
