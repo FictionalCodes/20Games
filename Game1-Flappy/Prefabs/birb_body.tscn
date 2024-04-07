@@ -1,0 +1,69 @@
+[gd_scene load_steps=7 format=3 uid="uid://brxkkqjauc8n3"]
+
+[ext_resource type="Script" path="res://Scripts/Flappy.cs" id="1_4fig4"]
+[ext_resource type="Texture2D" uid="uid://cq8pyjubxau68" path="res://Images/starbaby.png" id="2_yfcu0"]
+[ext_resource type="Texture2D" uid="uid://djm8gcnxkdht6" path="res://Images/star-particle.png" id="3_xs51h"]
+[ext_resource type="Material" uid="uid://dkqrbmnqr2buc" path="res://Prefabs/trail_shader.material" id="3_ykon5"]
+[ext_resource type="Material" uid="uid://c0h0wr7yu6h5y" path="res://Prefabs/push_shader.tres" id="5_dnous"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_y6qqa"]
+radius = 30.0666
+
+[node name="BirbBody" type="RigidBody2D" node_paths=PackedStringArray("_trailParticles", "_pushParticles")]
+position = Vector2(150, 335)
+collision_mask = 6
+mass = 0.6
+gravity_scale = 0.4
+lock_rotation = true
+max_contacts_reported = 2
+contact_monitor = true
+script = ExtResource("1_4fig4")
+_pushSpeed = 250.0
+_trailParticles = NodePath("TrailParticles")
+_pushParticles = NodePath("BounceParticles")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("2_yfcu0")
+metadata/_aseprite_wizard_config_ = {
+"i_mode": 1,
+"keep_anim_length": false,
+"layer": "",
+"o_ex_p": "",
+"o_folder": "res://Images",
+"o_name": "",
+"only_visible": false,
+"player": "",
+"slice": "",
+"source": "res://Images/BirdBody.aseprite"
+}
+metadata/_aseprite_wizard_interface_config_ = {
+"layer_section": true,
+"output_section": true,
+"slice_section": true
+}
+
+[node name="BodyShape" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 5)
+rotation = 1.5708
+shape = SubResource("CircleShape2D_y6qqa")
+
+[node name="TrailParticles" type="GPUParticles2D" parent="."]
+rotation = 3.14159
+amount = 30
+process_material = ExtResource("3_ykon5")
+texture = ExtResource("3_xs51h")
+randomness = 0.09
+visibility_rect = Rect2(-43.25, -100, 317.4, 200)
+
+[node name="BounceParticles" type="GPUParticles2D" parent="."]
+rotation = 3.14159
+emitting = false
+amount = 15
+process_material = ExtResource("5_dnous")
+texture = ExtResource("3_xs51h")
+lifetime = 0.3
+one_shot = true
+explosiveness = 1.0
+randomness = 0.1

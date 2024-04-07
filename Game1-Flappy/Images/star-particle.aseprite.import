@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://duqk8mpoflwq1"
+path="res://.godot/imported/star-particle.aseprite-67ee28e066018733154f4c4884a6d615.res"
+
+[deps]
+
+source_file="res://Images/star-particle.aseprite"
+dest_files=["res://.godot/imported/star-particle.aseprite-67ee28e066018733154f4c4884a6d615.res"]
+
+[params]
+

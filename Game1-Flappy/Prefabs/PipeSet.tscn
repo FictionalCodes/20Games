@@ -16,7 +16,6 @@ _upperZone = NodePath("Upper")
 _lowerZone = NodePath("Lower")
 
 [node name="Upper" type="Area2D" parent="."]
-position = Vector2(0, -300)
 rotation = -3.14159
 collision_layer = 2
 input_pickable = false
@@ -25,6 +24,7 @@ input_pickable = false
 texture_filter = 1
 rotation = 3.14159
 texture = ExtResource("2_2awor")
+offset = Vector2(0, -250)
 metadata/_aseprite_wizard_config_ = {
 "i_mode": 1,
 "keep_anim_length": false,
@@ -42,11 +42,10 @@ metadata/_aseprite_wizard_interface_config_ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Upper"]
-rotation = 3.14159
+position = Vector2(0, 255)
 shape = SubResource("RectangleShape2D_57vkq")
 
 [node name="Lower" type="Area2D" parent="."]
-position = Vector2(0, 300)
 collision_layer = 2
 input_pickable = false
 
@@ -54,6 +53,7 @@ input_pickable = false
 texture_filter = 1
 rotation = 3.14159
 texture = ExtResource("2_2awor")
+offset = Vector2(0, -250)
 metadata/_aseprite_wizard_config_ = {
 "i_mode": 1,
 "keep_anim_length": false,
@@ -71,7 +71,7 @@ metadata/_aseprite_wizard_interface_config_ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Lower"]
-rotation = 3.14159
+position = Vector2(0, 255)
 shape = SubResource("RectangleShape2D_57vkq")
 
 [node name="PointZone" type="Area2D" parent="."]
@@ -88,4 +88,5 @@ position = Vector2(78, 0)
 [connection signal="body_entered" from="Upper" to="." method="PipeHit"]
 [connection signal="body_entered" from="Lower" to="." method="PipeHit"]
 [connection signal="body_exited" from="PointZone" to="." method="PointGet"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="EnterScreen"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="ExitScreen"]

@@ -16,7 +16,7 @@ public partial class NodePool<[MustBeVariant] T> : RefCounted where T : Node
     public NodePool(PackedScene item) : base()
     {
         GD.Print("Creating Pool Item");
-        ItemToPool = item;
+        ItemToPool = item; 
         _itemPool = new List<T>(StarterCount);
         InitialisePool(StarterCount);
     }

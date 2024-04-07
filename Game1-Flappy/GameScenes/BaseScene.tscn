@@ -1,19 +1,12 @@
-[gd_scene load_steps=12 format=3 uid="uid://das2u2sjwldou"]
+[gd_scene load_steps=10 format=3 uid="uid://das2u2sjwldou"]
 
 [ext_resource type="Script" path="res://Scripts/LevelControl.cs" id="1_nxgu1"]
 [ext_resource type="PackedScene" uid="uid://byy4toimcfdyd" path="res://Prefabs/PipeSet.tscn" id="2_tlqyd"]
-[ext_resource type="Script" path="res://Scripts/Flappy.cs" id="3_uny5q"]
-[ext_resource type="Texture2D" uid="uid://ci8mn70tpkfkj" path="res://Images/BirdBody.png" id="4_yv476"]
+[ext_resource type="PackedScene" uid="uid://brxkkqjauc8n3" path="res://Prefabs/birb_body.tscn" id="3_bfuq3"]
 [ext_resource type="Script" path="res://Scripts/OverlayController.cs" id="5_qtlli"]
 [ext_resource type="Texture2D" uid="uid://duhvrjv61cvbq" path="res://Images/grassHalfMid.png" id="6_ejdft"]
 [ext_resource type="PackedScene" uid="uid://dt4nmxdy741je" path="res://Prefabs/parallax_background.tscn" id="7_fc7rj"]
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nrrvq"]
-radius = 24.0
-height = 54.0
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_afwx5"]
-radius = 7.0
+[ext_resource type="AudioStream" uid="uid://b8fnta4vr2dtb" path="res://Audio/Piano Instrumental 3.mp3" id="8_qcexd"]
 
 [sub_resource type="SystemFont" id="SystemFont_2xyrw"]
 
@@ -27,48 +20,9 @@ _obstacleSpawnPoint = NodePath("SpawnPoint")
 _spawnTimer = NodePath("Timer")
 background = NodePath("ParallaxBackground")
 
-[node name="BirbBody" type="RigidBody2D" parent="."]
-position = Vector2(150, 335)
-collision_mask = 6
-mass = 0.6
-gravity_scale = 0.4
-lock_rotation = true
-max_contacts_reported = 2
-contact_monitor = true
-script = ExtResource("3_uny5q")
-_pushSpeed = 250.0
-
-[node name="Sprite2D" type="Sprite2D" parent="BirbBody"]
-modulate = Color(0.54902, 0.121569, 0.494118, 1)
-texture_filter = 1
-texture = ExtResource("4_yv476")
-metadata/_aseprite_wizard_config_ = {
-"i_mode": 1,
-"keep_anim_length": false,
-"layer": "",
-"o_ex_p": "",
-"o_folder": "res://Images",
-"o_name": "",
-"only_visible": false,
-"player": "",
-"slice": "",
-"source": "res://Images/BirdBody.aseprite"
-}
-metadata/_aseprite_wizard_interface_config_ = {
-"layer_section": true,
-"output_section": true,
-"slice_section": true
-}
-
-[node name="BodyShape" type="CollisionShape2D" parent="BirbBody"]
-position = Vector2(-1, 5)
-rotation = 1.5708
-shape = SubResource("CapsuleShape2D_nrrvq")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BirbBody"]
-position = Vector2(15, -20)
-rotation = 1.5708
-shape = SubResource("CapsuleShape2D_afwx5")
+[node name="BirbBody" parent="." instance=ExtResource("3_bfuq3")]
+position = Vector2(446, 335)
+_pushSpeed = 300.0
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 5.0
@@ -114,6 +68,11 @@ region_enabled = true
 region_rect = Rect2(0, 0, 1600, 70)
 
 [node name="ParallaxBackground" parent="." instance=ExtResource("7_fc7rj")]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_qcexd")
+autoplay = true
+bus = &"Music"
 
 [connection signal="OnScoreUpdated" from="." to="CanvasLayer" method="ScoreUpdated"]
 [connection signal="body_entered" from="BirbBody" to="." method="OnObstacleCollisionDirect"]

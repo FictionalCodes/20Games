@@ -1,19 +1,24 @@
 using Godot;
 using System;
 using System.Diagnostics;
+using System.Reflection;
 public partial class PipeControl : Node2D
 {
     [Export] Node2D _upperZone;
     [Export] Node2D _lowerZone;
 
-    [Signal]
     public delegate void PointGotEventHandler();
-    [Signal]
     public delegate void ObstacleHitEventHandler();
     public float ObstacleSpeed{get;set;}
+    public ObstacleHitEventHandler ObstacleHit { get; private set; }
 
-    private const int MinDistanceSeperation = 100;
+    public PointGotEventHandler PointGot { get; private set; }
+
+
+    private const int MinDistanceSeperation = 150;
     private const int MaxDistanceSeperation = 400;
+
+    private bool _enteredScreen;
 
     private Vector2 _moveVector;
     // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -26,40 +31,55 @@ public partial class PipeControl : Node2D
 
     public void PipeHit(Node2D other)
     {
-        EmitSignal(SignalName.ObstacleHit);
+        ObstacleHit();
     }
 
     public void PointGet(Node2D other)
     {
-        EmitSignal(SignalName.PointGot);
+        PointGot();
     }
 
     public void BindEvents(ObstacleHitEventHandler onObstacleCollision, PointGotEventHandler onPointArea)
     {
-        ObstacleHit += onObstacleCollision;
-        PointGot += onPointArea;
+        ObstacleHit = onObstacleCollision;
+        PointGot = onPointArea;
+        
     }
 
-    public void RandomiseObstacle(Random random, int randomisationFactor)
+    public void RandomiseObstacle(Random random, int randomisationFactorInput)
     {
-        randomisationFactor = Math.Max(MinDistanceSeperation, MaxDistanceSeperation - randomisationFactor);
-        var seperationAmount = random.Next(MinDistanceSeperation, randomisationFactor);
         var viewportSize = GetViewportRect().Size;
-
         var positionVariance = random.Next(MinDistanceSeperation, (int)viewportSize.Y - MinDistanceSeperation);
         var currentPosition = GlobalPosition;
         currentPosition.Y = positionVariance;
         GlobalPosition = currentPosition;
 
-        _upperZone.Position += Vector2.Up * seperationAmount/2;
-        _lowerZone.Position += Vector2.Down * seperationAmount/2;
+        var minRandomisationThisSet = Math.Max(MinDistanceSeperation + (MinDistanceSeperation - randomisationFactorInput), MinDistanceSeperation);
+        var randomisationMax = Math.Max(minRandomisationThisSet, MaxDistanceSeperation - randomisationFactorInput);
+        var seperationAmount = random.Next(minRandomisationThisSet, randomisationMax);
 
+
+        _upperZone.Position = Vector2.Up * seperationAmount/2;
+        _lowerZone.Position = Vector2.Down * seperationAmount/2;
+    }
+
+    public void EnterScreen()
+    {
+        _enteredScreen = true;
     }
 
     public void ExitScreen()
     {
         GetParent().RemoveChild(this);
-        GD.Print("Removing Pipe");
+        _enteredScreen = false;
+
+        ObstacleHit = null;
+        PointGot = null;
     }
 
+    public void Setup(Vector2 globalPosition, float obstacleSpeed)
+    {
+        GlobalPosition = globalPosition;
+        ObstacleSpeed = obstacleSpeed;
+    }
 }
