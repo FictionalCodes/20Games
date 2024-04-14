@@ -1,6 +1,4 @@
 using Godot;
-using System;
-using System.Threading;
 
 public partial class Flappy : RigidBody2D
 {
@@ -27,6 +25,23 @@ public partial class Flappy : RigidBody2D
 
     }
 
+    public void StartLife(Vector2 startPosition)
+    {
+        this.GlobalPosition = startPosition;
+        _trailParticles.Emitting = true;
+        Visible = true;
+        ProcessMode = ProcessModeEnum.Inherit;
+    }
+
+    public void EndLife()
+    {
+        _trailParticles.Emitting = false;
+        _trailParticles.Restart();
+        Visible = false;
+        ProcessMode = ProcessModeEnum.Disabled;
+
+    }
+
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _PhysicsProcess(double delta)
     {
@@ -49,7 +64,6 @@ public partial class Flappy : RigidBody2D
         {
             if(touch.Pressed)
             {
-
                 _flapPending = true;
             }
         }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://das2u2sjwldou"]
+[gd_scene load_steps=11 format=3 uid="uid://das2u2sjwldou"]
 
 [ext_resource type="Script" path="res://Scripts/LevelControl.cs" id="1_nxgu1"]
 [ext_resource type="PackedScene" uid="uid://byy4toimcfdyd" path="res://Prefabs/PipeSet.tscn" id="2_tlqyd"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://Scripts/OverlayController.cs" id="5_qtlli"]
 [ext_resource type="Texture2D" uid="uid://duhvrjv61cvbq" path="res://Images/grassHalfMid.png" id="6_ejdft"]
 [ext_resource type="PackedScene" uid="uid://dt4nmxdy741je" path="res://Prefabs/parallax_background.tscn" id="7_fc7rj"]
+[ext_resource type="Theme" uid="uid://d5oxpjcvfwdf" path="res://UI Theme/GameTheme.tres" id="8_d5sjb"]
 [ext_resource type="AudioStream" uid="uid://b8fnta4vr2dtb" path="res://Audio/Piano Instrumental 3.mp3" id="8_qcexd"]
 
 [sub_resource type="SystemFont" id="SystemFont_2xyrw"]
@@ -13,12 +14,18 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tidqh"]
 size = Vector2(691, 20)
 
-[node name="LevelRoot" type="Node2D" node_paths=PackedStringArray("_obstacleSpawnPoint", "_spawnTimer", "background")]
+[node name="LevelRoot" type="Node2D" node_paths=PackedStringArray("_spawnTimer", "background", "_obstacleSpawnPoint", "_playerSpawnPoint", "_playerObject", "_menuOverlay")]
 script = ExtResource("1_nxgu1")
-_obstacleList = ExtResource("2_tlqyd")
-_obstacleSpawnPoint = NodePath("SpawnPoint")
 _spawnTimer = NodePath("Timer")
 background = NodePath("ParallaxBackground")
+_obstacleList = ExtResource("2_tlqyd")
+_obstacleSpawnPoint = NodePath("SpawnPoint")
+_playerSpawnPoint = NodePath("PlayerSpawn")
+_playerObject = NodePath("BirbBody")
+_menuOverlay = NodePath("CanvasLayer2")
+
+[node name="PlayerSpawn" type="Node2D" parent="."]
+position = Vector2(446, 335)
 
 [node name="BirbBody" parent="." instance=ExtResource("3_bfuq3")]
 position = Vector2(446, 335)
@@ -26,7 +33,7 @@ _pushSpeed = 300.0
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 5.0
-autostart = true
+one_shot = true
 
 [node name="SpawnPoint" type="Node2D" parent="."]
 position = Vector2(1700, 360)
@@ -74,6 +81,17 @@ stream = ExtResource("8_qcexd")
 autoplay = true
 bus = &"Music"
 
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+
+[node name="Button" type="Button" parent="CanvasLayer2"]
+offset_left = 738.0
+offset_top = 260.0
+offset_right = 1032.0
+offset_bottom = 418.0
+theme = ExtResource("8_d5sjb")
+text = "Retry"
+
 [connection signal="OnScoreUpdated" from="." to="CanvasLayer" method="ScoreUpdated"]
 [connection signal="body_entered" from="BirbBody" to="." method="OnObstacleCollisionDirect"]
 [connection signal="timeout" from="Timer" to="." method="SpawnPipe"]
+[connection signal="pressed" from="CanvasLayer2/Button" to="." method="StartLife"]

@@ -10,7 +10,7 @@ size = Vector2(97, 493)
 a = Vector2(-18, -200)
 b = Vector2(-18, 200)
 
-[node name="PipeSet" type="Node2D" node_paths=PackedStringArray("_upperZone", "_lowerZone")]
+[node name="PipeSet" type="Node2D" node_paths=PackedStringArray("_upperZone", "_lowerZone") groups=["obstacle"]]
 script = ExtResource("1_jboxh")
 _upperZone = NodePath("Upper")
 _lowerZone = NodePath("Lower")

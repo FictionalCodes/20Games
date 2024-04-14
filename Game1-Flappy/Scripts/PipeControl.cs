@@ -1,8 +1,9 @@
+using Game1flappy.Scripts.Utils;
 using Godot;
 using System;
 using System.Diagnostics;
 using System.Reflection;
-public partial class PipeControl : Node2D
+public partial class PipeControl : Node2D, IPooledNode
 {
     [Export] Node2D _upperZone;
     [Export] Node2D _lowerZone;
@@ -82,4 +83,14 @@ public partial class PipeControl : Node2D
         GlobalPosition = globalPosition;
         ObstacleSpeed = obstacleSpeed;
     }
+
+    public void SpawnIn()
+    {
+    }
+
+    public void DespawnOut()
+    {
+        ExitScreen();
+    }
+
 }
