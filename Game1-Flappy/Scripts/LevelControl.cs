@@ -70,7 +70,6 @@ public partial class LevelControl : Node2D
 
     public void EndOfLife()
     {
-        //GetTree().Paused = true;
 
         _spawnTimer.Stop();
         _playerObject.EndLife();
@@ -100,5 +99,16 @@ public partial class LevelControl : Node2D
         _spawnTimer.WaitTime = Math.Clamp(nextSpawnDelay, 2.0, 5.0);
         _spawnTimer.Start();
     }
+
+    public void TogglePause()
+    {
+        var tree = GetTree();
+        var currentState = tree.Paused;
+
+        tree.Paused = !currentState;
+
+
+    }
+
 
 }

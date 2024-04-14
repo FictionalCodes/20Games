@@ -62,18 +62,21 @@ public partial class Flappy : RigidBody2D
     {
         if (@event is InputEventScreenTouch touch)
         {
-            if(touch.Pressed)
+            if(touch.Pressed && !GetViewport().IsInputHandled())
             {
+                GD.Print("FlapCheck");
+
                 _flapPending = true;
+                //GetViewport().SetInputAsHandled();
             }
         }
-            
+
+        base._UnhandledInput(@event);
     }
 
-    
+
     public void Flap()
     {
-        GD.Print("Flap");
         SetAxisVelocity(Vector2.Up * _pushSpeed);
         if(_canPushParticles)
         {

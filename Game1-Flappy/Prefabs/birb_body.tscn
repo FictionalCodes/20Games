@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://brxkkqjauc8n3"]
+[gd_scene load_steps=8 format=3 uid="uid://brxkkqjauc8n3"]
 
 [ext_resource type="Script" path="res://Scripts/Flappy.cs" id="1_4fig4"]
 [ext_resource type="Texture2D" uid="uid://cq8pyjubxau68" path="res://Images/starbaby.png" id="2_yfcu0"]
 [ext_resource type="Texture2D" uid="uid://djm8gcnxkdht6" path="res://Images/star-particle.png" id="3_xs51h"]
 [ext_resource type="Material" uid="uid://dkqrbmnqr2buc" path="res://Prefabs/trail_shader.material" id="3_ykon5"]
 [ext_resource type="Material" uid="uid://c0h0wr7yu6h5y" path="res://Prefabs/push_shader.tres" id="5_dnous"]
+[ext_resource type="Texture2D" uid="uid://b5bfqaisq14al" path="res://Images/LightingMesh/2d_lights_and_shadows_neutral_point_light.webp" id="6_8q5ye"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_y6qqa"]
 radius = 30.0666
@@ -68,3 +69,25 @@ lifetime = 0.3
 one_shot = true
 explosiveness = 1.0
 randomness = 0.1
+
+[node name="ShadowLight" type="PointLight2D" parent="."]
+position = Vector2(75, -1)
+range_layer_min = -1
+range_layer_max = 10
+shadow_enabled = true
+shadow_color = Color(0, 0, 0, 1)
+shadow_filter = 1
+shadow_filter_smooth = 3.0
+texture = ExtResource("6_8q5ye")
+texture_scale = 5.0
+
+[node name="TextureLight" type="PointLight2D" parent="."]
+light_mask = 3
+position = Vector2(75, 3)
+range_layer_min = -1
+range_layer_max = 10
+range_item_cull_mask = 2
+shadow_color = Color(0, 0, 0, 0.419608)
+shadow_item_cull_mask = 2
+texture = ExtResource("6_8q5ye")
+texture_scale = 7.0

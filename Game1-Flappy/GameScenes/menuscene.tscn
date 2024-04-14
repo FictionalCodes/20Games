@@ -51,7 +51,7 @@ layout_mode = 2
 theme = ExtResource("1_t8f4y")
 theme_override_styles/panel = SubResource("StyleBoxFlat_wqyky")
 
-[node name="Button" type="Button" parent="CanvasLayer/Control/CentralMargin/Panel2"]
+[node name="PlayButton" type="Button" parent="CanvasLayer/Control/CentralMargin/Panel2"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -70,7 +70,7 @@ text = "Play
 icon = ExtResource("3_xi1wl")
 expand_icon = true
 
-[node name="Button2" type="Button" parent="CanvasLayer/Control/CentralMargin/Panel2"]
+[node name="Options" type="Button" parent="CanvasLayer/Control/CentralMargin/Panel2"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5

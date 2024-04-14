@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://byy4toimcfdyd"]
+[gd_scene load_steps=6 format=3 uid="uid://byy4toimcfdyd"]
 
 [ext_resource type="Script" path="res://Scripts/PipeControl.cs" id="1_jboxh"]
 [ext_resource type="Texture2D" uid="uid://cw8nfgacjs1sn" path="res://Images/Pipe.png" id="2_2awor"]
@@ -6,11 +6,15 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_57vkq"]
 size = Vector2(97, 493)
 
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_qi67x"]
+polygon = PackedVector2Array(-2, -1, 122, -1, 122, 22.9997, 106, 22.9997, 106, 494, 7, 494, 7, 22, -2, 22)
+
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_edptj"]
 a = Vector2(-18, -200)
 b = Vector2(-18, 200)
 
 [node name="PipeSet" type="Node2D" node_paths=PackedStringArray("_upperZone", "_lowerZone") groups=["obstacle"]]
+light_mask = 2
 script = ExtResource("1_jboxh")
 _upperZone = NodePath("Upper")
 _lowerZone = NodePath("Lower")
@@ -18,9 +22,11 @@ _lowerZone = NodePath("Lower")
 [node name="Upper" type="Area2D" parent="."]
 rotation = -3.14159
 collision_layer = 2
+collision_mask = 3
 input_pickable = false
 
 [node name="UpperPipe" type="Sprite2D" parent="Upper"]
+light_mask = 2
 texture_filter = 1
 rotation = 3.14159
 texture = ExtResource("2_2awor")
@@ -45,11 +51,18 @@ metadata/_aseprite_wizard_interface_config_ = {
 position = Vector2(0, 255)
 shape = SubResource("RectangleShape2D_57vkq")
 
+[node name="LightOccluder2D2" type="LightOccluder2D" parent="Upper"]
+light_mask = 0
+position = Vector2(-60, 6.00015)
+occluder = SubResource("OccluderPolygon2D_qi67x")
+
 [node name="Lower" type="Area2D" parent="."]
+light_mask = 3
 collision_layer = 2
 input_pickable = false
 
 [node name="UpperPipe" type="Sprite2D" parent="Lower"]
+light_mask = 2
 texture_filter = 1
 rotation = 3.14159
 texture = ExtResource("2_2awor")
@@ -73,6 +86,11 @@ metadata/_aseprite_wizard_interface_config_ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Lower"]
 position = Vector2(0, 255)
 shape = SubResource("RectangleShape2D_57vkq")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Lower"]
+light_mask = 2
+position = Vector2(-60, 6)
+occluder = SubResource("OccluderPolygon2D_qi67x")
 
 [node name="PointZone" type="Area2D" parent="."]
 position = Vector2(83, 0)
