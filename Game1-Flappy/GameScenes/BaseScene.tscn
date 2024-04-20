@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://das2u2sjwldou"]
+[gd_scene load_steps=19 format=3 uid="uid://das2u2sjwldou"]
 
 [ext_resource type="Script" path="res://Scripts/LevelControl.cs" id="1_nxgu1"]
 [ext_resource type="PackedScene" uid="uid://byy4toimcfdyd" path="res://Prefabs/PipeSet.tscn" id="2_tlqyd"]
@@ -8,15 +8,12 @@
 [ext_resource type="Texture2D" uid="uid://duhvrjv61cvbq" path="res://Images/grassHalfMid.png" id="6_ejdft"]
 [ext_resource type="Script" path="res://Scripts/Utils/TouchButtonExtension.cs" id="6_hmt7n"]
 [ext_resource type="PackedScene" uid="uid://dt4nmxdy741je" path="res://Prefabs/parallax_background.tscn" id="7_fc7rj"]
+[ext_resource type="Script" path="res://Scripts/UIScripting/UIControllercs.cs" id="7_l1iqc"]
 [ext_resource type="Theme" uid="uid://d5oxpjcvfwdf" path="res://UI Theme/GameTheme.tres" id="8_d5sjb"]
 [ext_resource type="AudioStream" uid="uid://b8fnta4vr2dtb" path="res://Audio/Piano Instrumental 3.mp3" id="8_qcexd"]
 [ext_resource type="Texture2D" uid="uid://cq8pyjubxau68" path="res://Images/starbaby.png" id="11_jp70j"]
 [ext_resource type="Texture2D" uid="uid://c5rebfjby7e0v" path="res://Images/Icons/gear.png" id="12_ld44t"]
-
-[sub_resource type="SystemFont" id="SystemFont_2xyrw"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vwkkj"]
-size = Vector2(100, 100)
+[ext_resource type="Texture2D" uid="uid://cullflikl8nka" path="res://Images/Icons/door.png" id="14_bfitp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tidqh"]
 size = Vector2(691, 20)
@@ -37,6 +34,11 @@ corner_detail = 20
 shadow_size = 40
 anti_aliasing = false
 
+[sub_resource type="SystemFont" id="SystemFont_2xyrw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vwkkj"]
+size = Vector2(100, 100)
+
 [node name="LevelRoot" type="Node2D" node_paths=PackedStringArray("_spawnTimer", "background", "_obstacleSpawnPoint", "_playerSpawnPoint", "_playerObject", "_menuOverlay")]
 script = ExtResource("1_nxgu1")
 _spawnTimer = NodePath("Timer")
@@ -45,37 +47,7 @@ _obstacleList = ExtResource("2_tlqyd")
 _obstacleSpawnPoint = NodePath("SpawnPoint")
 _playerSpawnPoint = NodePath("PlayerSpawn")
 _playerObject = NodePath("BirbBody")
-_menuOverlay = NodePath("EndOfLifeMenu")
-
-[node name="UIOverlay" type="CanvasLayer" parent="." node_paths=PackedStringArray("_scoreText")]
-process_mode = 3
-script = ExtResource("5_qtlli")
-_scoreText = NodePath("ScoreCounter")
-
-[node name="ScoreLabel" type="Label" parent="UIOverlay"]
-offset_right = 40.0
-offset_bottom = 23.0
-theme = ExtResource("8_d5sjb")
-theme_override_fonts/font = SubResource("SystemFont_2xyrw")
-theme_override_font_sizes/font_size = 32
-text = "SCORE"
-
-[node name="ScoreCounter" type="Label" parent="UIOverlay"]
-offset_left = 105.0
-offset_top = -2.0
-offset_right = 206.0
-offset_bottom = 43.0
-theme = ExtResource("8_d5sjb")
-theme_override_fonts/font = SubResource("SystemFont_2xyrw")
-theme_override_font_sizes/font_size = 32
-text = "00000"
-
-[node name="PauseButton" type="TouchScreenButton" parent="UIOverlay"]
-top_level = true
-position = Vector2(1495, 1)
-texture_normal = ExtResource("5_g150w")
-shape = SubResource("RectangleShape2D_vwkkj")
-script = ExtResource("6_hmt7n")
+_menuOverlay = NodePath("UIController/Control/EndOfLifeMenu")
 
 [node name="PlayerSpawn" type="Node2D" parent="."]
 position = Vector2(446, 335)
@@ -116,32 +88,14 @@ stream = ExtResource("8_qcexd")
 autoplay = true
 bus = &"Music"
 
-[node name="EndOfLifeMenu" type="CanvasLayer" parent="."]
-
-[node name="Button" type="Button" parent="EndOfLifeMenu"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -147.0
-offset_top = -79.0
-offset_right = 147.0
-offset_bottom = 79.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("8_d5sjb")
-text = "Retry"
-flat = true
-
 [node name="CanvasModulate2" type="CanvasModulate" parent="."]
 color = Color(0.243137, 0.243137, 0.243137, 1)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-layer = 15
-visible = false
+[node name="UIController" type="Node" parent="." node_paths=PackedStringArray("_uiOverlay")]
+script = ExtResource("7_l1iqc")
+_uiOverlay = NodePath("Control/UIOverlay")
 
-[node name="Control" type="AspectRatioContainer" parent="CanvasLayer"]
+[node name="Control" type="AspectRatioContainer" parent="UIController"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -151,18 +105,24 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource("8_d5sjb")
 
-[node name="CentralMargin" type="MarginContainer" parent="CanvasLayer/Control"]
-layout_mode = 2
+[node name="PauseMenu" type="CanvasLayer" parent="UIController/Control"]
+layer = 15
+visible = false
+
+[node name="CentralMargin" type="MarginContainer" parent="UIController/Control/PauseMenu"]
+offset_left = 440.0
+offset_right = 1160.0
+offset_bottom = 720.0
 theme = ExtResource("8_d5sjb")
 theme_override_constants/margin_top = 50
 theme_override_constants/margin_bottom = 50
 
-[node name="Panel2" type="Panel" parent="CanvasLayer/Control/CentralMargin"]
+[node name="Panel2" type="Panel" parent="UIController/Control/PauseMenu/CentralMargin"]
 layout_mode = 2
 theme = ExtResource("8_d5sjb")
 theme_override_styles/panel = SubResource("StyleBoxFlat_787dq")
 
-[node name="PlayButton" type="Button" parent="CanvasLayer/Control/CentralMargin/Panel2"]
+[node name="PlayButton" type="Button" parent="UIController/Control/PauseMenu/CentralMargin/Panel2"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -180,7 +140,22 @@ text = "Resume"
 icon = ExtResource("11_jp70j")
 expand_icon = true
 
-[node name="Options" type="Button" parent="CanvasLayer/Control/CentralMargin/Panel2"]
+[node name="Label" type="Label" parent="UIController/Control/PauseMenu/CentralMargin/Panel2"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -201.0
+offset_top = 49.55
+offset_right = 201.0
+offset_bottom = 210.55
+grow_horizontal = 2
+theme = ExtResource("8_d5sjb")
+theme_override_font_sizes/font_size = 92
+text = "PAUSED"
+uppercase = true
+
+[node name="Options" type="Button" parent="UIController/Control/PauseMenu/CentralMargin/Panel2"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -198,25 +173,130 @@ text = "Options
 "
 icon = ExtResource("12_ld44t")
 
-[node name="Label" type="Label" parent="CanvasLayer/Control/CentralMargin/Panel2"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -201.0
-offset_top = 49.55
-offset_right = 201.0
-offset_bottom = 210.55
-grow_horizontal = 2
+[node name="UIOverlay" type="CanvasLayer" parent="UIController/Control" node_paths=PackedStringArray("_scoreText")]
+process_mode = 3
+layer = 15
+script = ExtResource("5_qtlli")
+_scoreText = NodePath("ScoreCounter")
+
+[node name="ScoreLabel" type="Label" parent="UIController/Control/UIOverlay"]
+offset_right = 101.0
+offset_bottom = 45.0
 theme = ExtResource("8_d5sjb")
-theme_override_font_sizes/font_size = 92
-text = "PAUSED"
+theme_override_fonts/font = SubResource("SystemFont_2xyrw")
+theme_override_font_sizes/font_size = 32
+text = "SCORE"
+
+[node name="ScoreCounter" type="Label" parent="UIController/Control/UIOverlay"]
+offset_left = 105.0
+offset_top = -2.0
+offset_right = 206.0
+offset_bottom = 43.0
+theme = ExtResource("8_d5sjb")
+theme_override_fonts/font = SubResource("SystemFont_2xyrw")
+theme_override_font_sizes/font_size = 32
+text = "00000"
+
+[node name="PauseButton" type="TouchScreenButton" parent="UIController/Control/UIOverlay"]
+top_level = true
+position = Vector2(1495, 1)
+texture_normal = ExtResource("5_g150w")
+shape = SubResource("RectangleShape2D_vwkkj")
+script = ExtResource("6_hmt7n")
+
+[node name="EndOfLifeMenu" type="CanvasLayer" parent="UIController/Control"]
+layer = 15
+visible = false
+
+[node name="Control" type="AspectRatioContainer" parent="UIController/Control/EndOfLifeMenu"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("8_d5sjb")
+
+[node name="MarginContainer" type="MarginContainer" parent="UIController/Control/EndOfLifeMenu/Control"]
+layout_mode = 2
+theme = ExtResource("8_d5sjb")
+
+[node name="Panel2" type="Panel" parent="UIController/Control/EndOfLifeMenu/Control/MarginContainer"]
+layout_mode = 2
+theme = ExtResource("8_d5sjb")
+theme_override_styles/panel = SubResource("StyleBoxFlat_787dq")
+
+[node name="MarginContainer" type="MarginContainer" parent="UIController/Control/EndOfLifeMenu/Control/MarginContainer/Panel2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("8_d5sjb")
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 42
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UIController/Control/EndOfLifeMenu/Control/MarginContainer/Panel2/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme = ExtResource("8_d5sjb")
+alignment = 2
+
+[node name="PlayButton" type="Button" parent="UIController/Control/EndOfLifeMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("8_d5sjb")
+text = "Retry"
+icon = ExtResource("11_jp70j")
+expand_icon = true
+
+[node name="Options" type="Button" parent="UIController/Control/EndOfLifeMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("8_d5sjb")
+text = "Options
+"
+icon = ExtResource("12_ld44t")
+expand_icon = true
+
+[node name="MainMenu" type="Button" parent="UIController/Control/EndOfLifeMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("8_d5sjb")
+text = "Main Menu"
+icon = ExtResource("14_bfitp")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="UIController/Control/EndOfLifeMenu/Control/MarginContainer/Panel2/MarginContainer"]
+layout_mode = 2
+theme = ExtResource("8_d5sjb")
+theme_override_constants/separation = 0
+
+[node name="Label" type="Label" parent="UIController/Control/EndOfLifeMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme = ExtResource("8_d5sjb")
+theme_override_font_sizes/font_size = 64
+text = "Final Score"
 uppercase = true
 
-[connection signal="OnScoreUpdated" from="." to="UIOverlay" method="ScoreUpdated"]
-[connection signal="OnButtonPressed" from="UIOverlay/PauseButton" to="." method="TogglePause"]
-[connection signal="pressed" from="UIOverlay/PauseButton" to="UIOverlay/PauseButton" method="TouchButtonPress"]
+[node name="FinalScoreLabel" type="Label" parent="UIController/Control/EndOfLifeMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme = ExtResource("8_d5sjb")
+theme_override_font_sizes/font_size = 64
+text = "000000"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[connection signal="OnScoreUpdated" from="." to="UIController/Control/UIOverlay" method="ScoreUpdated"]
 [connection signal="body_entered" from="BirbBody" to="." method="OnObstacleCollisionDirect"]
 [connection signal="timeout" from="Timer" to="." method="SpawnPipe"]
-[connection signal="pressed" from="EndOfLifeMenu/Button" to="." method="StartLife"]
-[connection signal="pressed" from="CanvasLayer/Control/CentralMargin/Panel2/PlayButton" to="." method="TogglePause"]
+[connection signal="pressed" from="UIController/Control/PauseMenu/CentralMargin/Panel2/PlayButton" to="." method="TogglePause"]
+[connection signal="OnButtonPressed" from="UIController/Control/UIOverlay/PauseButton" to="." method="TogglePause"]
+[connection signal="pressed" from="UIController/Control/UIOverlay/PauseButton" to="UIController/Control/UIOverlay/PauseButton" method="TouchButtonPress"]
+[connection signal="pressed" from="UIController/Control/EndOfLifeMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/PlayButton" to="." method="StartLife"]

@@ -16,3 +16,4 @@ MarginContainer/constants/margin_left = 20
 MarginContainer/constants/margin_right = 20
 MarginContainer/constants/margin_top = 20
 Panel/styles/panel = ExtResource("1_1olwt")
+VBoxContainer/constants/separation = 20
