@@ -10,8 +10,8 @@ config_version=5
 
 [application]
 
-config/name="Game 1-flappy"
-run/main_scene="res://GameScenes/BaseScene.tscn"
+config/name="SurgingStar"
+run/main_scene="res://GameScenes/menuscene.tscn"
 config/features=PackedStringArray("4.2", "C#", "GL Compatibility")
 config/icon="res://icon.svg"
 

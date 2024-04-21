@@ -1,6 +1,7 @@
-[gd_resource type="Theme" load_steps=4 format=3 uid="uid://d5oxpjcvfwdf"]
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://d5oxpjcvfwdf"]
 
 [ext_resource type="StyleBox" uid="uid://ctufytdi8le6n" path="res://UI Theme/PanelStyle.tres" id="1_1olwt"]
+[ext_resource type="StyleBox" uid="uid://dqxb5fxggw6uh" path="res://UI Theme/OnHoverPressed.tres" id="1_q8t4p"]
 [ext_resource type="StyleBox" uid="uid://bbf0efeybfsyv" path="res://UI Theme/ButtonPanel.tres" id="1_qul5x"]
 [ext_resource type="FontFile" uid="uid://bpeda2b6xod5r" path="res://UI Theme/fonts/OpenDyslexicMono-Regular.otf" id="2_gir7y"]
 
@@ -10,6 +11,8 @@ default_font_size = 32
 Button/colors/font_outline_color = Color(0, 0, 0, 1)
 Button/constants/outline_size = 4
 Button/font_sizes/font_size = 48
+Button/styles/focus = ExtResource("1_q8t4p")
+Button/styles/hover = ExtResource("1_q8t4p")
 Button/styles/normal = ExtResource("1_qul5x")
 MarginContainer/constants/margin_bottom = 20
 MarginContainer/constants/margin_left = 20

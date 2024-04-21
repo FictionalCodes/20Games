@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://dk5o5yn2jig03"]
 
-[ext_resource type="Script" path="res://Scripts/MainMenuControl.cs" id="1_i4s0w"]
+[ext_resource type="Script" path="res://Scripts/UIScripting/MainMenuControl.cs" id="1_gi647"]
 [ext_resource type="Theme" uid="uid://d5oxpjcvfwdf" path="res://UI Theme/GameTheme.tres" id="1_t8f4y"]
 [ext_resource type="PackedScene" uid="uid://dt4nmxdy741je" path="res://Prefabs/parallax_background.tscn" id="3_b87tl"]
 [ext_resource type="Texture2D" uid="uid://cq8pyjubxau68" path="res://Images/starbaby.png" id="3_xi1wl"]
@@ -26,7 +26,7 @@ anti_aliasing = false
 [node name="MainMenuRoot" type="Control"]
 layout_mode = 3
 anchors_preset = 0
-script = ExtResource("1_i4s0w")
+script = ExtResource("1_gi647")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -59,9 +59,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -171.0
-offset_top = -57.0
+offset_top = -59.0
 offset_right = 189.0
-offset_bottom = 43.0
+offset_bottom = 41.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_t8f4y")
@@ -88,6 +88,23 @@ text = "Options
 "
 icon = ExtResource("4_wajtr")
 
+[node name="Label" type="Label" parent="CanvasLayer/Control/CentralMargin/Panel2"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -138.0
+offset_top = 71.0
+offset_right = 138.0
+offset_bottom = 127.0
+grow_horizontal = 2
+theme = ExtResource("1_t8f4y")
+theme_override_font_sizes/font_size = 64
+text = "SURGING STAR"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="ParallaxBackground" parent="." instance=ExtResource("3_b87tl")]
-visible = false
 script = ExtResource("4_rgeyn")
+
+[connection signal="pressed" from="CanvasLayer/Control/CentralMargin/Panel2/PlayButton" to="." method="ChangeToGameScene"]

@@ -25,18 +25,25 @@ public partial class Flappy : RigidBody2D
 
     }
 
-    public void StartLife(Vector2 startPosition)
+    public void SpawnSetup(Vector2 startPosition)
     {
-        this.GlobalPosition = startPosition;
-        _trailParticles.Emitting = true;
         Visible = true;
-        ProcessMode = ProcessModeEnum.Inherit;
+        SetAxisVelocity(Vector2.Zero);
+        this.GlobalPosition = startPosition;
+        _trailParticles.Restart();
+        _trailParticles.Emitting = true;
+
+    }
+
+    public void BeginLife()
+    {
+        ProcessMode = ProcessModeEnum.Pausable;
+
     }
 
     public void EndLife()
     {
         _trailParticles.Emitting = false;
-        _trailParticles.Restart();
         Visible = false;
         ProcessMode = ProcessModeEnum.Disabled;
 

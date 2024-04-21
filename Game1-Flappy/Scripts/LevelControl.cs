@@ -12,11 +12,15 @@ public partial class LevelControl : Node2D
     [Export] private Node2D _playerSpawnPoint;
     [Export] private Flappy _playerObject;
 
-    [Export] private CanvasLayer _menuOverlay;
+    [Export] AnimationPlayer _animatorPlayer;
+
+
     float _obstacleSpeed = 150f;
     public float ObstacleSpeed => _obstacleSpeed;
     int _score = 0;
     readonly Random _random = new();
+    private SceneController _sceneController;
+
     private NodePool<PipeControl> _pipePool;
 
     [Signal]
@@ -24,17 +28,19 @@ public partial class LevelControl : Node2D
 
 
     public LevelControl() :base()
-{
-    
-}
+    {
+        
+    }
     public override void _Ready()
     {
         base._Ready();
         GD.Print($"Creating Level Control");
 
+        _sceneController = GetParent<SceneController>();
+
         _pipePool = new NodePool<PipeControl>(_obstacleList, "obstacle");
 
-        StartLife();
+        BeginSpawning();
     }
 
 
@@ -44,16 +50,35 @@ public partial class LevelControl : Node2D
         background.ScrollOffset -= new Vector2(_obstacleSpeed* (float)delta, 0);
     }
 
-    public void StartLife()
+    public void BeginSpawning()
     {
+        GD.Print("Got to the LevelController");
+
         _pipePool.ForceAllObjectsDespawn();
-        _spawnTimer.WaitTime = 0.1f;
-        _spawnTimer.Start();
-        _playerObject.StartLife(_playerSpawnPoint.GlobalPosition);
-        _menuOverlay.Visible = false;
         _score = 0;
         EmitSignal(SignalName.OnScoreUpdated, _score);
+        GetTree().Paused = false;
+        _animatorPlayer.Play("NewLifeCountdown");
+        _animatorPlayer.Active = true;
 
+        CallDeferred(MethodName.SpawnSetupPlayer);
+
+
+    }
+
+    public void SpawnSetupPlayer()
+    {
+        GD.Print("Got to the StartLifePlayer");
+
+        _playerObject.SpawnSetup(_playerSpawnPoint.GlobalPosition);
+    }
+
+    public void SpawningCompleted()
+    {
+        _spawnTimer.WaitTime = 0.1f;
+        _spawnTimer.Start();
+
+        _playerObject.BeginLife();
     }
 
     public void OnObstacleCollision()
@@ -70,10 +95,10 @@ public partial class LevelControl : Node2D
 
     public void EndOfLife()
     {
-
         _spawnTimer.Stop();
         _playerObject.EndLife();
-        _menuOverlay.Visible = true;
+
+        _sceneController.EndOfLife();
     }
 
     public void OnPointArea()
@@ -84,8 +109,6 @@ public partial class LevelControl : Node2D
 
     public void SpawnPipe()
     {
-
-
         var pipe = _pipePool.GetNextAvalibleItem();
 
         AddChild(pipe);
@@ -99,16 +122,4 @@ public partial class LevelControl : Node2D
         _spawnTimer.WaitTime = Math.Clamp(nextSpawnDelay, 2.0, 5.0);
         _spawnTimer.Start();
     }
-
-    public void TogglePause()
-    {
-        var tree = GetTree();
-        var currentState = tree.Paused;
-
-        tree.Paused = !currentState;
-
-
-    }
-
-
 }

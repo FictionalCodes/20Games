@@ -1,22 +1,112 @@
-[gd_scene load_steps=19 format=3 uid="uid://das2u2sjwldou"]
+[gd_scene load_steps=23 format=3 uid="uid://das2u2sjwldou"]
 
+[ext_resource type="Script" path="res://Scripts/SceneController.cs" id="1_1j4li"]
 [ext_resource type="Script" path="res://Scripts/LevelControl.cs" id="1_nxgu1"]
 [ext_resource type="PackedScene" uid="uid://byy4toimcfdyd" path="res://Prefabs/PipeSet.tscn" id="2_tlqyd"]
 [ext_resource type="PackedScene" uid="uid://brxkkqjauc8n3" path="res://Prefabs/birb_body.tscn" id="3_bfuq3"]
 [ext_resource type="Texture2D" uid="uid://b1788ooxp22hu" path="res://Images/Icons/pause.png" id="5_g150w"]
-[ext_resource type="Script" path="res://Scripts/OverlayController.cs" id="5_qtlli"]
 [ext_resource type="Texture2D" uid="uid://duhvrjv61cvbq" path="res://Images/grassHalfMid.png" id="6_ejdft"]
 [ext_resource type="Script" path="res://Scripts/Utils/TouchButtonExtension.cs" id="6_hmt7n"]
 [ext_resource type="PackedScene" uid="uid://dt4nmxdy741je" path="res://Prefabs/parallax_background.tscn" id="7_fc7rj"]
 [ext_resource type="Script" path="res://Scripts/UIScripting/UIControllercs.cs" id="7_l1iqc"]
 [ext_resource type="Theme" uid="uid://d5oxpjcvfwdf" path="res://UI Theme/GameTheme.tres" id="8_d5sjb"]
 [ext_resource type="AudioStream" uid="uid://b8fnta4vr2dtb" path="res://Audio/Piano Instrumental 3.mp3" id="8_qcexd"]
+[ext_resource type="Script" path="res://Scripts/UIScripting/OverlayController.cs" id="9_n12a4"]
 [ext_resource type="Texture2D" uid="uid://cq8pyjubxau68" path="res://Images/starbaby.png" id="11_jp70j"]
+[ext_resource type="Script" path="res://Scripts/UIScripting/PopupMenuController.cs" id="12_1ifwg"]
 [ext_resource type="Texture2D" uid="uid://c5rebfjby7e0v" path="res://Images/Icons/gear.png" id="12_ld44t"]
 [ext_resource type="Texture2D" uid="uid://cullflikl8nka" path="res://Images/Icons/door.png" id="14_bfitp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tidqh"]
 size = Vector2(691, 20)
+
+[sub_resource type="Animation" id="Animation_kh4ug"]
+resource_name = "new_animation"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../UIController/Control/UIOverlay/CountdownLabel:text")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": ["3", "2", "1", "GO!"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../UIController/Control/UIOverlay/CountdownLabel:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.9, 1, 1.9, 2, 2.9, 3, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false, true, false, true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../UIController/Control/UIOverlay/CountdownLabel:theme_override_colors/font_color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.9, 1, 1.9, 2, 2.9, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(0.968627, 0.992157, 0, 1), Color(0.968627, 0.992157, 0, 0.184314), Color(0.968627, 0.992157, 0, 1), Color(0.968627, 0.992157, 0, 0.184314), Color(0.968627, 0.992157, 0, 1), Color(0.968627, 0.992157, 0, 0.184314), Color(0.968627, 0.992157, 0, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../UIController/Control/UIOverlay/CountdownLabel:theme_override_colors/font_outline_color")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.9, 1, 1.9, 2, 2.9, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0.0980392), Color(0, 0, 0, 1), Color(0, 0, 0, 0.0980392), Color(0, 0, 0, 1), Color(0, 0, 0, 0.0980392), Color(0, 0, 0, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../UIController/Control/UIOverlay/CountdownLabel:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.9, 1, 1.9, 2, 2.9, 3),
+"transitions": PackedFloat32Array(1, 1e+06, 1, 1e+06, 1, 1e+06, 1),
+"update": 2,
+"values": [Vector2(512, 141), Vector2(512, -50), Vector2(512, 141), Vector2(512, -50), Vector2(512, 141), Vector2(512, -50), Vector2(512, 141)]
+}
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(3),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"SpawningCompleted"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_46h6r"]
+_data = {
+"NewLifeCountdown": SubResource("Animation_kh4ug")
+}
+
+[sub_resource type="SystemFont" id="SystemFont_2xyrw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vwkkj"]
+size = Vector2(100, 100)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_787dq"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -34,54 +124,11 @@ corner_detail = 20
 shadow_size = 40
 anti_aliasing = false
 
-[sub_resource type="SystemFont" id="SystemFont_2xyrw"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vwkkj"]
-size = Vector2(100, 100)
-
-[node name="LevelRoot" type="Node2D" node_paths=PackedStringArray("_spawnTimer", "background", "_obstacleSpawnPoint", "_playerSpawnPoint", "_playerObject", "_menuOverlay")]
-script = ExtResource("1_nxgu1")
-_spawnTimer = NodePath("Timer")
-background = NodePath("ParallaxBackground")
-_obstacleList = ExtResource("2_tlqyd")
-_obstacleSpawnPoint = NodePath("SpawnPoint")
-_playerSpawnPoint = NodePath("PlayerSpawn")
-_playerObject = NodePath("BirbBody")
-_menuOverlay = NodePath("UIController/Control/EndOfLifeMenu")
-
-[node name="PlayerSpawn" type="Node2D" parent="."]
-position = Vector2(446, 335)
-
-[node name="BirbBody" parent="." instance=ExtResource("3_bfuq3")]
-process_priority = 1
-position = Vector2(446, 335)
-_pushSpeed = 300.0
-
-[node name="Timer" type="Timer" parent="."]
-wait_time = 5.0
-one_shot = true
-
-[node name="SpawnPoint" type="Node2D" parent="."]
-position = Vector2(1700, 360)
-
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-z_index = 20
-position = Vector2(0, 706)
-collision_layer = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(335.5, 0)
-shape = SubResource("RectangleShape2D_tidqh")
-
-[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
-visible = false
-texture_repeat = 2
-position = Vector2(797, 20)
-texture = ExtResource("6_ejdft")
-region_enabled = true
-region_rect = Rect2(0, 0, 1600, 70)
-
-[node name="ParallaxBackground" parent="." instance=ExtResource("7_fc7rj")]
+[node name="LevelRoot" type="Node2D" node_paths=PackedStringArray("_levelController", "_menuOverlay")]
+process_mode = 3
+script = ExtResource("1_1j4li")
+_levelController = NodePath("PlaySpace")
+_menuOverlay = NodePath("UIController/Control/Popup Menu")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_qcexd")
@@ -91,7 +138,60 @@ bus = &"Music"
 [node name="CanvasModulate2" type="CanvasModulate" parent="."]
 color = Color(0.243137, 0.243137, 0.243137, 1)
 
+[node name="PlaySpace" type="Node2D" parent="." node_paths=PackedStringArray("_spawnTimer", "background", "_obstacleSpawnPoint", "_playerSpawnPoint", "_playerObject", "_animatorPlayer")]
+process_mode = 1
+script = ExtResource("1_nxgu1")
+_spawnTimer = NodePath("Timer")
+background = NodePath("ParallaxBackground")
+_obstacleList = ExtResource("2_tlqyd")
+_obstacleSpawnPoint = NodePath("SpawnPoint")
+_playerSpawnPoint = NodePath("PlayerSpawn")
+_playerObject = NodePath("BirbBody")
+_animatorPlayer = NodePath("AnimationPlayer")
+metadata/_edit_lock_ = true
+
+[node name="PlayerSpawn" type="Node2D" parent="PlaySpace"]
+position = Vector2(446, 335)
+
+[node name="BirbBody" parent="PlaySpace" instance=ExtResource("3_bfuq3")]
+process_mode = 4
+process_priority = 1
+position = Vector2(446, 335)
+_pushSpeed = 300.0
+
+[node name="Timer" type="Timer" parent="PlaySpace"]
+wait_time = 0.5
+one_shot = true
+
+[node name="SpawnPoint" type="Node2D" parent="PlaySpace"]
+position = Vector2(1700, 360)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="PlaySpace"]
+z_index = 20
+position = Vector2(0, 706)
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlaySpace/StaticBody2D"]
+position = Vector2(335.5, 0)
+shape = SubResource("RectangleShape2D_tidqh")
+
+[node name="Sprite2D" type="Sprite2D" parent="PlaySpace/StaticBody2D"]
+visible = false
+texture_repeat = 2
+position = Vector2(797, 20)
+texture = ExtResource("6_ejdft")
+region_enabled = true
+region_rect = Rect2(0, 0, 1600, 70)
+
+[node name="ParallaxBackground" parent="PlaySpace" instance=ExtResource("7_fc7rj")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PlaySpace"]
+libraries = {
+"": SubResource("AnimationLibrary_46h6r")
+}
+
 [node name="UIController" type="Node" parent="." node_paths=PackedStringArray("_uiOverlay")]
+process_mode = 3
 script = ExtResource("7_l1iqc")
 _uiOverlay = NodePath("Control/UIOverlay")
 
@@ -105,78 +205,10 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource("8_d5sjb")
 
-[node name="PauseMenu" type="CanvasLayer" parent="UIController/Control"]
-layer = 15
-visible = false
-
-[node name="CentralMargin" type="MarginContainer" parent="UIController/Control/PauseMenu"]
-offset_left = 440.0
-offset_right = 1160.0
-offset_bottom = 720.0
-theme = ExtResource("8_d5sjb")
-theme_override_constants/margin_top = 50
-theme_override_constants/margin_bottom = 50
-
-[node name="Panel2" type="Panel" parent="UIController/Control/PauseMenu/CentralMargin"]
-layout_mode = 2
-theme = ExtResource("8_d5sjb")
-theme_override_styles/panel = SubResource("StyleBoxFlat_787dq")
-
-[node name="PlayButton" type="Button" parent="UIController/Control/PauseMenu/CentralMargin/Panel2"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -180.0
-offset_top = -50.0
-offset_right = 180.0
-offset_bottom = 50.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("8_d5sjb")
-text = "Resume"
-icon = ExtResource("11_jp70j")
-expand_icon = true
-
-[node name="Label" type="Label" parent="UIController/Control/PauseMenu/CentralMargin/Panel2"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -201.0
-offset_top = 49.55
-offset_right = 201.0
-offset_bottom = 210.55
-grow_horizontal = 2
-theme = ExtResource("8_d5sjb")
-theme_override_font_sizes/font_size = 92
-text = "PAUSED"
-uppercase = true
-
-[node name="Options" type="Button" parent="UIController/Control/PauseMenu/CentralMargin/Panel2"]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -179.0
-offset_top = -201.0
-offset_right = 180.0
-offset_bottom = -91.0
-grow_horizontal = 2
-grow_vertical = 0
-theme = ExtResource("8_d5sjb")
-text = "Options
-"
-icon = ExtResource("12_ld44t")
-
 [node name="UIOverlay" type="CanvasLayer" parent="UIController/Control" node_paths=PackedStringArray("_scoreText")]
 process_mode = 3
 layer = 15
-script = ExtResource("5_qtlli")
+script = ExtResource("9_n12a4")
 _scoreText = NodePath("ScoreCounter")
 
 [node name="ScoreLabel" type="Label" parent="UIController/Control/UIOverlay"]
@@ -204,11 +236,38 @@ texture_normal = ExtResource("5_g150w")
 shape = SubResource("RectangleShape2D_vwkkj")
 script = ExtResource("6_hmt7n")
 
-[node name="EndOfLifeMenu" type="CanvasLayer" parent="UIController/Control"]
+[node name="CountdownLabel" type="Label" parent="UIController/Control/UIOverlay"]
+light_mask = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -288.0
+offset_top = -219.0
+offset_right = 273.0
+offset_bottom = 229.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme = ExtResource("8_d5sjb")
+theme_override_colors/font_color = Color(0.968627, 0.992157, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 32
+theme_override_font_sizes/font_size = 256
+text = "3"
+horizontal_alignment = 1
+
+[node name="Popup Menu" type="CanvasLayer" parent="UIController/Control" node_paths=PackedStringArray("_menuTitleLabel", "_resumeButton", "_scoreText")]
+process_mode = 3
 layer = 15
 visible = false
+script = ExtResource("12_1ifwg")
+_menuTitleLabel = NodePath("Control/MarginContainer/Panel2/MarginContainer/VBoxContainer2/TitleLabel")
+_resumeButton = NodePath("Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/ResumeButton")
+_scoreText = NodePath("Control/MarginContainer/Panel2/MarginContainer/VBoxContainer2/FinalScoreLabel")
 
-[node name="Control" type="AspectRatioContainer" parent="UIController/Control/EndOfLifeMenu"]
+[node name="Control" type="AspectRatioContainer" parent="UIController/Control/Popup Menu"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -218,16 +277,16 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource("8_d5sjb")
 
-[node name="MarginContainer" type="MarginContainer" parent="UIController/Control/EndOfLifeMenu/Control"]
+[node name="MarginContainer" type="MarginContainer" parent="UIController/Control/Popup Menu/Control"]
 layout_mode = 2
 theme = ExtResource("8_d5sjb")
 
-[node name="Panel2" type="Panel" parent="UIController/Control/EndOfLifeMenu/Control/MarginContainer"]
+[node name="Panel2" type="Panel" parent="UIController/Control/Popup Menu/Control/MarginContainer"]
 layout_mode = 2
 theme = ExtResource("8_d5sjb")
 theme_override_styles/panel = SubResource("StyleBoxFlat_787dq")
 
-[node name="MarginContainer" type="MarginContainer" parent="UIController/Control/EndOfLifeMenu/Control/MarginContainer/Panel2"]
+[node name="MarginContainer" type="MarginContainer" parent="UIController/Control/Popup Menu/Control/MarginContainer/Panel2"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -240,21 +299,30 @@ theme_override_constants/margin_top = 30
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 42
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UIController/Control/EndOfLifeMenu/Control/MarginContainer/Panel2/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UIController/Control/Popup Menu/Control/MarginContainer/Panel2/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
 theme = ExtResource("8_d5sjb")
+theme_override_constants/separation = 10
 alignment = 2
 
-[node name="PlayButton" type="Button" parent="UIController/Control/EndOfLifeMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer"]
+[node name="ResumeButton" type="Button" parent="UIController/Control/Popup Menu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("8_d5sjb")
+text = "Resume
+"
+icon = ExtResource("11_jp70j")
+expand_icon = true
+
+[node name="Restart" type="Button" parent="UIController/Control/Popup Menu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("8_d5sjb")
 text = "Retry"
 icon = ExtResource("11_jp70j")
 expand_icon = true
 
-[node name="Options" type="Button" parent="UIController/Control/EndOfLifeMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer"]
+[node name="Options" type="Button" parent="UIController/Control/Popup Menu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("8_d5sjb")
 text = "Options
@@ -262,18 +330,21 @@ text = "Options
 icon = ExtResource("12_ld44t")
 expand_icon = true
 
-[node name="MainMenu" type="Button" parent="UIController/Control/EndOfLifeMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer"]
+[node name="MainMenu" type="Button" parent="UIController/Control/Popup Menu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 theme = ExtResource("8_d5sjb")
 text = "Main Menu"
 icon = ExtResource("14_bfitp")
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="UIController/Control/EndOfLifeMenu/Control/MarginContainer/Panel2/MarginContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="UIController/Control/Popup Menu/Control/MarginContainer/Panel2/MarginContainer"]
 layout_mode = 2
+size_flags_vertical = 0
 theme = ExtResource("8_d5sjb")
-theme_override_constants/separation = 0
+theme_override_constants/separation = -30
 
-[node name="Label" type="Label" parent="UIController/Control/EndOfLifeMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer2"]
+[node name="TitleLabel" type="Label" parent="UIController/Control/Popup Menu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
@@ -282,7 +353,7 @@ theme_override_font_sizes/font_size = 64
 text = "Final Score"
 uppercase = true
 
-[node name="FinalScoreLabel" type="Label" parent="UIController/Control/EndOfLifeMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer2"]
+[node name="FinalScoreLabel" type="Label" parent="UIController/Control/Popup Menu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
@@ -293,10 +364,11 @@ horizontal_alignment = 1
 vertical_alignment = 1
 uppercase = true
 
-[connection signal="OnScoreUpdated" from="." to="UIController/Control/UIOverlay" method="ScoreUpdated"]
-[connection signal="body_entered" from="BirbBody" to="." method="OnObstacleCollisionDirect"]
-[connection signal="timeout" from="Timer" to="." method="SpawnPipe"]
-[connection signal="pressed" from="UIController/Control/PauseMenu/CentralMargin/Panel2/PlayButton" to="." method="TogglePause"]
+[connection signal="OnScoreUpdated" from="PlaySpace" to="UIController/Control/UIOverlay" method="ScoreUpdated"]
+[connection signal="OnScoreUpdated" from="PlaySpace" to="UIController/Control/Popup Menu" method="ScoreUpdated"]
+[connection signal="body_entered" from="PlaySpace/BirbBody" to="PlaySpace" method="OnObstacleCollisionDirect"]
+[connection signal="timeout" from="PlaySpace/Timer" to="PlaySpace" method="SpawnPipe"]
 [connection signal="OnButtonPressed" from="UIController/Control/UIOverlay/PauseButton" to="." method="TogglePause"]
 [connection signal="pressed" from="UIController/Control/UIOverlay/PauseButton" to="UIController/Control/UIOverlay/PauseButton" method="TouchButtonPress"]
-[connection signal="pressed" from="UIController/Control/EndOfLifeMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/PlayButton" to="." method="StartLife"]
+[connection signal="pressed" from="UIController/Control/Popup Menu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/ResumeButton" to="." method="TogglePause"]
+[connection signal="pressed" from="UIController/Control/Popup Menu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/Restart" to="." method="StartLife"]
