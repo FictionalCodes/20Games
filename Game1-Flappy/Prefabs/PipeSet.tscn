@@ -19,11 +19,10 @@ script = ExtResource("1_jboxh")
 _upperZone = NodePath("Upper")
 _lowerZone = NodePath("Lower")
 
-[node name="Upper" type="Area2D" parent="."]
+[node name="Upper" type="StaticBody2D" parent="."]
 rotation = -3.14159
 collision_layer = 2
 collision_mask = 3
-input_pickable = false
 
 [node name="UpperPipe" type="Sprite2D" parent="Upper"]
 light_mask = 2
@@ -56,10 +55,9 @@ light_mask = 0
 position = Vector2(-60, 6.00015)
 occluder = SubResource("OccluderPolygon2D_qi67x")
 
-[node name="Lower" type="Area2D" parent="."]
+[node name="Lower" type="StaticBody2D" parent="."]
 light_mask = 3
 collision_layer = 2
-input_pickable = false
 
 [node name="UpperPipe" type="Sprite2D" parent="Lower"]
 light_mask = 2
@@ -103,8 +101,6 @@ shape = SubResource("SegmentShape2D_edptj")
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(78, 0)
 
-[connection signal="body_entered" from="Upper" to="." method="PipeHit"]
-[connection signal="body_entered" from="Lower" to="." method="PipeHit"]
 [connection signal="body_exited" from="PointZone" to="." method="PointGet"]
 [connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="EnterScreen"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="ExitScreen"]

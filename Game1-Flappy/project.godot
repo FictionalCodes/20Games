@@ -16,6 +16,11 @@ run/main_scene="res://GameScenes/menuscene.tscn"
 config/features=PackedStringArray("4.2", "C#", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+AudioManager="*res://Scripts/Globals/AudioManager.cs"
+SettingsManager="*res://Scripts/Globals/SettingsManager.cs"
+
 [display]
 
 window/size/viewport_width=1600

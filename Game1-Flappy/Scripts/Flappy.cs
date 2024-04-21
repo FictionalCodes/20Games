@@ -28,7 +28,7 @@ public partial class Flappy : RigidBody2D
     public void SpawnSetup(Vector2 startPosition)
     {
         Visible = true;
-        SetAxisVelocity(Vector2.Zero);
+        LinearVelocity = Vector2.Zero;
         this.GlobalPosition = startPosition;
         _trailParticles.Restart();
         _trailParticles.Emitting = true;
@@ -38,15 +38,15 @@ public partial class Flappy : RigidBody2D
     public void BeginLife()
     {
         ProcessMode = ProcessModeEnum.Pausable;
-
     }
 
     public void EndLife()
     {
+        //SetAxisVelocity(Vector2.Zero);
+
         _trailParticles.Emitting = false;
         Visible = false;
         ProcessMode = ProcessModeEnum.Disabled;
-
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
