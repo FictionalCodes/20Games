@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://das2u2sjwldou"]
+[gd_scene load_steps=24 format=3 uid="uid://das2u2sjwldou"]
 
 [ext_resource type="Script" path="res://Scripts/SceneController.cs" id="1_1j4li"]
 [ext_resource type="Script" path="res://Scripts/LevelControl.cs" id="1_nxgu1"]
@@ -16,6 +16,7 @@
 [ext_resource type="Script" path="res://Scripts/UIScripting/PopupMenuController.cs" id="12_1ifwg"]
 [ext_resource type="Texture2D" uid="uid://c5rebfjby7e0v" path="res://Images/Icons/gear.png" id="12_ld44t"]
 [ext_resource type="Texture2D" uid="uid://cullflikl8nka" path="res://Images/Icons/door.png" id="14_bfitp"]
+[ext_resource type="PackedScene" uid="uid://ct4r4lewwadbl" path="res://Prefabs/options_menu.tscn" id="17_dqjn3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tidqh"]
 size = Vector2(691, 20)
@@ -26,7 +27,7 @@ length = 4.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../UIController/Control/UIOverlay/CountdownLabel:text")
+tracks/0/path = NodePath("../UIController/UIOverlay/CountdownLabel:text")
 tracks/0/interp = 0
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -38,7 +39,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../UIController/Control/UIOverlay/CountdownLabel:visible")
+tracks/1/path = NodePath("../UIController/UIOverlay/CountdownLabel:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -50,7 +51,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("../UIController/Control/UIOverlay/CountdownLabel:theme_override_colors/font_color")
+tracks/2/path = NodePath("../UIController/UIOverlay/CountdownLabel:theme_override_colors/font_color")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -62,7 +63,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("../UIController/Control/UIOverlay/CountdownLabel:theme_override_colors/font_outline_color")
+tracks/3/path = NodePath("../UIController/UIOverlay/CountdownLabel:theme_override_colors/font_outline_color")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -74,7 +75,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("../UIController/Control/UIOverlay/CountdownLabel:position")
+tracks/4/path = NodePath("../UIController/UIOverlay/CountdownLabel:position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -103,10 +104,10 @@ _data = {
 "NewLifeCountdown": SubResource("Animation_kh4ug")
 }
 
-[sub_resource type="SystemFont" id="SystemFont_2xyrw"]
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vwkkj"]
 size = Vector2(100, 100)
+
+[sub_resource type="SystemFont" id="SystemFont_2xyrw"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_787dq"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -128,7 +129,7 @@ anti_aliasing = false
 process_mode = 3
 script = ExtResource("1_1j4li")
 _levelController = NodePath("PlaySpace")
-_menuOverlay = NodePath("UIController/Control/Popup Menu")
+_menuOverlay = NodePath("UIController/Popup Menu")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_qcexd")
@@ -193,9 +194,15 @@ libraries = {
 [node name="UIController" type="Node" parent="." node_paths=PackedStringArray("_uiOverlay")]
 process_mode = 3
 script = ExtResource("7_l1iqc")
-_uiOverlay = NodePath("Control/UIOverlay")
+_uiOverlay = NodePath("UIOverlay")
 
-[node name="Control" type="AspectRatioContainer" parent="UIController"]
+[node name="UIOverlay" type="CanvasLayer" parent="UIController" node_paths=PackedStringArray("_scoreText")]
+process_mode = 3
+layer = 15
+script = ExtResource("9_n12a4")
+_scoreText = NodePath("MarginContainer/HBoxContainer/ScoreCounter")
+
+[node name="MarginContainer" type="MarginContainer" parent="UIController/UIOverlay"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -203,50 +210,58 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme = ExtResource("8_d5sjb")
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
 
-[node name="UIOverlay" type="CanvasLayer" parent="UIController/Control" node_paths=PackedStringArray("_scoreText")]
-process_mode = 3
-layer = 15
-script = ExtResource("9_n12a4")
-_scoreText = NodePath("ScoreCounter")
+[node name="Control" type="Label" parent="UIController/UIOverlay/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="ScoreLabel" type="Label" parent="UIController/Control/UIOverlay"]
-offset_right = 101.0
-offset_bottom = 45.0
+[node name="PauseButton" type="TouchScreenButton" parent="UIController/UIOverlay/MarginContainer/Control"]
+top_level = true
+position = Vector2(1471, 20)
+texture_normal = ExtResource("5_g150w")
+shape = SubResource("RectangleShape2D_vwkkj")
+script = ExtResource("6_hmt7n")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UIController/UIOverlay/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="ScoreLabel" type="Label" parent="UIController/UIOverlay/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
 theme = ExtResource("8_d5sjb")
 theme_override_fonts/font = SubResource("SystemFont_2xyrw")
 theme_override_font_sizes/font_size = 32
 text = "SCORE"
 
-[node name="ScoreCounter" type="Label" parent="UIController/Control/UIOverlay"]
-offset_left = 105.0
-offset_top = -2.0
-offset_right = 206.0
-offset_bottom = 43.0
+[node name="ScoreCounter" type="Label" parent="UIController/UIOverlay/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
 theme = ExtResource("8_d5sjb")
 theme_override_fonts/font = SubResource("SystemFont_2xyrw")
 theme_override_font_sizes/font_size = 32
 text = "00000"
 
-[node name="PauseButton" type="TouchScreenButton" parent="UIController/Control/UIOverlay"]
-top_level = true
-position = Vector2(1495, 1)
-texture_normal = ExtResource("5_g150w")
-shape = SubResource("RectangleShape2D_vwkkj")
-script = ExtResource("6_hmt7n")
-
-[node name="CountdownLabel" type="Label" parent="UIController/Control/UIOverlay"]
+[node name="CountdownLabel" type="Label" parent="UIController/UIOverlay"]
 light_mask = 3
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -288.0
-offset_top = -219.0
-offset_right = 273.0
-offset_bottom = 229.0
+offset_left = -93.5
+offset_top = -224.0
+offset_right = 93.5
+offset_bottom = 224.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
@@ -258,16 +273,15 @@ theme_override_font_sizes/font_size = 256
 text = "3"
 horizontal_alignment = 1
 
-[node name="Popup Menu" type="CanvasLayer" parent="UIController/Control" node_paths=PackedStringArray("_menuTitleLabel", "_resumeButton", "_scoreText")]
+[node name="Popup Menu" type="CanvasLayer" parent="UIController" node_paths=PackedStringArray("_menuTitleLabel", "_resumeButton", "_scoreText")]
 process_mode = 3
 layer = 15
-visible = false
 script = ExtResource("12_1ifwg")
 _menuTitleLabel = NodePath("Control/MarginContainer/Panel2/MarginContainer/VBoxContainer2/TitleLabel")
 _resumeButton = NodePath("Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/ResumeButton")
 _scoreText = NodePath("Control/MarginContainer/Panel2/MarginContainer/VBoxContainer2/FinalScoreLabel")
 
-[node name="Control" type="AspectRatioContainer" parent="UIController/Control/Popup Menu"]
+[node name="Control" type="AspectRatioContainer" parent="UIController/Popup Menu"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -277,16 +291,16 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource("8_d5sjb")
 
-[node name="MarginContainer" type="MarginContainer" parent="UIController/Control/Popup Menu/Control"]
+[node name="MarginContainer" type="MarginContainer" parent="UIController/Popup Menu/Control"]
 layout_mode = 2
 theme = ExtResource("8_d5sjb")
 
-[node name="Panel2" type="Panel" parent="UIController/Control/Popup Menu/Control/MarginContainer"]
+[node name="Panel2" type="Panel" parent="UIController/Popup Menu/Control/MarginContainer"]
 layout_mode = 2
 theme = ExtResource("8_d5sjb")
 theme_override_styles/panel = SubResource("StyleBoxFlat_787dq")
 
-[node name="MarginContainer" type="MarginContainer" parent="UIController/Control/Popup Menu/Control/MarginContainer/Panel2"]
+[node name="MarginContainer" type="MarginContainer" parent="UIController/Popup Menu/Control/MarginContainer/Panel2"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -299,7 +313,7 @@ theme_override_constants/margin_top = 30
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 42
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UIController/Control/Popup Menu/Control/MarginContainer/Panel2/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UIController/Popup Menu/Control/MarginContainer/Panel2/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
@@ -307,7 +321,7 @@ theme = ExtResource("8_d5sjb")
 theme_override_constants/separation = 10
 alignment = 2
 
-[node name="ResumeButton" type="Button" parent="UIController/Control/Popup Menu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer"]
+[node name="ResumeButton" type="Button" parent="UIController/Popup Menu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("8_d5sjb")
 text = "Resume
@@ -315,14 +329,14 @@ text = "Resume
 icon = ExtResource("11_jp70j")
 expand_icon = true
 
-[node name="Restart" type="Button" parent="UIController/Control/Popup Menu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer"]
+[node name="Restart" type="Button" parent="UIController/Popup Menu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("8_d5sjb")
 text = "Retry"
 icon = ExtResource("11_jp70j")
 expand_icon = true
 
-[node name="Options" type="Button" parent="UIController/Control/Popup Menu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer"]
+[node name="Options" type="Button" parent="UIController/Popup Menu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("8_d5sjb")
 text = "Options
@@ -330,7 +344,7 @@ text = "Options
 icon = ExtResource("12_ld44t")
 expand_icon = true
 
-[node name="MainMenu" type="Button" parent="UIController/Control/Popup Menu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer"]
+[node name="MainMenu" type="Button" parent="UIController/Popup Menu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -338,13 +352,13 @@ theme = ExtResource("8_d5sjb")
 text = "Main Menu"
 icon = ExtResource("14_bfitp")
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="UIController/Control/Popup Menu/Control/MarginContainer/Panel2/MarginContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="UIController/Popup Menu/Control/MarginContainer/Panel2/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 0
 theme = ExtResource("8_d5sjb")
 theme_override_constants/separation = -30
 
-[node name="TitleLabel" type="Label" parent="UIController/Control/Popup Menu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer2"]
+[node name="TitleLabel" type="Label" parent="UIController/Popup Menu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
@@ -353,7 +367,7 @@ theme_override_font_sizes/font_size = 64
 text = "Final Score"
 uppercase = true
 
-[node name="FinalScoreLabel" type="Label" parent="UIController/Control/Popup Menu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer2"]
+[node name="FinalScoreLabel" type="Label" parent="UIController/Popup Menu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
@@ -364,11 +378,13 @@ horizontal_alignment = 1
 vertical_alignment = 1
 uppercase = true
 
-[connection signal="OnScoreUpdated" from="PlaySpace" to="UIController/Control/UIOverlay" method="ScoreUpdated"]
-[connection signal="OnScoreUpdated" from="PlaySpace" to="UIController/Control/Popup Menu" method="ScoreUpdated"]
+[node name="OptionsMenu" parent="." instance=ExtResource("17_dqjn3")]
+
+[connection signal="OnScoreUpdated" from="PlaySpace" to="UIController/UIOverlay" method="ScoreUpdated"]
+[connection signal="OnScoreUpdated" from="PlaySpace" to="UIController/Popup Menu" method="ScoreUpdated"]
 [connection signal="body_entered" from="PlaySpace/BirbBody" to="PlaySpace" method="OnObstacleCollisionDirect"]
 [connection signal="timeout" from="PlaySpace/Timer" to="PlaySpace" method="SpawnPipe"]
-[connection signal="OnButtonPressed" from="UIController/Control/UIOverlay/PauseButton" to="." method="TogglePause"]
-[connection signal="pressed" from="UIController/Control/UIOverlay/PauseButton" to="UIController/Control/UIOverlay/PauseButton" method="TouchButtonPress"]
-[connection signal="pressed" from="UIController/Control/Popup Menu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/ResumeButton" to="." method="TogglePause"]
-[connection signal="pressed" from="UIController/Control/Popup Menu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/Restart" to="." method="StartLife"]
+[connection signal="OnButtonPressed" from="UIController/UIOverlay/MarginContainer/Control/PauseButton" to="." method="TogglePause"]
+[connection signal="pressed" from="UIController/UIOverlay/MarginContainer/Control/PauseButton" to="UIController/UIOverlay/MarginContainer/Control/PauseButton" method="TouchButtonPress"]
+[connection signal="pressed" from="UIController/Popup Menu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/ResumeButton" to="." method="TogglePause"]
+[connection signal="pressed" from="UIController/Popup Menu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/Restart" to="." method="StartLife"]

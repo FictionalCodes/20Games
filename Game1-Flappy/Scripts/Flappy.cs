@@ -1,3 +1,4 @@
+using System;
 using Godot;
 
 public partial class Flappy : RigidBody2D
@@ -7,6 +8,7 @@ public partial class Flappy : RigidBody2D
 
     [Export] private GpuParticles2D _trailParticles;
     [Export] private GpuParticles2D _pushParticles;
+    [Export] private Light2D _shadowEmitter;
 
     private bool _flapPending;
     private bool _canPushParticles = true;
@@ -23,7 +25,28 @@ public partial class Flappy : RigidBody2D
 
         _trailMaterial = (ShaderMaterial)_trailParticles.ProcessMaterial;
 
+        var settingsBindings = GetNode<SettingsManager>("/root/SettingsManager");
+
+        settingsBindings.ParticlesOnChange += ParticlesOnOff;
+        settingsBindings.LightingOnChange += LightingOnOff;
+        LightingOnOff(settingsBindings.LightingOn);
+        ParticlesOnOff(settingsBindings.ParticlesOn);
+
     }
+
+    private void LightingOnOff(bool enabled)
+    {
+        _shadowEmitter.ShadowEnabled = enabled;
+    }
+
+
+    private void ParticlesOnOff(bool enabled)
+    {
+        _pushParticles.Visible = enabled;
+        _trailParticles.Visible = enabled;
+
+    }
+
 
     public void SpawnSetup(Vector2 startPosition)
     {

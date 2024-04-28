@@ -18,14 +18,15 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-AudioManager="*res://Scripts/Globals/AudioManager.cs"
-SettingsManager="*res://Scripts/Globals/SettingsManager.cs"
+AudioManager="res://Scripts/Globals/AudioManager.cs"
+SettingsManager="res://Scripts/Globals/SettingsManager.cs"
 
 [display]
 
 window/size/viewport_width=1600
 window/size/viewport_height=720
-window/stretch/mode="viewport"
+window/energy_saving/keep_screen_on=false
+window/stretch/mode="canvas_items"
 
 [dotnet]
 

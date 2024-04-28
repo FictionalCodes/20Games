@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dk5o5yn2jig03"]
+[gd_scene load_steps=9 format=3 uid="uid://dk5o5yn2jig03"]
 
 [ext_resource type="Script" path="res://Scripts/UIScripting/MainMenuControl.cs" id="1_gi647"]
 [ext_resource type="Theme" uid="uid://d5oxpjcvfwdf" path="res://UI Theme/GameTheme.tres" id="1_t8f4y"]
@@ -6,8 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://cq8pyjubxau68" path="res://Images/starbaby.png" id="3_xi1wl"]
 [ext_resource type="Script" path="res://Scripts/MenuBackground.cs" id="4_rgeyn"]
 [ext_resource type="Texture2D" uid="uid://c5rebfjby7e0v" path="res://Images/Icons/gear.png" id="4_wajtr"]
+[ext_resource type="PackedScene" uid="uid://ct4r4lewwadbl" path="res://Prefabs/options_menu.tscn" id="7_0827e"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wqyky"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8nmvg"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 border_width_left = 30
 border_width_top = 30
@@ -23,14 +24,21 @@ corner_detail = 20
 shadow_size = 40
 anti_aliasing = false
 
-[node name="MainMenuRoot" type="Control"]
+[node name="MainMenuRoot" type="Control" node_paths=PackedStringArray("mainMenuLayer", "optionsMenuLayer")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_gi647")
+mainMenuLayer = NodePath("MainMenu")
+optionsMenuLayer = NodePath("MainMenu/OptionsMenu")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="ParallaxBackground" parent="." instance=ExtResource("3_b87tl")]
+script = ExtResource("4_rgeyn")
 
-[node name="Control" type="AspectRatioContainer" parent="CanvasLayer"]
+[node name="MainMenu" type="CanvasLayer" parent="."]
+process_mode = 3
+layer = 15
+
+[node name="Control" type="AspectRatioContainer" parent="MainMenu"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -40,71 +48,80 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource("1_t8f4y")
 
-[node name="CentralMargin" type="MarginContainer" parent="CanvasLayer/Control"]
+[node name="MarginContainer" type="MarginContainer" parent="MainMenu/Control"]
 layout_mode = 2
 theme = ExtResource("1_t8f4y")
-theme_override_constants/margin_top = 50
-theme_override_constants/margin_bottom = 50
 
-[node name="Panel2" type="Panel" parent="CanvasLayer/Control/CentralMargin"]
+[node name="Panel2" type="Panel" parent="MainMenu/Control/MarginContainer"]
 layout_mode = 2
 theme = ExtResource("1_t8f4y")
-theme_override_styles/panel = SubResource("StyleBoxFlat_wqyky")
+theme_override_styles/panel = SubResource("StyleBoxFlat_8nmvg")
 
-[node name="PlayButton" type="Button" parent="CanvasLayer/Control/CentralMargin/Panel2"]
+[node name="MarginContainer" type="MarginContainer" parent="MainMenu/Control/MarginContainer/Panel2"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -171.0
-offset_top = -59.0
-offset_right = 189.0
-offset_bottom = 41.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_t8f4y")
-text = "Play
-"
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 42
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenu/Control/MarginContainer/Panel2/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme = ExtResource("1_t8f4y")
+theme_override_constants/separation = 100
+alignment = 2
+
+[node name="PlayButton" type="Button" parent="MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_t8f4y")
+text = "Play"
 icon = ExtResource("3_xi1wl")
 expand_icon = true
 
-[node name="Options" type="Button" parent="CanvasLayer/Control/CentralMargin/Panel2"]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -124.0
-offset_top = -205.0
-offset_right = 131.0
-offset_bottom = -111.0
-grow_horizontal = 2
-grow_vertical = 0
+[node name="Options" type="Button" parent="MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer"]
+layout_mode = 2
 theme = ExtResource("1_t8f4y")
 text = "Options
 "
 icon = ExtResource("4_wajtr")
 
-[node name="Label" type="Label" parent="CanvasLayer/Control/CentralMargin/Panel2"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -138.0
-offset_top = 71.0
-offset_right = 138.0
-offset_bottom = 127.0
-grow_horizontal = 2
+[node name="VBoxContainer2" type="VBoxContainer" parent="MainMenu/Control/MarginContainer/Panel2/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme = ExtResource("1_t8f4y")
+theme_override_constants/separation = -30
+
+[node name="TitleLabel" type="Label" parent="MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
 theme = ExtResource("1_t8f4y")
 theme_override_font_sizes/font_size = 64
-text = "SURGING STAR"
+text = "Surging Star"
+uppercase = true
+
+[node name="FinalScoreLabel" type="Label" parent="MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer2"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme = ExtResource("1_t8f4y")
+theme_override_font_sizes/font_size = 64
+text = "000000"
 horizontal_alignment = 1
 vertical_alignment = 1
+uppercase = true
 
-[node name="ParallaxBackground" parent="." instance=ExtResource("3_b87tl")]
-script = ExtResource("4_rgeyn")
+[node name="OptionsMenu" parent="MainMenu" instance=ExtResource("7_0827e")]
+visible = false
 
-[connection signal="pressed" from="CanvasLayer/Control/CentralMargin/Panel2/PlayButton" to="." method="ChangeToGameScene"]
+[connection signal="pressed" from="MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/PlayButton" to="." method="ChangeToGameScene"]
+[connection signal="pressed" from="MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/Options" to="." method="ToggleMenu" binds= [true]]
+[connection signal="WindowClosed" from="MainMenu/OptionsMenu" to="." method="ToggleMenu" binds= [false]]

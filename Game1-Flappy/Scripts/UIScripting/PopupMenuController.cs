@@ -22,4 +22,10 @@ public partial class PopupMenuController : OverlayController
 
         this.Visible = true;
     }
+
+    public void ChangeToMenuScene()
+    {
+        GetTree().ChangeSceneToFile("res://GameScenes/menuscene.tscn");
+    }
+
 }
