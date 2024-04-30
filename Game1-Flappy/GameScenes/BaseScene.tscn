@@ -197,7 +197,7 @@ script = ExtResource("7_l1iqc")
 _uiOverlay = NodePath("UIOverlay")
 
 [node name="UIOverlay" type="CanvasLayer" parent="UIController" node_paths=PackedStringArray("_scoreText")]
-process_mode = 3
+process_mode = 1
 layer = 15
 script = ExtResource("9_n12a4")
 _scoreText = NodePath("MarginContainer/HBoxContainer/ScoreCounter")
@@ -270,12 +270,14 @@ theme_override_font_sizes/font_size = 256
 text = "3"
 horizontal_alignment = 1
 
-[node name="Popup Menu" type="CanvasLayer" parent="UIController" node_paths=PackedStringArray("_menuTitleLabel", "_resumeButton", "_scoreText")]
+[node name="Popup Menu" type="CanvasLayer" parent="UIController" node_paths=PackedStringArray("_menuTitleLabel", "_resumeButton", "_optionsMenu", "_scoreText")]
 process_mode = 3
 layer = 15
+visible = false
 script = ExtResource("12_1ifwg")
 _menuTitleLabel = NodePath("Control/MarginContainer/Panel2/MarginContainer/VBoxContainer2/TitleLabel")
 _resumeButton = NodePath("Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/ResumeButton")
+_optionsMenu = NodePath("../../OptionsMenu")
 _scoreText = NodePath("Control/MarginContainer/Panel2/MarginContainer/VBoxContainer2/FinalScoreLabel")
 
 [node name="Control" type="AspectRatioContainer" parent="UIController/Popup Menu"]
@@ -386,3 +388,6 @@ visible = false
 [connection signal="pressed" from="UIController/UIOverlay/MarginContainer/Control/PauseButton" to="UIController/UIOverlay/MarginContainer/Control/PauseButton" method="TouchButtonPress"]
 [connection signal="pressed" from="UIController/Popup Menu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/ResumeButton" to="." method="TogglePause"]
 [connection signal="pressed" from="UIController/Popup Menu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/Restart" to="." method="StartLife"]
+[connection signal="pressed" from="UIController/Popup Menu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/Options" to="UIController/Popup Menu" method="OpenOptions"]
+[connection signal="pressed" from="UIController/Popup Menu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/MainMenu" to="." method="GoToMainMenu"]
+[connection signal="WindowClosed" from="OptionsMenu" to="UIController/Popup Menu" method="set_visible" binds= [true]]

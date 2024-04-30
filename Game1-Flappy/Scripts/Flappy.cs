@@ -50,6 +50,9 @@ public partial class Flappy : RigidBody2D
 
     public void SpawnSetup(Vector2 startPosition)
     {
+        GD.Print("Re-setting Star");
+        ProcessMode = ProcessModeEnum.Disabled;
+
         Visible = true;
         LinearVelocity = Vector2.Zero;
         this.GlobalPosition = startPosition;
@@ -60,6 +63,7 @@ public partial class Flappy : RigidBody2D
 
     public void BeginLife()
     {
+        GD.Print("Activating Star");
         ProcessMode = ProcessModeEnum.Pausable;
     }
 

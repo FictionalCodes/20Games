@@ -24,12 +24,13 @@ corner_detail = 20
 shadow_size = 40
 anti_aliasing = false
 
-[node name="MainMenuRoot" type="Control" node_paths=PackedStringArray("mainMenuLayer", "optionsMenuLayer")]
+[node name="MainMenuRoot" type="Control" node_paths=PackedStringArray("mainMenuLayer", "optionsMenuLayer", "_highscoreLabel")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_gi647")
 mainMenuLayer = NodePath("MainMenu")
 optionsMenuLayer = NodePath("MainMenu/OptionsMenu")
+_highscoreLabel = NodePath("MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer2/HBoxContainer/Highscore")
 
 [node name="ParallaxBackground" parent="." instance=ExtResource("3_b87tl")]
 script = ExtResource("4_rgeyn")
@@ -96,7 +97,7 @@ icon = ExtResource("4_wajtr")
 layout_mode = 2
 size_flags_vertical = 0
 theme = ExtResource("1_t8f4y")
-theme_override_constants/separation = -30
+theme_override_constants/separation = 0
 
 [node name="TitleLabel" type="Label" parent="MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer2"]
 layout_mode = 2
@@ -107,13 +108,22 @@ theme_override_font_sizes/font_size = 64
 text = "Surging Star"
 uppercase = true
 
-[node name="FinalScoreLabel" type="Label" parent="MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer2"]
-visible = false
+[node name="HBoxContainer" type="HBoxContainer" parent="MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer2"]
+layout_mode = 2
+alignment = 1
+
+[node name="HighscoreText" type="Label" parent="MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer2/HBoxContainer"]
+layout_mode = 2
+text = "HighScore - "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Highscore" type="Label" parent="MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer2/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 theme = ExtResource("1_t8f4y")
-theme_override_font_sizes/font_size = 64
+theme_override_font_sizes/font_size = 48
 text = "000000"
 horizontal_alignment = 1
 vertical_alignment = 1

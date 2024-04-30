@@ -17,7 +17,11 @@ public partial class LevelControl : Node2D
 
     float _obstacleSpeed = 150f;
     public float ObstacleSpeed => _obstacleSpeed;
-    int _score = 0;
+
+    public int Score { get => _score; }
+
+
+    private int _score = 0;
     readonly Random _random = new();
     private SceneController _sceneController;
 
@@ -53,6 +57,7 @@ public partial class LevelControl : Node2D
     public void BeginSpawning()
     {
         GD.Print("Got to the LevelController");
+        _spawnTimer.Stop();
 
         _pipePool.ForceAllObjectsDespawn();
         _score = 0;
@@ -75,8 +80,7 @@ public partial class LevelControl : Node2D
 
     public void SpawningCompleted()
     {
-        _spawnTimer.WaitTime = 0.1f;
-        _spawnTimer.Start();
+        _spawnTimer.Start(0.1f);
 
         _playerObject.BeginLife();
     }

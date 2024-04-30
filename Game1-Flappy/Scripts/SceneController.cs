@@ -5,6 +5,8 @@ public partial class SceneController : Node2D
 {
     [Export] LevelControl _levelController;
     [Export] PopupMenuController _menuOverlay;
+    private SettingsManager _settingsBindings;
+
 
     public void TogglePause()
     {
@@ -15,6 +17,9 @@ public partial class SceneController : Node2D
 
         _menuOverlay.ActivatePaused();
         _menuOverlay.Visible = !currentState;
+
+        _settingsBindings = GetNode<SettingsManager>("/root/SettingsManager");
+
     }
 
     public void StartLife()
@@ -26,11 +31,17 @@ public partial class SceneController : Node2D
 
     internal void EndOfLife()
     {
+
+        if(_levelController.Score > _settingsBindings.HighScore)
+        {
+            _settingsBindings.HighScore = _levelController.Score;
+            _settingsBindings.SaveConfiguration();
+        }
         _menuOverlay.ActivateEndOfLife();
     }
 
     public void GoToMainMenu()
     {
-        GetTree().ChangeSceneToFile("res://GameScenes/BaseScene.tscn");
+        GetTree().ChangeSceneToFile("res://GameScenes/menuscene.tscn");
     }
 }

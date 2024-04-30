@@ -6,7 +6,7 @@ public partial class PopupMenuController : OverlayController
 
     [Export] Button _resumeButton;
 
-    [Export] CanvasLayer _optionsMenu;
+    [Export] OptionsController _optionsMenu;
 
 
     public void ActivatePaused()
@@ -30,10 +30,10 @@ public partial class PopupMenuController : OverlayController
         GetTree().ChangeSceneToFile("res://GameScenes/menuscene.tscn");
     }
 
-    public void OpenOptions(bool enabled)
+    public void OpenOptions()
     {
-        this.Visible = !enabled;
-        _optionsMenu.Visible = enabled;
+        this.Visible = false;
+        _optionsMenu.OpenOptions();
     }
 
 }
