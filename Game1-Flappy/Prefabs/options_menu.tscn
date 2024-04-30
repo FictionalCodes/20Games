@@ -129,7 +129,7 @@ button_pressed = true
 text = "Particles"
 flat = true
 
-[connection signal="pressed" from="Control/MarginContainer/Panel2/MarginContainer/MainMenu" to="." method="EnableWindow" binds= [false]]
+[connection signal="pressed" from="Control/MarginContainer/Panel2/MarginContainer/MainMenu" to="." method="CloseButtonPress"]
 [connection signal="drag_ended" from="Control/MarginContainer/Panel2/MarginContainer/VBoxContainer2/GridContainer/MusicSlider" to="." method="UpdateMusicVolume"]
 [connection signal="drag_ended" from="Control/MarginContainer/Panel2/MarginContainer/VBoxContainer2/GridContainer/FXSlider" to="." method="UpdateFxVolume"]
 [connection signal="toggled" from="Control/MarginContainer/Panel2/MarginContainer/VBoxContainer2/GridContainer2/LightingCheck" to="." method="LightingToggle"]

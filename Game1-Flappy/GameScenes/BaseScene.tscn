@@ -215,16 +215,13 @@ theme_override_constants/margin_top = 30
 theme_override_constants/margin_right = 30
 theme_override_constants/margin_bottom = 30
 
-[node name="Control" type="Label" parent="UIController/UIOverlay/MarginContainer"]
+[node name="Control" type="Control" parent="UIController/UIOverlay/MarginContainer"]
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="PauseButton" type="TouchScreenButton" parent="UIController/UIOverlay/MarginContainer/Control"]
-top_level = true
-position = Vector2(1471, 20)
 texture_normal = ExtResource("5_g150w")
 shape = SubResource("RectangleShape2D_vwkkj")
 script = ExtResource("6_hmt7n")
@@ -379,6 +376,7 @@ vertical_alignment = 1
 uppercase = true
 
 [node name="OptionsMenu" parent="." instance=ExtResource("17_dqjn3")]
+visible = false
 
 [connection signal="OnScoreUpdated" from="PlaySpace" to="UIController/UIOverlay" method="ScoreUpdated"]
 [connection signal="OnScoreUpdated" from="PlaySpace" to="UIController/Popup Menu" method="ScoreUpdated"]

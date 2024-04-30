@@ -124,4 +124,4 @@ visible = false
 
 [connection signal="pressed" from="MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/PlayButton" to="." method="ChangeToGameScene"]
 [connection signal="pressed" from="MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/Options" to="." method="ToggleMenu" binds= [true]]
-[connection signal="WindowClosed" from="MainMenu/OptionsMenu" to="." method="ToggleMenu" binds= [false]]
+[connection signal="WindowClosed" from="MainMenu/OptionsMenu" to="." method="ToggleMenu" flags=3 binds= [false]]

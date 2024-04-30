@@ -3,7 +3,7 @@ using Godot;
 public partial class MainMenuControl : Control
 {
     [Export] CanvasLayer mainMenuLayer;
-    [Export] CanvasLayer optionsMenuLayer;
+    [Export] OptionsController optionsMenuLayer;
     public void ChangeToGameScene()
     {
         GetTree().ChangeSceneToFile("res://GameScenes/BaseScene.tscn");
@@ -12,6 +12,13 @@ public partial class MainMenuControl : Control
     public void ToggleMenu(bool useOptions)
     {
         mainMenuLayer.Visible = !useOptions;
-        optionsMenuLayer.Visible = useOptions;
+        if(useOptions)
+        {
+            optionsMenuLayer.OpenOptions();
+        }
+        else
+        {
+            optionsMenuLayer.CloseOptions();
+        }
     }
 }

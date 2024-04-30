@@ -17,12 +17,15 @@ public partial class OptionsController : CanvasLayer
         base._Ready();
 
         _settingsBindings = GetNode<SettingsManager>("/root/SettingsManager");
+    }
+
+    public void OpenOptions()
+    {
         _musicVolumeControl.Value = _settingsBindings.MusicVolume;
         _fxVolumeControl.Value = _settingsBindings.FxVolume;
         _particlesOnOff.SetPressedNoSignal(_settingsBindings.ParticlesOn);
         _lightingOnOff.SetPressedNoSignal(_settingsBindings.LightingOn);
-
-
+        Visible = true;
     }
 
     public void UpdateMusicVolume(bool valueChanged)
@@ -36,10 +39,16 @@ public partial class OptionsController : CanvasLayer
 
     public void ParticlesToggled(bool checkedValue) => _settingsBindings.ParticlesOn = checkedValue;
     public void LightingToggle(bool checkedValue) => _settingsBindings.LightingOn = checkedValue;
-
-    public void EnableWindow(bool enabled)
+    public void CloseButtonPress()
     {
-        Visible = enabled;
+        CloseOptions();
         EmitSignal(SignalName.WindowClosed);
+    }
+
+    public void CloseOptions()
+    {
+        Visible = false;
+        _settingsBindings.SaveConfiguration();
+
     }
 }
