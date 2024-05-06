@@ -15,6 +15,8 @@ public partial class PipeControl : Node2D, IPooledNode
 
     public PointGotEventHandler PointGot { get; private set; }
 
+    [Export] private LightOccluder2D[] _shadowCasters{get;set;}
+
 
     private const int MinDistanceSeperation = 150;
     private const int MaxDistanceSeperation = 400;
@@ -28,7 +30,22 @@ public partial class PipeControl : Node2D, IPooledNode
         base._Process(delta);
         float fDelta = (float)delta;
         GlobalTranslate(Vector2.Left * ObstacleSpeed * fDelta);
+
+        var settingsBindings = GetNode<SettingsManager>("/root/SettingsManager");
+
+        settingsBindings.LightingOnChange += LightingOnOff;
+        LightingOnOff(settingsBindings.LightingOn);
+
 	}
+
+    private void LightingOnOff(bool enabled)
+    {
+        foreach(var caster in _shadowCasters)
+        {
+            caster.Visible = enabled;
+        }
+    }
+
 
     public void PipeHit(Node2D other)
     {

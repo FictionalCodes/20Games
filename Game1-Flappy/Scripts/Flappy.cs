@@ -44,7 +44,7 @@ public partial class Flappy : RigidBody2D
     {
         _pushParticles.Visible = enabled;
         _trailParticles.Visible = enabled;
-
+        
     }
 
 

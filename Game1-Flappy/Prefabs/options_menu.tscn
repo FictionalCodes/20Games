@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://ct4r4lewwadbl"]
+[gd_scene load_steps=7 format=3 uid="uid://ct4r4lewwadbl"]
 
 [ext_resource type="Script" path="res://Scripts/UIScripting/OptionsController.cs" id="1_hgdwq"]
 [ext_resource type="Theme" uid="uid://d5oxpjcvfwdf" path="res://UI Theme/GameTheme.tres" id="2_7ktpg"]
 [ext_resource type="Texture2D" uid="uid://cullflikl8nka" path="res://Images/Icons/door.png" id="3_e86cw"]
+[ext_resource type="Script" path="res://Scripts/UIScripting/VisibilityModifier.cs" id="4_vb6je"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8nmvg"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -20,14 +21,16 @@ corner_detail = 20
 shadow_size = 40
 anti_aliasing = false
 
+[sub_resource type="LabelSettings" id="LabelSettings_0cq0d"]
+
 [node name="OptionsMenu" type="CanvasLayer" node_paths=PackedStringArray("_musicVolumeControl", "_fxVolumeControl", "_particlesOnOff", "_lightingOnOff")]
 process_mode = 3
 layer = 15
 script = ExtResource("1_hgdwq")
-_musicVolumeControl = NodePath("Control/MarginContainer/Panel2/MarginContainer/VBoxContainer2/GridContainer/MusicSlider")
-_fxVolumeControl = NodePath("Control/MarginContainer/Panel2/MarginContainer/VBoxContainer2/GridContainer/FXSlider")
-_particlesOnOff = NodePath("Control/MarginContainer/Panel2/MarginContainer/VBoxContainer2/GridContainer2/ParticlesCheck")
-_lightingOnOff = NodePath("Control/MarginContainer/Panel2/MarginContainer/VBoxContainer2/GridContainer2/LightingCheck")
+_musicVolumeControl = NodePath("Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/OptionsTabs/Sound/Sound/MusicSlider")
+_fxVolumeControl = NodePath("Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/OptionsTabs/Sound/Sound/FXSlider")
+_particlesOnOff = NodePath("Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/OptionsTabs/Graphics/Graphics/ParticlesCheck")
+_lightingOnOff = NodePath("Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/OptionsTabs/Graphics/Graphics/LightingCheck")
 
 [node name="Control" type="AspectRatioContainer" parent="."]
 anchors_preset = 15
@@ -35,8 +38,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
 theme = ExtResource("2_7ktpg")
 
 [node name="MarginContainer" type="MarginContainer" parent="Control"]
@@ -45,54 +46,66 @@ theme = ExtResource("2_7ktpg")
 
 [node name="Panel2" type="Panel" parent="Control/MarginContainer"]
 layout_mode = 2
+size_flags_horizontal = 5
+size_flags_vertical = 5
 theme = ExtResource("2_7ktpg")
 theme_override_styles/panel = SubResource("StyleBoxFlat_8nmvg")
 
 [node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/Panel2"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
 anchor_bottom = 1.0
+offset_left = -345.0
+offset_right = 345.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 theme = ExtResource("2_7ktpg")
 theme_override_constants/margin_left = 100
 theme_override_constants/margin_top = 30
 theme_override_constants/margin_right = 100
 theme_override_constants/margin_bottom = 42
 
-[node name="TitleLabel" type="Label" parent="Control/MarginContainer/Panel2/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer/Panel2/MarginContainer"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="Control/MarginContainer/Panel2/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 theme = ExtResource("2_7ktpg")
 theme_override_font_sizes/font_size = 64
 text = "Options"
+label_settings = SubResource("LabelSettings_0cq0d")
 horizontal_alignment = 1
 vertical_alignment = 1
 uppercase = true
 
-[node name="MainMenu" type="Button" parent="Control/MarginContainer/Panel2/MarginContainer"]
+[node name="OptionsTabs" type="TabContainer" parent="Control/MarginContainer/Panel2/MarginContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 8
-theme = ExtResource("2_7ktpg")
-text = "Back"
-icon = ExtResource("3_e86cw")
+size_flags_vertical = 3
+tab_alignment = 1
+current_tab = 1
+all_tabs_in_front = true
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="Control/MarginContainer/Panel2/MarginContainer"]
+[node name="Sound" type="MarginContainer" parent="Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/OptionsTabs"]
+visible = false
 layout_mode = 2
+theme = ExtResource("2_7ktpg")
+
+[node name="Sound" type="GridContainer" parent="Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/OptionsTabs/Sound"]
+layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 4
-theme = ExtResource("2_7ktpg")
 
-[node name="GridContainer" type="GridContainer" parent="Control/MarginContainer/Panel2/MarginContainer/VBoxContainer2"]
-layout_mode = 2
-
-[node name="MusicLabel" type="Label" parent="Control/MarginContainer/Panel2/MarginContainer/VBoxContainer2/GridContainer"]
+[node name="MusicLabel" type="Label" parent="Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/OptionsTabs/Sound/Sound"]
 layout_mode = 2
 text = "Music"
 
-[node name="MusicSlider" type="HSlider" parent="Control/MarginContainer/Panel2/MarginContainer/VBoxContainer2/GridContainer"]
+[node name="MusicSlider" type="HSlider" parent="Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/OptionsTabs/Sound/Sound"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
@@ -100,11 +113,11 @@ theme = ExtResource("2_7ktpg")
 max_value = 50.0
 value = 25.0
 
-[node name="SoundFX" type="Label" parent="Control/MarginContainer/Panel2/MarginContainer/VBoxContainer2/GridContainer"]
+[node name="SoundFX" type="Label" parent="Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/OptionsTabs/Sound/Sound"]
 layout_mode = 2
 text = "FX"
 
-[node name="FXSlider" type="HSlider" parent="Control/MarginContainer/Panel2/MarginContainer/VBoxContainer2/GridContainer"]
+[node name="FXSlider" type="HSlider" parent="Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/OptionsTabs/Sound/Sound"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
@@ -112,25 +125,103 @@ theme = ExtResource("2_7ktpg")
 max_value = 50.0
 value = 25.0
 
-[node name="GridContainer2" type="GridContainer" parent="Control/MarginContainer/Panel2/MarginContainer/VBoxContainer2"]
+[node name="Graphics" type="CenterContainer" parent="Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/OptionsTabs"]
 layout_mode = 2
-columns = 2
 
-[node name="LightingCheck" type="CheckBox" parent="Control/MarginContainer/Panel2/MarginContainer/VBoxContainer2/GridContainer2"]
+[node name="Graphics" type="VBoxContainer" parent="Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/OptionsTabs/Graphics"]
 layout_mode = 2
+
+[node name="LightingCheck" type="CheckBox" parent="Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/OptionsTabs/Graphics/Graphics" node_paths=PackedStringArray("itemsToHide")]
+layout_mode = 2
+theme = ExtResource("2_7ktpg")
 button_pressed = true
-text = "Lighting"
+text = "Dynamic Lighting"
 flat = true
+script = ExtResource("4_vb6je")
+itemsToHide = [NodePath("../LightingOptions")]
 
-[node name="ParticlesCheck" type="CheckBox" parent="Control/MarginContainer/Panel2/MarginContainer/VBoxContainer2/GridContainer2"]
+[node name="LightingOptions" type="HBoxContainer" parent="Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/OptionsTabs/Graphics/Graphics"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/OptionsTabs/Graphics/Graphics/LightingOptions"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Shadow Quality"
+
+[node name="ShadowQuality" type="OptionButton" parent="Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/OptionsTabs/Graphics/Graphics/LightingOptions"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 3
+theme = ExtResource("2_7ktpg")
+item_count = 4
+selected = 2
+popup/item_0/text = "Off"
+popup/item_0/id = 0
+popup/item_0/separator = true
+popup/item_1/text = "Simple"
+popup/item_1/id = 1
+popup/item_2/text = "High"
+popup/item_2/id = 2
+popup/item_2/separator = true
+popup/item_3/text = "Ultra"
+popup/item_3/id = 3
+
+[node name="ParticlesCheck" type="CheckBox" parent="Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/OptionsTabs/Graphics/Graphics" node_paths=PackedStringArray("itemsToHide")]
 layout_mode = 2
 theme_override_constants/h_separation = 20
 button_pressed = true
 text = "Particles"
 flat = true
+script = ExtResource("4_vb6je")
+itemsToHide = [NodePath("../ParticleOptions")]
 
-[connection signal="pressed" from="Control/MarginContainer/Panel2/MarginContainer/MainMenu" to="." method="CloseButtonPress"]
-[connection signal="drag_ended" from="Control/MarginContainer/Panel2/MarginContainer/VBoxContainer2/GridContainer/MusicSlider" to="." method="UpdateMusicVolume"]
-[connection signal="drag_ended" from="Control/MarginContainer/Panel2/MarginContainer/VBoxContainer2/GridContainer/FXSlider" to="." method="UpdateFxVolume"]
-[connection signal="toggled" from="Control/MarginContainer/Panel2/MarginContainer/VBoxContainer2/GridContainer2/LightingCheck" to="." method="LightingToggle"]
-[connection signal="toggled" from="Control/MarginContainer/Panel2/MarginContainer/VBoxContainer2/GridContainer2/ParticlesCheck" to="." method="ParticlesToggled"]
+[node name="ParticleOptions" type="GridContainer" parent="Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/OptionsTabs/Graphics/Graphics"]
+layout_mode = 2
+size_flags_horizontal = 9
+size_flags_vertical = 3
+columns = 2
+
+[node name="Label" type="Label" parent="Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/OptionsTabs/Graphics/Graphics/ParticleOptions"]
+layout_mode = 2
+text = "Quantity"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="ShadowQuality" type="OptionButton" parent="Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/OptionsTabs/Graphics/Graphics/ParticleOptions"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 3
+theme = ExtResource("2_7ktpg")
+item_count = 2
+selected = 1
+popup/item_0/text = "Low"
+popup/item_0/id = 1
+popup/item_1/text = "High"
+popup/item_1/id = 2
+popup/item_1/separator = true
+
+[node name="CheckBox" type="CheckBox" parent="Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/OptionsTabs/Graphics/Graphics/ParticleOptions"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Trail"
+flat = true
+
+[node name="CheckBox2" type="CheckBox" parent="Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/OptionsTabs/Graphics/Graphics/ParticleOptions"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Bounce"
+flat = true
+
+[node name="MainMenu" type="Button" parent="Control/MarginContainer/Panel2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("2_7ktpg")
+text = "Back"
+icon = ExtResource("3_e86cw")
+
+[connection signal="drag_ended" from="Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/OptionsTabs/Sound/Sound/MusicSlider" to="." method="UpdateMusicVolume"]
+[connection signal="drag_ended" from="Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/OptionsTabs/Sound/Sound/FXSlider" to="." method="UpdateFxVolume"]
+[connection signal="toggled" from="Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/OptionsTabs/Graphics/Graphics/LightingCheck" to="." method="LightingToggle"]
+[connection signal="toggled" from="Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/OptionsTabs/Graphics/Graphics/ParticlesCheck" to="." method="ParticlesToggled"]
+[connection signal="pressed" from="Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/MainMenu" to="." method="CloseButtonPress"]

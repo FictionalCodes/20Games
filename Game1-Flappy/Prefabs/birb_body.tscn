@@ -73,17 +73,18 @@ explosiveness = 1.0
 randomness = 0.1
 
 [node name="ShadowLight" type="PointLight2D" parent="."]
+visible = false
 position = Vector2(75, -1)
 range_layer_min = -1
 range_layer_max = 10
 shadow_enabled = true
 shadow_color = Color(0, 0, 0, 1)
 shadow_filter = 1
-shadow_filter_smooth = 3.0
 texture = ExtResource("6_8q5ye")
 texture_scale = 5.0
 
 [node name="TextureLight" type="PointLight2D" parent="."]
+visible = false
 light_mask = 3
 position = Vector2(75, 3)
 range_layer_min = -1

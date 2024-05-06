@@ -13,11 +13,12 @@ polygon = PackedVector2Array(-2, -1, 122, -1, 122, 22.9997, 106, 22.9997, 106, 4
 a = Vector2(-18, -200)
 b = Vector2(-18, 200)
 
-[node name="PipeSet" type="Node2D" node_paths=PackedStringArray("_upperZone", "_lowerZone") groups=["obstacle"]]
+[node name="PipeSet" type="Node2D" node_paths=PackedStringArray("_upperZone", "_lowerZone", "_shadowCasters") groups=["obstacle"]]
 light_mask = 2
 script = ExtResource("1_jboxh")
 _upperZone = NodePath("Upper")
 _lowerZone = NodePath("Lower")
+_shadowCasters = []
 
 [node name="Upper" type="StaticBody2D" parent="."]
 rotation = -3.14159
@@ -89,6 +90,7 @@ shape = SubResource("RectangleShape2D_57vkq")
 light_mask = 2
 position = Vector2(-60, 6)
 occluder = SubResource("OccluderPolygon2D_qi67x")
+sdf_collision = false
 
 [node name="PointZone" type="Area2D" parent="."]
 position = Vector2(83, 0)
