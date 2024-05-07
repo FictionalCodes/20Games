@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Godot;
 
@@ -5,11 +6,46 @@ namespace Game1flappy.Scripts.Globals.ConfigurationObjects
 {
     public partial class ParticleSettings : SettingsBase
     {
-        public bool ParticlesEnabledGlobal {get;set;}
-        public bool TrailEnabled {get;set;}
-        public bool BounceEnabled {get;set;}
+        public bool ParticlesEnabledGlobal
+        {
+            get => _particlesEnabledGlobal;
+            set
+            {
+                _particlesEnabledGlobal = value;
+                UpdatedValueAction();
+            }
+        }
+        public bool TrailEnabled
+        {
+            get => _trailEnabled;
+            set
+            {
+                _trailEnabled = value;
+                UpdatedValueAction();
+            }
+        }
+        public bool BounceEnabled
+        {
+            get => _bounceEnabled; 
+            set
+            {
+                _bounceEnabled = value;
+                UpdatedValueAction();
+            }
+        }
 
-        public enum ParticleQuantity
+        public ParticleQuantity Quantity
+        {
+            get => _quantity; 
+            set
+            {
+                _quantity = value;
+                UpdatedValueAction();
+            }
+        }
+
+
+        public enum ParticleQuantity : ushort
         {
             Low = 1,
             High
@@ -20,8 +56,31 @@ namespace Game1flappy.Scripts.Globals.ConfigurationObjects
             {ParticleQuantity.Low, 15},
             {ParticleQuantity.High, 30}
         };
+        private bool _bounceEnabled;
+        private bool _trailEnabled;
+        private bool _particlesEnabledGlobal;
+        private ParticleQuantity _quantity;
+
+        public ParticleSettings() : base("Particles")
+        {
+        }
 
         public int GetParticleQuanityValue(ParticleQuantity quantity) => ParticleQuantityMapping.TryGetValue(quantity, out int result) ? result : 0;
-        
+
+        public override void LoadFromConfig(ConfigFile config)
+        {
+            ParticlesEnabledGlobal = config.GetValue(ConfigSectionName, "GlobalEnable", true).AsBool();
+            TrailEnabled = config.GetValue(ConfigSectionName, "TrailEnable", true).AsBool();
+            BounceEnabled = config.GetValue(ConfigSectionName, "BounceEnable", true).AsBool();
+            Quantity = (ParticleQuantity)config.GetValue(ConfigSectionName, "ParticleQuantity", 2).AsUInt16();
+        }
+
+        public override void SaveToConfig(ConfigFile config)
+        {
+            config.SetValue(ConfigSectionName, "GlobalEnable", ParticlesEnabledGlobal);
+            config.SetValue(ConfigSectionName, "TrailEnable", TrailEnabled);
+            config.SetValue(ConfigSectionName, "BounceEnable", BounceEnabled);
+            config.SetValue(ConfigSectionName, "ParticleQuantity", (ushort)Quantity);
+        }
     }
 }

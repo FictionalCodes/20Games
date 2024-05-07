@@ -1,9 +1,12 @@
+using System;
+using Game1flappy.Scripts.Globals.ConfigurationObjects;
 using Godot;
 
 public partial class SceneController : Node2D
 {
     [Export] LevelControl _levelController;
     [Export] PopupMenuController _menuOverlay;
+    [Export] CanvasModulate _lightingFilter;
     private SettingsManager _settingsBindings;
 
 
@@ -19,7 +22,15 @@ public partial class SceneController : Node2D
 
         _settingsBindings = GetNode<SettingsManager>("/root/SettingsManager");
 
+        _settingsBindings.LightingOnChange += OnLightingChange;
+
     }
+
+    private void OnLightingChange(LightingSettings settings)
+    {
+        _lightingFilter.Visible = !settings.DynamicLightingEnabled;
+    }
+
 
     public void StartLife()
     {

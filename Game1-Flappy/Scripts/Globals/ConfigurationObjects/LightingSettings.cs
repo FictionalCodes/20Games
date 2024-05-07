@@ -4,12 +4,22 @@ using Godot;
 namespace Game1flappy.Scripts.Globals.ConfigurationObjects
 {
 
-    public partial class LightingSettings : Godot.RefCounted
+    public partial class LightingSettings : SettingsBase
     {
-        
-        public bool DynamicLightingEnabled { get; set; }
-        public ShadowQuality ShadowQualityValue { get; set; }
-        public enum ShadowQuality 
+
+        public bool DynamicLightingEnabled { get => dynamicLightingEnabled; set
+            {
+                dynamicLightingEnabled = value;
+                UpdatedValueAction();
+            }
+        }
+        public ShadowQuality ShadowQualityValue { get => _shadowQualityValue; set
+            {
+                _shadowQualityValue = value;
+                UpdatedValueAction();
+            }
+        }
+        public enum ShadowQuality:ushort
         {
             Off = 0,
             Simple,
@@ -23,10 +33,26 @@ namespace Game1flappy.Scripts.Globals.ConfigurationObjects
             {ShadowQuality.High, Light2D.ShadowFilterEnum.Pcf5},
             {ShadowQuality.Ultra, Light2D.ShadowFilterEnum.Pcf13},
         };
+        private bool dynamicLightingEnabled;
+        private ShadowQuality _shadowQualityValue;
+
+        public LightingSettings() : base("LightingSettings")
+        {
+        }
 
         public Light2D.ShadowFilterEnum? GetMappedValue(ShadowQuality quality) =>
             ShadowValueMapping.TryGetValue(quality, out var result) ? result : null;
-            
-        
+
+        public override void LoadFromConfig(ConfigFile config)
+        {
+            DynamicLightingEnabled = config.GetValue(ConfigSectionName, "DynamicOn", true).AsBool();
+            ShadowQualityValue = (ShadowQuality)config.GetValue(ConfigSectionName, "ShadowQuality", 2).AsUInt16();
+        }
+
+        public override void SaveToConfig(ConfigFile config)
+        {
+            config.SetValue(ConfigSectionName, "ShadowQuality", (ushort)ShadowQualityValue);
+            config.SetValue(ConfigSectionName, "DynamicOn", DynamicLightingEnabled);
+        }
     }
 }

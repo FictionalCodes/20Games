@@ -1,4 +1,5 @@
 using System;
+using Game1flappy.Scripts.Globals.ConfigurationObjects;
 using Godot;
 
 public partial class Flappy : RigidBody2D
@@ -9,6 +10,7 @@ public partial class Flappy : RigidBody2D
     [Export] private GpuParticles2D _trailParticles;
     [Export] private GpuParticles2D _pushParticles;
     [Export] private Light2D _shadowEmitter;
+    [Export] private Light2D _textureLight;
 
     private bool _flapPending;
     private bool _canPushParticles = true;
@@ -27,24 +29,36 @@ public partial class Flappy : RigidBody2D
 
         var settingsBindings = GetNode<SettingsManager>("/root/SettingsManager");
 
-        settingsBindings.ParticlesOnChange += ParticlesOnOff;
-        settingsBindings.LightingOnChange += LightingOnOff;
-        LightingOnOff(settingsBindings.LightingOn);
-        ParticlesOnOff(settingsBindings.ParticlesOn);
+        settingsBindings.ParticlesOnChange += ParticlesSettingsChanged;
+        settingsBindings.LightingOnChange += LightingSettingsChanged;
+        ParticlesSettingsChanged(settingsBindings.ParticleSettings);
+        LightingSettingsChanged(settingsBindings.LightingSettings);
+    }
+
+    private void LightingSettingsChanged(LightingSettings settings)
+    {
+        _shadowEmitter.Enabled = settings.DynamicLightingEnabled;
+        _textureLight.Enabled = settings.DynamicLightingEnabled;
+        if(settings.DynamicLightingEnabled)
+        {
+            var quality = settings.GetMappedValue(settings.ShadowQualityValue);
+            _shadowEmitter.ShadowEnabled = quality.HasValue;
+            if (quality.HasValue)
+            {
+                _shadowEmitter.ShadowFilter = quality.Value;
+            }
+        }
 
     }
 
-    private void LightingOnOff(bool enabled)
+    private void ParticlesSettingsChanged(ParticleSettings settings)
     {
-        _shadowEmitter.ShadowEnabled = enabled;
-    }
+        _pushParticles.Visible = settings.ParticlesEnabledGlobal && settings.BounceEnabled;
+        _trailParticles.Visible = settings.ParticlesEnabledGlobal && settings.TrailEnabled;
 
-
-    private void ParticlesOnOff(bool enabled)
-    {
-        _pushParticles.Visible = enabled;
-        _trailParticles.Visible = enabled;
-        
+        var particleNumber = settings.GetParticleQuanityValue(settings.Quantity);
+        _pushParticles.Amount = particleNumber/2;
+        _trailParticles.Amount = particleNumber;
     }
 
 

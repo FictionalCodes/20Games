@@ -1,3 +1,4 @@
+using Game1flappy.Scripts.Globals.ConfigurationObjects;
 using Game1flappy.Scripts.Utils;
 using Godot;
 using System;
@@ -34,15 +35,15 @@ public partial class PipeControl : Node2D, IPooledNode
         var settingsBindings = GetNode<SettingsManager>("/root/SettingsManager");
 
         settingsBindings.LightingOnChange += LightingOnOff;
-        LightingOnOff(settingsBindings.LightingOn);
+        LightingOnOff(settingsBindings.LightingSettings);
 
 	}
 
-    private void LightingOnOff(bool enabled)
+    private void LightingOnOff(LightingSettings settings)
     {
         foreach(var caster in _shadowCasters)
         {
-            caster.Visible = enabled;
+            caster.Visible = settings.ShadowQualityValue != LightingSettings.ShadowQuality.Off;
         }
     }
 

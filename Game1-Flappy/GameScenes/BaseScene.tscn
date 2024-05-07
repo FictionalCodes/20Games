@@ -137,7 +137,6 @@ autoplay = true
 bus = &"Music"
 
 [node name="CanvasModulate2" type="CanvasModulate" parent="."]
-visible = false
 color = Color(0.243137, 0.243137, 0.243137, 1)
 
 [node name="PlaySpace" type="Node2D" parent="." node_paths=PackedStringArray("_spawnTimer", "background", "_obstacleSpawnPoint", "_playerSpawnPoint", "_playerObject", "_animatorPlayer")]

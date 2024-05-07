@@ -169,13 +169,13 @@ popup/item_3/id = 3
 [node name="ParticlesCheck" type="CheckBox" parent="Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/OptionsTabs/Graphics/Graphics" node_paths=PackedStringArray("itemsToHide")]
 layout_mode = 2
 theme_override_constants/h_separation = 20
-button_pressed = true
 text = "Particles"
 flat = true
 script = ExtResource("4_vb6je")
 itemsToHide = [NodePath("../ParticleOptions")]
 
 [node name="ParticleOptions" type="GridContainer" parent="Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/OptionsTabs/Graphics/Graphics"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 9
 size_flags_vertical = 3
@@ -220,8 +220,6 @@ theme = ExtResource("2_7ktpg")
 text = "Back"
 icon = ExtResource("3_e86cw")
 
-[connection signal="drag_ended" from="Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/OptionsTabs/Sound/Sound/MusicSlider" to="." method="UpdateMusicVolume"]
-[connection signal="drag_ended" from="Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/OptionsTabs/Sound/Sound/FXSlider" to="." method="UpdateFxVolume"]
 [connection signal="toggled" from="Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/OptionsTabs/Graphics/Graphics/LightingCheck" to="." method="LightingToggle"]
 [connection signal="toggled" from="Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/OptionsTabs/Graphics/Graphics/ParticlesCheck" to="." method="ParticlesToggled"]
 [connection signal="pressed" from="Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/MainMenu" to="." method="CloseButtonPress"]
