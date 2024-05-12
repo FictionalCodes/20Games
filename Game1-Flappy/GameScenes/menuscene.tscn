@@ -26,13 +26,14 @@ corner_detail = 20
 shadow_size = 40
 anti_aliasing = false
 
-[node name="MainMenuRoot" type="Control" node_paths=PackedStringArray("mainMenuLayer", "optionsMenuLayer", "_highscoreLabel")]
+[node name="MainMenuRoot" type="Control" node_paths=PackedStringArray("mainMenuLayer", "optionsMenuLayer", "_highscoreLabel", "_menuEffectPlayer")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_gi647")
 mainMenuLayer = NodePath("MainMenu")
 optionsMenuLayer = NodePath("MainMenu/OptionsMenu")
 _highscoreLabel = NodePath("MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer2/HBoxContainer/Highscore")
+_menuEffectPlayer = NodePath("MenuEffectPlayer")
 
 [node name="ParallaxBackground" parent="." instance=ExtResource("3_b87tl")]
 script = ExtResource("4_rgeyn")
