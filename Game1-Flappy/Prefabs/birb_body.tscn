@@ -112,4 +112,5 @@ texture_scale = 7.0
 
 [node name="StarBounceEffectPlayer" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamRandomizer_fxpdk")
+volume_db = -10.0
 bus = &"SoundEffect"

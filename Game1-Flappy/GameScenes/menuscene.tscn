@@ -149,3 +149,4 @@ bus = &"SoundEffect"
 [connection signal="pressed" from="MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/Options" to="." method="ToggleMenu" binds= [true]]
 [connection signal="WindowClosed" from="MainMenu/OptionsMenu" to="." method="ToggleMenu" binds= [false]]
 [connection signal="finished" from="MusicPlayer" to="MusicPlayer" method="play" flags=3 binds= [0.0]]
+[connection signal="ready" from="MusicPlayer" to="MusicPlayer" method="play" flags=3 binds= [0.0]]
