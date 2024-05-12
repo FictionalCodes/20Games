@@ -1,5 +1,5 @@
+using Game1flappy.Scripts.Globals.ConfigurationObjects;
 using Godot;
-using System;
 
 public partial class AudioManager : Node
 {
@@ -15,23 +15,39 @@ public partial class AudioManager : Node
         _fxBusIndex = AudioServer.GetBusIndex("SoundEffect");
 
         var settingsBindings = GetNode<SettingsManager>("/root/SettingsManager");
-        settingsBindings.MusicVolumeChange += UpdateMusicVolume;
-        settingsBindings.FxVolumeChange += UpdateFXVolume;
+        settingsBindings.SoundOnChange += UpdateVolumes;
+        UpdateVolumes(settingsBindings.SoundSettings);
     }
 
-    public override void _ExitTree()
+    private void UpdateVolumes(SoundSettings settings)
     {
-        base._ExitTree();
 
-        var settingsBindings = GetNode<SettingsManager>("/root/SettingsManager");
-        settingsBindings.MusicVolumeChange -= UpdateMusicVolume;
-        settingsBindings.FxVolumeChange -= UpdateFXVolume;
+
+        UpdateMusicVolume(settings.MusicVolume);
+        UpdateFXVolume(settings.FXVolume);
+    }
+
+    //-50-0 as reference range 
+    public void UpdateMusicVolume(float amout) => UpdateAudioBusVolume(_musicBusIndex, amout);
+    public void UpdateFXVolume(float amout) => UpdateAudioBusVolume(_fxBusIndex, amout);
+
+    private void UpdateAudioBusVolume(int busIndex, float amout)
+    {
+        if (Mathf.IsZeroApprox(amout))
+        {
+            GD.Print("Setting Audio Mute");
+            AudioServer.SetBusMute(busIndex, true);
+        }
+        else
+        {
+            var calcedLogValue = Mathf.Log(amout/50) * 20;
+            GD.Print($"Updating Volume {amout} = {calcedLogValue}db");
+            AudioServer.SetBusMute(busIndex, false);
+            AudioServer.SetBusVolumeDb(busIndex, calcedLogValue);
+        }
     }
 
 
-    public void UpdateMusicVolume(float amout) =>
-        AudioServer.SetBusVolumeDb(_musicBusIndex, -50.0f + amout);
-    public void UpdateFXVolume(float amout) =>
-        AudioServer.SetBusVolumeDb(_fxBusIndex, -50.0f + amout);
+
 
 }

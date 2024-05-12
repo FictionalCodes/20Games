@@ -29,7 +29,6 @@ namespace Game1flappy.Scripts.Utils
         public NodePool(PackedScene item, string groupName = "") : base()
         {
             this.groupName = groupName;
-            GD.Print("Creating Pool Item");
             ItemToPool = item;
             _itemPool = new List<T>(StarterCount);
             InitialisePool(StarterCount);
@@ -44,9 +43,7 @@ namespace Game1flappy.Scripts.Utils
 
             while (_itemPool.Count < toNumber)
             {
-                GD.Print($"Creating Pooled Item {ItemToPool.ResourceName}");
                 var newItem = ItemToPool.Instantiate<T>();
-                GD.Print($"Created Pooled Item {newItem.Name}");
                 _itemPool.Add(newItem);
             }
         }

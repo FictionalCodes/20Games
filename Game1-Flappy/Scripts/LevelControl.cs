@@ -117,8 +117,6 @@ public partial class LevelControl : Node2D
 
         AddChild(pipe);
 
-        GD.Print($"Spawning Pipe - {pipe.Name}");
-
         pipe.Setup(_obstacleSpawnPoint.GlobalPosition, _obstacleSpeed);
         pipe.BindEvents(OnObstacleCollision, OnPointArea);
         pipe.RandomiseObstacle(_random, _score);

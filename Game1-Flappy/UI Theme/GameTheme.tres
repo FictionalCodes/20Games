@@ -1,11 +1,16 @@
-[gd_resource type="Theme" load_steps=7 format=3 uid="uid://d5oxpjcvfwdf"]
+[gd_resource type="Theme" load_steps=11 format=3 uid="uid://d5oxpjcvfwdf"]
 
 [ext_resource type="StyleBox" uid="uid://ctufytdi8le6n" path="res://UI Theme/PanelStyle.tres" id="1_1olwt"]
 [ext_resource type="StyleBox" uid="uid://dqxb5fxggw6uh" path="res://UI Theme/OnHoverPressed.tres" id="1_q8t4p"]
 [ext_resource type="StyleBox" uid="uid://bbf0efeybfsyv" path="res://UI Theme/ButtonPanel.tres" id="1_qul5x"]
 [ext_resource type="FontFile" uid="uid://bpeda2b6xod5r" path="res://UI Theme/fonts/OpenDyslexicMono-Regular.otf" id="2_gir7y"]
+[ext_resource type="Texture2D" uid="uid://djm8gcnxkdht6" path="res://Images/star-particle.png" id="3_8dat1"]
 [ext_resource type="StyleBox" uid="uid://u2w34xtc4lmj" path="res://UI Theme/SliderLineSelected.tres" id="3_xx21d"]
 [ext_resource type="StyleBox" uid="uid://cr50ivc22v2af" path="res://UI Theme/SliderLineBackground.tres" id="4_b32sr"]
+[ext_resource type="Texture2D" uid="uid://c1hnirfn7dis7" path="res://Images/starcheck.png" id="5_wwdhg"]
+[ext_resource type="Texture2D" uid="uid://bjewqjdb3237m" path="res://Images/starcheck-empty.png" id="6_tbl46"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nyard"]
 
 [resource]
 default_font = ExtResource("2_gir7y")
@@ -16,11 +21,23 @@ Button/font_sizes/font_size = 48
 Button/styles/focus = ExtResource("1_q8t4p")
 Button/styles/hover = ExtResource("1_q8t4p")
 Button/styles/normal = ExtResource("1_qul5x")
+HSlider/constants/center_grabber = 1
+HSlider/icons/grabber = ExtResource("3_8dat1")
+HSlider/icons/grabber_highlight = ExtResource("3_8dat1")
 HSlider/styles/grabber_area = ExtResource("3_xx21d")
+HSlider/styles/grabber_area_highlight = ExtResource("3_xx21d")
 HSlider/styles/slider = ExtResource("4_b32sr")
 MarginContainer/constants/margin_bottom = 20
 MarginContainer/constants/margin_left = 20
 MarginContainer/constants/margin_right = 20
 MarginContainer/constants/margin_top = 20
+OptionButton/font_sizes/font_size = 24
+OptionsButton/base_type = &"CheckBox"
+OptionsButton/font_sizes/font_size = 24
+OptionsButton/icons/checked = ExtResource("5_wwdhg")
+OptionsButton/icons/unchecked = ExtResource("6_tbl46")
+OptionsButton/styles/focus = SubResource("StyleBoxEmpty_nyard")
+OptionsLabel/base_type = &"Label"
+OptionsLabel/font_sizes/font_size = 24
 Panel/styles/panel = ExtResource("1_1olwt")
 VBoxContainer/constants/separation = 20

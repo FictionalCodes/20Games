@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cuuy6520d4dum"
+path="res://.godot/imported/Twinkles in C - 12.wav-be740f74dbf408acff1f18a66fd32e3d.sample"
+
+[deps]
+
+source_file="res://Audio/Twinkles in C - 12.wav"
+dest_files=["res://.godot/imported/Twinkles in C - 12.wav-be740f74dbf408acff1f18a66fd32e3d.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

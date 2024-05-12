@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://b1tggnw7qj6gf"
+path="res://.godot/imported/starcheck.aseprite-2430b3401de59c2d1f7f0f5fce370e78.res"
+
+[deps]
+
+source_file="res://Images/starcheck.aseprite"
+dest_files=["res://.godot/imported/starcheck.aseprite-2430b3401de59c2d1f7f0f5fce370e78.res"]
+
+[params]
+

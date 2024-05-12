@@ -1,4 +1,5 @@
 using System;
+using Game1flappy.Scripts.Globals.ConfigurationObjects;
 using Godot;
 
 public partial class Flappy : RigidBody2D
@@ -9,6 +10,9 @@ public partial class Flappy : RigidBody2D
     [Export] private GpuParticles2D _trailParticles;
     [Export] private GpuParticles2D _pushParticles;
     [Export] private Light2D _shadowEmitter;
+    [Export] private Light2D _textureLight;
+
+    [Export] private AudioStreamPlayer _effectPlayer;
 
     private bool _flapPending;
     private bool _canPushParticles = true;
@@ -27,29 +31,47 @@ public partial class Flappy : RigidBody2D
 
         var settingsBindings = GetNode<SettingsManager>("/root/SettingsManager");
 
-        settingsBindings.ParticlesOnChange += ParticlesOnOff;
-        settingsBindings.LightingOnChange += LightingOnOff;
-        LightingOnOff(settingsBindings.LightingOn);
-        ParticlesOnOff(settingsBindings.ParticlesOn);
+        settingsBindings.ParticlesOnChange += ParticlesSettingsChanged;
+        settingsBindings.LightingOnChange += LightingSettingsChanged;
+        ParticlesSettingsChanged(settingsBindings.ParticleSettings);
+        LightingSettingsChanged(settingsBindings.LightingSettings);
+    }
+
+    private void LightingSettingsChanged(LightingSettings settings)
+    {
+        GD.Print("Updating Star Lighting Settings");
+        _shadowEmitter.Enabled = settings.DynamicLightingEnabled;
+        _textureLight.Enabled = settings.DynamicLightingEnabled;
+        if(settings.DynamicLightingEnabled)
+        {
+            var quality = settings.GetMappedValue(settings.ShadowQualityValue);
+            _shadowEmitter.ShadowEnabled = quality.HasValue;
+            if (quality.HasValue)
+            {
+                _shadowEmitter.ShadowFilter = quality.Value;
+            }
+        }
 
     }
 
-    private void LightingOnOff(bool enabled)
+    private void ParticlesSettingsChanged(ParticleSettings settings)
     {
-        _shadowEmitter.ShadowEnabled = enabled;
-    }
+        GD.Print("Updating Star Particle Settings");
 
+        _pushParticles.Visible = settings.ParticlesEnabledGlobal && settings.BounceEnabled;
+        _trailParticles.Visible = settings.ParticlesEnabledGlobal && settings.TrailEnabled;
 
-    private void ParticlesOnOff(bool enabled)
-    {
-        _pushParticles.Visible = enabled;
-        _trailParticles.Visible = enabled;
-
+        var particleNumber = settings.GetParticleQuanityValue(settings.Quantity);
+        GD.Print($"ParticleQuantity Value {settings.Quantity} = {particleNumber}");
+        _pushParticles.Amount = particleNumber/2;
+        _trailParticles.Amount = particleNumber;
     }
 
 
     public void SpawnSetup(Vector2 startPosition)
     {
+        //LightingSettingsChanged()
+
         GD.Print("Re-setting Star");
         ProcessMode = ProcessModeEnum.Disabled;
 
@@ -58,6 +80,8 @@ public partial class Flappy : RigidBody2D
         this.GlobalPosition = startPosition;
         _trailParticles.Restart();
         _trailParticles.Emitting = true;
+
+        
 
     }
 
@@ -98,10 +122,7 @@ public partial class Flappy : RigidBody2D
         {
             if(touch.Pressed && !GetViewport().IsInputHandled())
             {
-                GD.Print("FlapCheck");
-
                 _flapPending = true;
-                //GetViewport().SetInputAsHandled();
             }
         }
 
@@ -117,5 +138,7 @@ public partial class Flappy : RigidBody2D
             _pushParticles.Emitting = true;
             _canPushParticles = false;
         }
+
+        _effectPlayer.Play();
     }
 }
