@@ -10,7 +10,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_y6qqa"]
 radius = 30.0666
 
-[node name="BirbBody" type="RigidBody2D" node_paths=PackedStringArray("_trailParticles", "_pushParticles", "_shadowEmitter")]
+[node name="BirbBody" type="RigidBody2D" node_paths=PackedStringArray("_trailParticles", "_pushParticles", "_shadowEmitter", "_textureLight")]
 position = Vector2(150, 335)
 collision_mask = 6
 mass = 0.6
@@ -23,6 +23,7 @@ _pushSpeed = 250.0
 _trailParticles = NodePath("TrailParticles")
 _pushParticles = NodePath("BounceParticles")
 _shadowEmitter = NodePath("ShadowLight")
+_textureLight = NodePath("TextureLight")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -73,7 +74,6 @@ explosiveness = 1.0
 randomness = 0.1
 
 [node name="ShadowLight" type="PointLight2D" parent="."]
-visible = false
 position = Vector2(75, -1)
 range_layer_min = -1
 range_layer_max = 10
@@ -84,7 +84,6 @@ texture = ExtResource("6_8q5ye")
 texture_scale = 5.0
 
 [node name="TextureLight" type="PointLight2D" parent="."]
-visible = false
 light_mask = 3
 position = Vector2(75, 3)
 range_layer_min = -1

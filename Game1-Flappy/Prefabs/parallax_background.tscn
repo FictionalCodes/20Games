@@ -101,5 +101,4 @@ texture = ExtResource("8_auc4x")
 centered = false
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-visible = false
 color = Color(0.560955, 0.560955, 0.560955, 1)

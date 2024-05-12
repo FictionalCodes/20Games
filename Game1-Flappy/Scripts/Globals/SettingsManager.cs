@@ -1,6 +1,4 @@
-using System;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
+
 using Game1flappy.Scripts.Globals.ConfigurationObjects;
 using Godot;
 
@@ -22,9 +20,9 @@ public partial class SettingsManager : Node
     [Signal] public delegate void ParticlesOnChangeEventHandler(ParticleSettings settings);
     [Signal] public delegate void SoundOnChangeEventHandler(SoundSettings settings);
 
-    public void NotifyLightingChanged() => EmitSignal(SignalName.LightingOnChange);
-    public void NotifyParticlesChanged() => EmitSignal(SignalName.ParticlesOnChange);
-    public void NotifySoundChanged() => EmitSignal(SignalName.SoundOnChange);
+    public void NotifyLightingChanged() => EmitSignal(SignalName.LightingOnChange, LightingSettings);
+    public void NotifyParticlesChanged() => EmitSignal(SignalName.ParticlesOnChange, ParticleSettings);
+    public void NotifySoundChanged() => EmitSignal(SignalName.SoundOnChange, SoundSettings);
 
     private const string ConfigurationSection = "Settings";
     private const string ScoresSection = "Scores";

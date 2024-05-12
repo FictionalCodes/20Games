@@ -26,13 +26,15 @@ namespace Game1flappy.Scripts.Globals.ConfigurationObjects
 
         public override void LoadFromConfig(ConfigFile config)
         {
-            MusicVolume = (float)config.GetValue(ConfigSectionName, "MusicVolume", 25).AsDouble();
-            MusicVolume = (float)config.GetValue(ConfigSectionName, "MusicVolume", 25).AsDouble();
+            _musicVolume = (float)config.GetValue(ConfigSectionName, "MusicVolume", 25).AsDouble();
+            _fXVolume = (float)config.GetValue(ConfigSectionName, "FXVolume", 25).AsDouble();
         }
 
         public override void SaveToConfig(ConfigFile config)
         {
-            throw new System.NotImplementedException();
+            
+            config.SetValue(ConfigSectionName, "MusicVolume", MusicVolume);
+            config.SetValue(ConfigSectionName, "FXVolume", FXVolume);
         }
     }
 }

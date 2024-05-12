@@ -9,6 +9,13 @@ public partial class SceneController : Node2D
     [Export] CanvasModulate _lightingFilter;
     private SettingsManager _settingsBindings;
 
+    public override void _Ready()
+    {
+        _settingsBindings = GetNode<SettingsManager>("/root/SettingsManager");
+
+        _settingsBindings.LightingOnChange += OnLightingChange;
+        OnLightingChange(_settingsBindings.LightingSettings);
+    }
 
     public void TogglePause()
     {
@@ -20,15 +27,14 @@ public partial class SceneController : Node2D
         _menuOverlay.ActivatePaused();
         _menuOverlay.Visible = !currentState;
 
-        _settingsBindings = GetNode<SettingsManager>("/root/SettingsManager");
-
-        _settingsBindings.LightingOnChange += OnLightingChange;
-
     }
 
     private void OnLightingChange(LightingSettings settings)
     {
-        _lightingFilter.Visible = !settings.DynamicLightingEnabled;
+        //GD.Print($"Lighting Enabled = {settings.DynamicLightingEnabled}");
+        _lightingFilter.Visible = settings.DynamicLightingEnabled;
+        //GD.Print($"_lightingFilter Visible = {_lightingFilter.Visible}");
+
     }
 
 

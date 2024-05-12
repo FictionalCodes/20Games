@@ -44,10 +44,9 @@ namespace Game1flappy.Scripts.Globals.ConfigurationObjects
             }
         }
 
-
         public enum ParticleQuantity : ushort
         {
-            Low = 1,
+            Low,
             High
         }
 
@@ -65,7 +64,7 @@ namespace Game1flappy.Scripts.Globals.ConfigurationObjects
         {
         }
 
-        public int GetParticleQuanityValue(ParticleQuantity quantity) => ParticleQuantityMapping.TryGetValue(quantity, out int result) ? result : 0;
+        public int GetParticleQuanityValue(ParticleQuantity quantity) => ParticleQuantityMapping.TryGetValue(quantity, out int result) ? result : 2;
 
         public override void LoadFromConfig(ConfigFile config)
         {
@@ -73,6 +72,7 @@ namespace Game1flappy.Scripts.Globals.ConfigurationObjects
             TrailEnabled = config.GetValue(ConfigSectionName, "TrailEnable", true).AsBool();
             BounceEnabled = config.GetValue(ConfigSectionName, "BounceEnable", true).AsBool();
             Quantity = (ParticleQuantity)config.GetValue(ConfigSectionName, "ParticleQuantity", 2).AsUInt16();
+            GD.Print($"Loaded ParticleQuantity = {Quantity}");
         }
 
         public override void SaveToConfig(ConfigFile config)

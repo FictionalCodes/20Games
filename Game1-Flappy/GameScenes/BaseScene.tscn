@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://das2u2sjwldou"]
+[gd_scene load_steps=25 format=3 uid="uid://das2u2sjwldou"]
 
 [ext_resource type="Script" path="res://Scripts/SceneController.cs" id="1_1j4li"]
 [ext_resource type="Script" path="res://Scripts/LevelControl.cs" id="1_nxgu1"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://dt4nmxdy741je" path="res://Prefabs/parallax_background.tscn" id="7_fc7rj"]
 [ext_resource type="Script" path="res://Scripts/UIScripting/UIControllercs.cs" id="7_l1iqc"]
 [ext_resource type="Theme" uid="uid://d5oxpjcvfwdf" path="res://UI Theme/GameTheme.tres" id="8_d5sjb"]
+[ext_resource type="Script" path="res://Scripts/GameBackground.cs" id="8_ppljh"]
 [ext_resource type="AudioStream" uid="uid://b8fnta4vr2dtb" path="res://Audio/Piano Instrumental 3.mp3" id="8_qcexd"]
 [ext_resource type="Script" path="res://Scripts/UIScripting/OverlayController.cs" id="9_n12a4"]
 [ext_resource type="Texture2D" uid="uid://cq8pyjubxau68" path="res://Images/starbaby.png" id="11_jp70j"]
@@ -125,11 +126,12 @@ corner_detail = 20
 shadow_size = 40
 anti_aliasing = false
 
-[node name="LevelRoot" type="Node2D" node_paths=PackedStringArray("_levelController", "_menuOverlay")]
+[node name="LevelRoot" type="Node2D" node_paths=PackedStringArray("_levelController", "_menuOverlay", "_lightingFilter")]
 process_mode = 3
 script = ExtResource("1_1j4li")
 _levelController = NodePath("PlaySpace")
 _menuOverlay = NodePath("UIController/Popup Menu")
+_lightingFilter = NodePath("CanvasModulate2")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_qcexd")
@@ -185,6 +187,7 @@ region_enabled = true
 region_rect = Rect2(0, 0, 1600, 70)
 
 [node name="ParallaxBackground" parent="PlaySpace" instance=ExtResource("7_fc7rj")]
+script = ExtResource("8_ppljh")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="PlaySpace"]
 libraries = {
@@ -255,10 +258,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -93.5
-offset_top = -224.0
-offset_right = 93.5
-offset_bottom = 224.0
+offset_left = -288.0
+offset_top = -219.0
+offset_right = -101.0
+offset_bottom = 229.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
