@@ -32,7 +32,6 @@ namespace Game1flappy.Scripts.Globals.ConfigurationObjects
 
         public override void SaveToConfig(ConfigFile config)
         {
-            
             config.SetValue(ConfigSectionName, "MusicVolume", MusicVolume);
             config.SetValue(ConfigSectionName, "FXVolume", FXVolume);
         }

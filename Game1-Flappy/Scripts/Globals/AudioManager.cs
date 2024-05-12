@@ -16,38 +16,38 @@ public partial class AudioManager : Node
 
         var settingsBindings = GetNode<SettingsManager>("/root/SettingsManager");
         settingsBindings.SoundOnChange += UpdateVolumes;
+        UpdateVolumes(settingsBindings.SoundSettings);
     }
 
     private void UpdateVolumes(SoundSettings settings)
     {
+
+
         UpdateMusicVolume(settings.MusicVolume);
         UpdateFXVolume(settings.FXVolume);
     }
 
     //-50-0 as reference range 
-    public void UpdateMusicVolume(float amout)
-    {
-        UpdateAudioBusVolume(_musicBusIndex, amout);
-    }
+    public void UpdateMusicVolume(float amout) => UpdateAudioBusVolume(_musicBusIndex, amout);
+    public void UpdateFXVolume(float amout) => UpdateAudioBusVolume(_fxBusIndex, amout);
 
     private void UpdateAudioBusVolume(int busIndex, float amout)
     {
         if (Mathf.IsZeroApprox(amout))
         {
+            GD.Print("Setting Audio Mute");
             AudioServer.SetBusMute(busIndex, true);
         }
         else
         {
+            var calcedLogValue = Mathf.Log(amout/50) * 20;
+            GD.Print($"Updating Volume {amout} = {calcedLogValue}db");
             AudioServer.SetBusMute(busIndex, false);
-            AudioServer.SetBusVolumeDb(busIndex, Mathf.Log(-50.0f + amout) * 20);
+            AudioServer.SetBusVolumeDb(busIndex, calcedLogValue);
         }
     }
 
 
-    public void UpdateFXVolume(float amout)
-    {
-        UpdateAudioBusVolume(_fxBusIndex, amout);
-    }
 
 
 }
