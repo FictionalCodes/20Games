@@ -33,8 +33,8 @@ namespace Game1flappy.Scripts.Globals.ConfigurationObjects
             {ShadowQuality.High, Light2D.ShadowFilterEnum.Pcf5},
             {ShadowQuality.Ultra, Light2D.ShadowFilterEnum.Pcf13},
         };
-        private bool dynamicLightingEnabled;
-        private ShadowQuality _shadowQualityValue;
+        private bool dynamicLightingEnabled = true;
+        private ShadowQuality _shadowQualityValue = ShadowQuality.High;
 
         public LightingSettings() : base("LightingSettings")
         {

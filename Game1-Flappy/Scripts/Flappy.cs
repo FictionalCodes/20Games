@@ -12,6 +12,8 @@ public partial class Flappy : RigidBody2D
     [Export] private Light2D _shadowEmitter;
     [Export] private Light2D _textureLight;
 
+    [Export] private AudioStreamPlayer _effectPlayer;
+
     private bool _flapPending;
     private bool _canPushParticles = true;
     private ShaderMaterial _trailMaterial;
@@ -136,5 +138,7 @@ public partial class Flappy : RigidBody2D
             _pushParticles.Emitting = true;
             _canPushParticles = false;
         }
+
+        _effectPlayer.Play();
     }
 }

@@ -6,8 +6,8 @@ namespace Game1flappy.Scripts.Globals.ConfigurationObjects
 {
     public partial class SoundSettings : SettingsBase
     {
-        private float _musicVolume;
-        private float _fXVolume;
+        private float _musicVolume = 25;
+        private float _fXVolume = 25;
 
         public SoundSettings() :base("SoundSettings") {}
 

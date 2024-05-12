@@ -55,10 +55,10 @@ namespace Game1flappy.Scripts.Globals.ConfigurationObjects
             {ParticleQuantity.Low, 15},
             {ParticleQuantity.High, 30}
         };
-        private bool _bounceEnabled;
-        private bool _trailEnabled;
-        private bool _particlesEnabledGlobal;
-        private ParticleQuantity _quantity;
+        private bool _bounceEnabled = true;
+        private bool _trailEnabled = true;
+        private bool _particlesEnabledGlobal = true;
+        private ParticleQuantity _quantity = ParticleQuantity.High;
 
         public ParticleSettings() : base("Particles")
         {

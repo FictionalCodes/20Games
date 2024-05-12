@@ -8,7 +8,6 @@
 [ext_resource type="Texture2D" uid="uid://duhvrjv61cvbq" path="res://Images/grassHalfMid.png" id="6_ejdft"]
 [ext_resource type="Script" path="res://Scripts/Utils/TouchButtonExtension.cs" id="6_hmt7n"]
 [ext_resource type="PackedScene" uid="uid://dt4nmxdy741je" path="res://Prefabs/parallax_background.tscn" id="7_fc7rj"]
-[ext_resource type="Script" path="res://Scripts/UIScripting/UIControllercs.cs" id="7_l1iqc"]
 [ext_resource type="Theme" uid="uid://d5oxpjcvfwdf" path="res://UI Theme/GameTheme.tres" id="8_d5sjb"]
 [ext_resource type="Script" path="res://Scripts/GameBackground.cs" id="8_ppljh"]
 [ext_resource type="AudioStream" uid="uid://b8fnta4vr2dtb" path="res://Audio/Piano Instrumental 3.mp3" id="8_qcexd"]
@@ -18,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://c5rebfjby7e0v" path="res://Images/Icons/gear.png" id="12_ld44t"]
 [ext_resource type="Texture2D" uid="uid://cullflikl8nka" path="res://Images/Icons/door.png" id="14_bfitp"]
 [ext_resource type="PackedScene" uid="uid://ct4r4lewwadbl" path="res://Prefabs/options_menu.tscn" id="17_dqjn3"]
+[ext_resource type="AudioStream" uid="uid://brvbdcb3mxj3m" path="res://UI Theme/MenuFX.tres" id="19_6oyi0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tidqh"]
 size = Vector2(691, 20)
@@ -126,12 +126,13 @@ corner_detail = 20
 shadow_size = 40
 anti_aliasing = false
 
-[node name="LevelRoot" type="Node2D" node_paths=PackedStringArray("_levelController", "_menuOverlay", "_lightingFilter")]
+[node name="LevelRoot" type="Node2D" node_paths=PackedStringArray("_levelController", "_menuOverlay", "_lightingFilter", "_menuEffectPlayer")]
 process_mode = 3
 script = ExtResource("1_1j4li")
 _levelController = NodePath("PlaySpace")
 _menuOverlay = NodePath("UIController/Popup Menu")
 _lightingFilter = NodePath("CanvasModulate2")
+_menuEffectPlayer = NodePath("MenuEffectPlayer")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_qcexd")
@@ -194,10 +195,8 @@ libraries = {
 "": SubResource("AnimationLibrary_46h6r")
 }
 
-[node name="UIController" type="Node" parent="." node_paths=PackedStringArray("_uiOverlay")]
+[node name="UIController" type="Node" parent="."]
 process_mode = 3
-script = ExtResource("7_l1iqc")
-_uiOverlay = NodePath("UIOverlay")
 
 [node name="UIOverlay" type="CanvasLayer" parent="UIController" node_paths=PackedStringArray("_scoreText")]
 process_mode = 1
@@ -383,6 +382,12 @@ uppercase = true
 [node name="OptionsMenu" parent="." instance=ExtResource("17_dqjn3")]
 visible = false
 
+[node name="MenuEffectPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("19_6oyi0")
+max_polyphony = 3
+bus = &"SoundEffect"
+
+[connection signal="finished" from="AudioStreamPlayer" to="AudioStreamPlayer" method="play" flags=3 binds= [0.0]]
 [connection signal="OnScoreUpdated" from="PlaySpace" to="UIController/UIOverlay" method="ScoreUpdated"]
 [connection signal="OnScoreUpdated" from="PlaySpace" to="UIController/Popup Menu" method="ScoreUpdated"]
 [connection signal="body_entered" from="PlaySpace/BirbBody" to="PlaySpace" method="OnObstacleCollisionDirect"]

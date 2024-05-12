@@ -8,6 +8,8 @@ public partial class SceneController : Node2D
     [Export] PopupMenuController _menuOverlay;
     [Export] CanvasModulate _lightingFilter;
     private SettingsManager _settingsBindings;
+    [Export] private AudioStreamPlayer _menuEffectPlayer;
+
 
     public override void _Ready()
     {
@@ -15,6 +17,21 @@ public partial class SceneController : Node2D
 
         _settingsBindings.LightingOnChange += OnLightingChange;
         OnLightingChange(_settingsBindings.LightingSettings);
+
+        var allChildren = FindChildren("*", "Control");
+
+        foreach (var control in allChildren)
+        {
+            if (control is BaseButton button)
+            {
+                button.ButtonDown += () => _menuEffectPlayer.Play();
+            }
+            else if (control is Slider slider)
+            {
+                slider.ValueChanged += (_) => _menuEffectPlayer.Play();
+            }
+        }
+
     }
 
     public void TogglePause()

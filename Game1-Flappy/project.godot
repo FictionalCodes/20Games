@@ -18,8 +18,8 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-AudioManager="res://Scripts/Globals/AudioManager.cs"
-SettingsManager="res://Scripts/Globals/SettingsManager.cs"
+SettingsManager="*res://Scripts/Globals/SettingsManager.cs"
+AudioManager="*res://Scripts/Globals/AudioManager.cs"
 
 [display]
 
@@ -34,7 +34,7 @@ project/assembly_name="Game 1-flappy"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg")
+enabled=PackedStringArray()
 
 [input]
 
