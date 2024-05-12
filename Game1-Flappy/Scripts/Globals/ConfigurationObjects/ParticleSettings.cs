@@ -72,7 +72,6 @@ namespace Game1flappy.Scripts.Globals.ConfigurationObjects
             TrailEnabled = config.GetValue(ConfigSectionName, "TrailEnable", true).AsBool();
             BounceEnabled = config.GetValue(ConfigSectionName, "BounceEnable", true).AsBool();
             Quantity = (ParticleQuantity)config.GetValue(ConfigSectionName, "ParticleQuantity", 2).AsUInt16();
-            GD.Print($"Loaded ParticleQuantity = {Quantity}");
         }
 
         public override void SaveToConfig(ConfigFile config)

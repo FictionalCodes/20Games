@@ -21,8 +21,6 @@ public partial class SettingsBinder : Node
     public override void _Ready()
     {
         _settingsBindings = GetNode<SettingsManager>("/root/SettingsManager");
-        GD.Print($"Settings Binder Ready");
-
         base._Ready();
     }
 
@@ -46,30 +44,14 @@ public partial class SettingsBinder : Node
     public void SetFXVolumeNumber(float number) =>
         _settingsBindings.SoundSettings.FXVolume = number;
     public void SetParticlesOn(bool onOff){
-        GD.Print($"Setting All Particles On {onOff}");
         _settingsBindings.ParticleSettings.ParticlesEnabledGlobal = onOff;
     }
 
-    public void SetTrailParticles(bool onOff)
-    {
-        GD.Print($"Binder =Setting Trail Particles On {onOff}");
-        _settingsBindings.ParticleSettings.TrailEnabled = onOff;
+    public void SetTrailParticles(bool onOff) => _settingsBindings.ParticleSettings.TrailEnabled = onOff;
+    public void SetBounceParticles(bool onOff) => _settingsBindings.ParticleSettings.BounceEnabled = onOff;
+    public void SetParticleQuantity(int particleSelection) => _settingsBindings.ParticleSettings.Quantity = (ParticleSettings.ParticleQuantity)(ushort)particleSelection;
 
-
-    }
-    public void SetBounceParticles(bool onOff) =>
-        _settingsBindings.ParticleSettings.BounceEnabled = onOff;
-    public void SetParticleQuantity(int particleSelection)
-    {
-        GD.Print($"Settiing Particle Quantity to value {particleSelection}");
-        _settingsBindings.ParticleSettings.Quantity = (ParticleSettings.ParticleQuantity)(ushort)particleSelection;
-
-        GD.Print($"Result = {_settingsBindings.ParticleSettings.Quantity}");
-
-    }
-
-    public void SetLightingEnabled(bool onOff) =>
-        _settingsBindings.LightingSettings.DynamicLightingEnabled = onOff;
+    public void SetLightingEnabled(bool onOff) => _settingsBindings.LightingSettings.DynamicLightingEnabled = onOff;
     public void SetLightingQuantity(int lightingSelection) =>
         _settingsBindings.LightingSettings.ShadowQualityValue = (LightingSettings.ShadowQuality) lightingSelection;
 

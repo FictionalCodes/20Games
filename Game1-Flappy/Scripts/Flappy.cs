@@ -39,7 +39,6 @@ public partial class Flappy : RigidBody2D
 
     private void LightingSettingsChanged(LightingSettings settings)
     {
-        GD.Print("Updating Star Lighting Settings");
         _shadowEmitter.Enabled = settings.DynamicLightingEnabled;
         _textureLight.Enabled = settings.DynamicLightingEnabled;
         if(settings.DynamicLightingEnabled)
@@ -56,13 +55,10 @@ public partial class Flappy : RigidBody2D
 
     private void ParticlesSettingsChanged(ParticleSettings settings)
     {
-        GD.Print("Updating Star Particle Settings");
-
         _pushParticles.Visible = settings.ParticlesEnabledGlobal && settings.BounceEnabled;
         _trailParticles.Visible = settings.ParticlesEnabledGlobal && settings.TrailEnabled;
 
         var particleNumber = settings.GetParticleQuanityValue(settings.Quantity);
-        GD.Print($"ParticleQuantity Value {settings.Quantity} = {particleNumber}");
         _pushParticles.Amount = particleNumber/2;
         _trailParticles.Amount = particleNumber;
     }
@@ -71,8 +67,6 @@ public partial class Flappy : RigidBody2D
     public void SpawnSetup(Vector2 startPosition)
     {
         //LightingSettingsChanged()
-
-        GD.Print("Re-setting Star");
         ProcessMode = ProcessModeEnum.Disabled;
 
         Visible = true;
@@ -87,7 +81,6 @@ public partial class Flappy : RigidBody2D
 
     public void BeginLife()
     {
-        GD.Print("Activating Star");
         ProcessMode = ProcessModeEnum.Pausable;
     }
 

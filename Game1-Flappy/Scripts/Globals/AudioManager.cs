@@ -35,13 +35,11 @@ public partial class AudioManager : Node
     {
         if (Mathf.IsZeroApprox(amout))
         {
-            GD.Print("Setting Audio Mute");
             AudioServer.SetBusMute(busIndex, true);
         }
         else
         {
             var calcedLogValue = Mathf.Log(amout/50) * 20;
-            GD.Print($"Updating Volume {amout} = {calcedLogValue}db");
             AudioServer.SetBusMute(busIndex, false);
             AudioServer.SetBusVolumeDb(busIndex, calcedLogValue);
         }

@@ -48,16 +48,13 @@ public partial class SceneController : Node2D
 
     private void OnLightingChange(LightingSettings settings)
     {
-        //GD.Print($"Lighting Enabled = {settings.DynamicLightingEnabled}");
         _lightingFilter.Visible = settings.DynamicLightingEnabled;
-        //GD.Print($"_lightingFilter Visible = {_lightingFilter.Visible}");
 
     }
 
 
     public void StartLife()
     {
-        GD.Print("Got to the SceneController");
         _levelController.BeginSpawning();
         _menuOverlay.Visible = false;
     }

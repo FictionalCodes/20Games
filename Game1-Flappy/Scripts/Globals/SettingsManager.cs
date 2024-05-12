@@ -38,7 +38,6 @@ public partial class SettingsManager : Node
         SoundSettings.UpdatedValueAction = NotifySoundChanged;
 
         // Load data from a file.
-        GD.Print("loading config file");
         Error err = _config.Load(ConfigFilePath);
 
 

@@ -29,8 +29,6 @@ public partial class VisibilityModifier : CheckBox
     {
         //if(!Engine.IsEditorHint())
         //{
-            GD.Print($"Toggling Button");
-
             foreach (var item in itemsToHide)
             {
                 switch (modifierMode)
@@ -58,13 +56,9 @@ public partial class VisibilityModifier : CheckBox
 
     public override bool _Set(StringName property, Variant value)
     {
-        GD.Print($"Property Name = {property}");
-
         if (property == PropertyName.ButtonPressed)
         {
             var visibilityValue = value.AsBool();
-            GD.Print($"button_pressed = {visibilityValue}");
-
             foreach (var item in itemsToHide)
             {
                 switch (modifierMode)
