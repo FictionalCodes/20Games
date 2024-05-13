@@ -5,11 +5,8 @@ public partial class AudioManager : Node
 {
     private int _musicBusIndex;
     private int _fxBusIndex;
-
-
-    public override void _Ready()
+    public void Initialise()
     {
-        base._Ready();
 
         _musicBusIndex = AudioServer.GetBusIndex("Music");
         _fxBusIndex = AudioServer.GetBusIndex("SoundEffect");
@@ -18,6 +15,7 @@ public partial class AudioManager : Node
         settingsBindings.SoundOnChange += UpdateVolumes;
         UpdateVolumes(settingsBindings.SoundSettings);
     }
+
 
     private void UpdateVolumes(SoundSettings settings)
     {

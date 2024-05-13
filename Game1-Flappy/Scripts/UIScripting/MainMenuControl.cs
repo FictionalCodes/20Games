@@ -18,7 +18,10 @@ public partial class MainMenuControl : Control
     public override void _Ready()
     {
         _settingsBindings = GetNode<SettingsManager>("/root/SettingsManager");
+        var audioManager = GetNode<AudioManager>("/root/AudioManager");
         _highscoreLabel.Text = _settingsBindings.HighScore.ToString("00000");
+
+        audioManager.Initialise();
 
        var allChildren = FindChildren("*", "Control");
 
