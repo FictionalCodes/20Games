@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dk5o5yn2jig03"]
+[gd_scene load_steps=15 format=3 uid="uid://dk5o5yn2jig03"]
 
 [ext_resource type="Script" path="res://Scripts/UIScripting/MainMenuControl.cs" id="1_gi647"]
 [ext_resource type="Theme" uid="uid://d5oxpjcvfwdf" path="res://UI Theme/GameTheme.tres" id="1_t8f4y"]
@@ -7,8 +7,12 @@
 [ext_resource type="Script" path="res://Scripts/MenuBackground.cs" id="4_rgeyn"]
 [ext_resource type="Texture2D" uid="uid://c5rebfjby7e0v" path="res://Images/Icons/gear.png" id="4_wajtr"]
 [ext_resource type="PackedScene" uid="uid://ct4r4lewwadbl" path="res://Prefabs/options_menu.tscn" id="7_0827e"]
+[ext_resource type="Texture2D" uid="uid://cbndn6gi2110q" path="res://Images/Icons/home.png" id="7_w1rgr"]
 [ext_resource type="AudioStream" uid="uid://dackkuv6j7tjr" path="res://Audio/Piano 4.wav" id="8_4ppj0"]
+[ext_resource type="Texture2D" uid="uid://cullflikl8nka" path="res://Images/Icons/door.png" id="8_med7f"]
+[ext_resource type="FontVariation" uid="uid://dj6tqpjbwr6hn" path="res://UI Theme/fonts/MonoBold.tres" id="8_pi1jc"]
 [ext_resource type="AudioStream" uid="uid://brvbdcb3mxj3m" path="res://UI Theme/MenuFX.tres" id="9_sv203"]
+[ext_resource type="Texture2D" uid="uid://pxpu785xhvel" path="res://Images/Icons/information.png" id="10_loj0y"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8nmvg"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -79,7 +83,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
 theme = ExtResource("1_t8f4y")
-theme_override_constants/separation = 100
+theme_override_constants/separation = 20
 alignment = 2
 
 [node name="PlayButton" type="Button" parent="MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer"]
@@ -95,6 +99,11 @@ theme = ExtResource("1_t8f4y")
 text = "Options
 "
 icon = ExtResource("4_wajtr")
+
+[node name="Button" type="Button" parent="MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Quit"
+icon = ExtResource("7_w1rgr")
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="MainMenu/Control/MarginContainer/Panel2/MarginContainer"]
 layout_mode = 2
@@ -132,8 +141,97 @@ horizontal_alignment = 1
 vertical_alignment = 1
 uppercase = true
 
+[node name="CreditsPanel" type="Panel" parent="MainMenu/Control/MarginContainer"]
+visible = false
+layout_mode = 2
+theme = ExtResource("1_t8f4y")
+
+[node name="MarginContainer" type="MarginContainer" parent="MainMenu/Control/MarginContainer/CreditsPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_t8f4y")
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenu/Control/MarginContainer/CreditsPanel/MarginContainer"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MainMenu/Control/MarginContainer/CreditsPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("1_t8f4y")
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 0)
+theme_override_constants/outline_size = 0
+theme_override_fonts/bold_font = ExtResource("8_pi1jc")
+theme_override_font_sizes/normal_font_size = 18
+theme_override_font_sizes/bold_font_size = 24
+theme_override_font_sizes/mono_font_size = 18
+bbcode_enabled = true
+text = "Programming and Additional Art by Lucy \"Fictional\" Daniels
+Created as part of the [url=https://20_games_challenge.gitlab.io/]20 Games Challenge![/url]
+
+Created using the Godot Game Engine
+
+With Thanks to my Friends!
+The Star Baby Himself - Made by Justin from [url=https://shoutingcrow.press/]Shouting Crow Press[/url]
+Star Twinkle Sounds - Made by Hex from Cursed Audio - [url=https://github.com/Cursed-Audio]GitHub[/url]
+
+3rd Party Assets
+
+[b]Background Music [/b]
+Alkakrab on [url=https://alkakrab.itch.io/piano-instrumental]Itch.Io[/url]
+- Piano Ambient Music Pack Vol. 2
+- Piano Instrumental Music Loops
+
+[b]Scrolling Background[/b]
+[url=https://craftpix.net/product/sky-2d-game-backgrounds]Sky 2d Game Background[/url] by Craftpix
+[url]https://craftpix.net[/url] 
+
+[b]UI Icons[/b]
+[url=https://kenney.nl/assets/game-icons]Game Icons Pack[url] by Kenney
+[url]https://kenney.nl/[url]
+
+[b]Font[/b]
+Open Dyslexic Mono
+[url]https://opendyslexic.org/[/url]"
+scroll_following = true
+threaded = true
+
+[node name="Button" type="Button" parent="MainMenu/Control/MarginContainer/CreditsPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "Back"
+icon = ExtResource("8_med7f")
+
 [node name="OptionsMenu" parent="MainMenu" instance=ExtResource("7_0827e")]
 visible = false
+
+[node name="Button" type="Button" parent="MainMenu"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -171.0
+offset_top = -122.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme = ExtResource("1_t8f4y")
+theme_type_variation = &"FlatButton"
+text = "Credits"
+icon = ExtResource("10_loj0y")
+flat = true
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_4ppj0")
@@ -147,6 +245,9 @@ bus = &"SoundEffect"
 
 [connection signal="pressed" from="MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/PlayButton" to="." method="ChangeToGameScene" flags=3]
 [connection signal="pressed" from="MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/Options" to="." method="ToggleMenu" binds= [true]]
+[connection signal="button_up" from="MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/Button" to="." method="QuitGame" flags=3]
+[connection signal="pressed" from="MainMenu/Control/MarginContainer/CreditsPanel/MarginContainer/VBoxContainer/Button" to="MainMenu/Control/MarginContainer/CreditsPanel" method="hide"]
 [connection signal="WindowClosed" from="MainMenu/OptionsMenu" to="." method="ToggleMenu" binds= [false]]
+[connection signal="pressed" from="MainMenu/Button" to="MainMenu/Control/MarginContainer/CreditsPanel" method="show" flags=3]
 [connection signal="finished" from="MusicPlayer" to="MusicPlayer" method="play" flags=3 binds= [0.0]]
 [connection signal="ready" from="MusicPlayer" to="MusicPlayer" method="play" flags=3 binds= [0.0]]

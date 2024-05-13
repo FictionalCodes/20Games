@@ -1,0 +1,7 @@
+[gd_resource type="FontVariation" load_steps=2 format=3 uid="uid://dj6tqpjbwr6hn"]
+
+[ext_resource type="FontFile" uid="uid://bpeda2b6xod5r" path="res://UI Theme/fonts/OpenDyslexicMono-Regular.otf" id="1_iidpg"]
+
+[resource]
+base_font = ExtResource("1_iidpg")
+variation_embolden = 1.0

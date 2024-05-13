@@ -49,4 +49,9 @@ public partial class MainMenuControl : Control
             optionsMenuLayer.CloseOptions();
         }
     }
+
+    public void QuitGame()
+    {
+        GetTree().Quit();
+    }
 }
