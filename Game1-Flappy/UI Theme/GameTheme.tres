@@ -3,17 +3,17 @@
 [ext_resource type="StyleBox" uid="uid://ctufytdi8le6n" path="res://UI Theme/PanelStyle.tres" id="1_1olwt"]
 [ext_resource type="StyleBox" uid="uid://dqxb5fxggw6uh" path="res://UI Theme/OnHoverPressed.tres" id="1_q8t4p"]
 [ext_resource type="StyleBox" uid="uid://bbf0efeybfsyv" path="res://UI Theme/ButtonPanel.tres" id="1_qul5x"]
-[ext_resource type="FontFile" uid="uid://bpeda2b6xod5r" path="res://UI Theme/fonts/OpenDyslexicMono-Regular.otf" id="2_gir7y"]
 [ext_resource type="Texture2D" uid="uid://djm8gcnxkdht6" path="res://Images/star-particle.png" id="3_8dat1"]
 [ext_resource type="StyleBox" uid="uid://u2w34xtc4lmj" path="res://UI Theme/SliderLineSelected.tres" id="3_xx21d"]
 [ext_resource type="StyleBox" uid="uid://cr50ivc22v2af" path="res://UI Theme/SliderLineBackground.tres" id="4_b32sr"]
 [ext_resource type="Texture2D" uid="uid://c1hnirfn7dis7" path="res://Images/starcheck.png" id="5_wwdhg"]
 [ext_resource type="Texture2D" uid="uid://bjewqjdb3237m" path="res://Images/starcheck-empty.png" id="6_tbl46"]
+[ext_resource type="FontFile" uid="uid://bdqrcnmy7ud7h" path="res://UI Theme/fonts/OpenDyslexic-Regular.otf" id="9_73coh"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nyard"]
 
 [resource]
-default_font = ExtResource("2_gir7y")
+default_font = ExtResource("9_73coh")
 default_font_size = 32
 Button/colors/font_outline_color = Color(0, 0, 0, 1)
 Button/constants/outline_size = 4

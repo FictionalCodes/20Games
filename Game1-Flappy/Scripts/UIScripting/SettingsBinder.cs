@@ -26,12 +26,12 @@ public partial class SettingsBinder : Node
 
     public void SetupValues()
     {
-        _particlesOnOff.SetPressedNoSignal(_settingsBindings.ParticleSettings.ParticlesEnabledGlobal);
+        _particlesOnOff.ButtonPressed = _settingsBindings.ParticleSettings.ParticlesEnabledGlobal;
         _trailPartlesCheck.SetPressedNoSignal(_settingsBindings.ParticleSettings.TrailEnabled);
         _bouncePartlesCheck.SetPressedNoSignal(_settingsBindings.ParticleSettings.BounceEnabled);
         _particleQuantityDropdown.Select((int)_settingsBindings.ParticleSettings.Quantity);
 
-        _lightingOnOff.SetPressedNoSignal(_settingsBindings.LightingSettings.DynamicLightingEnabled);
+        _lightingOnOff.ButtonPressed  = _settingsBindings.LightingSettings.DynamicLightingEnabled;
         _shadowQualityDropdown.Select((int)_settingsBindings.LightingSettings.ShadowQualityValue);
 
         _musicVolumeSlider.SetValueNoSignal(_settingsBindings.SoundSettings.MusicVolume);

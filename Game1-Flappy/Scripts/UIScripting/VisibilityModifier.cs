@@ -15,13 +15,11 @@ public partial class VisibilityModifier : CheckBox
     public override void _Ready()
     {
         base._Ready();
-        this.Toggled += OnToggled;
     }
 
     public override void _ExitTree()
     {
         base._ExitTree();
-        this.Toggled -= OnToggled;
 
     }
 

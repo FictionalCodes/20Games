@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dk5o5yn2jig03"]
+[gd_scene load_steps=16 format=3 uid="uid://dk5o5yn2jig03"]
 
 [ext_resource type="Script" path="res://Scripts/UIScripting/MainMenuControl.cs" id="1_gi647"]
 [ext_resource type="Theme" uid="uid://d5oxpjcvfwdf" path="res://UI Theme/GameTheme.tres" id="1_t8f4y"]
@@ -29,6 +29,8 @@ corner_radius_bottom_left = 30
 corner_detail = 20
 shadow_size = 40
 anti_aliasing = false
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wpar5"]
 
 [node name="MainMenuRoot" type="Control" node_paths=PackedStringArray("mainMenuLayer", "optionsMenuLayer", "_highscoreLabel", "_menuEffectPlayer")]
 layout_mode = 3
@@ -198,7 +200,13 @@ Alkakrab on [url=https://alkakrab.itch.io/piano-instrumental]Itch.Io[/url]
 
 [b]Font[/b]
 Open Dyslexic Mono
-[url]https://opendyslexic.org/[/url]"
+[url]https://opendyslexic.org/[/url]
+
+
+Godot Engine Logo
+Copyright (c) 2017 Andrea Calabró
+This work is licensed under the Creative Commons Attribution 4.0 International
+license (CC BY 4.0 International): [url]https://creativecommons.org/licenses/by/4.0/[url]"
 scroll_following = true
 threaded = true
 
@@ -226,6 +234,7 @@ size_flags_horizontal = 8
 size_flags_vertical = 8
 theme = ExtResource("1_t8f4y")
 theme_type_variation = &"FlatButton"
+theme_override_styles/focus = SubResource("StyleBoxEmpty_wpar5")
 text = "Credits"
 icon = ExtResource("10_loj0y")
 flat = true

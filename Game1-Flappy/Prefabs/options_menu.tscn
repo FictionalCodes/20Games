@@ -136,7 +136,7 @@ text = "Dynamic Lighting"
 flat = true
 script = ExtResource("4_vb6je")
 modifierMode = 1
-itemsToHide = []
+itemsToHide = [NodePath("../LightingOptions")]
 
 [node name="LightingOptions" type="GridContainer" parent="Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/OptionsTabs/Graphics/Graphics"]
 layout_mode = 2
@@ -176,7 +176,7 @@ text = "Particles"
 flat = true
 script = ExtResource("4_vb6je")
 modifierMode = 1
-itemsToHide = []
+itemsToHide = [NodePath("../ParticleOptions")]
 
 [node name="ParticleOptions" type="GridContainer" parent="Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/OptionsTabs/Graphics/Graphics"]
 layout_mode = 2
@@ -241,8 +241,10 @@ _FXVolumeSlider = NodePath("../Control/MarginContainer/Panel2/MarginContainer/VB
 
 [connection signal="value_changed" from="Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/OptionsTabs/Sound/Sound/MusicSlider" to="Binder" method="SetMusicVolumeNumber"]
 [connection signal="value_changed" from="Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/OptionsTabs/Sound/Sound/FXSlider" to="Binder" method="SetFXVolumeNumber"]
+[connection signal="toggled" from="Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/OptionsTabs/Graphics/Graphics/LightingCheck" to="Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/OptionsTabs/Graphics/Graphics/LightingCheck" method="OnToggled" flags=3]
 [connection signal="toggled" from="Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/OptionsTabs/Graphics/Graphics/LightingCheck" to="Binder" method="SetLightingEnabled" flags=3]
 [connection signal="item_selected" from="Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/OptionsTabs/Graphics/Graphics/LightingOptions/ShadowQuality" to="Binder" method="SetLightingQuantity" flags=3]
+[connection signal="toggled" from="Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/OptionsTabs/Graphics/Graphics/ParticlesCheck" to="Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/OptionsTabs/Graphics/Graphics/ParticlesCheck" method="OnToggled"]
 [connection signal="toggled" from="Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/OptionsTabs/Graphics/Graphics/ParticlesCheck" to="Binder" method="SetParticlesOn" flags=3]
 [connection signal="item_selected" from="Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/OptionsTabs/Graphics/Graphics/ParticleOptions/ParticlesQuantity" to="Binder" method="SetParticleQuantity" flags=3]
 [connection signal="toggled" from="Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/OptionsTabs/Graphics/Graphics/ParticleOptions/CheckBox" to="Binder" method="SetTrailParticles" flags=3]
