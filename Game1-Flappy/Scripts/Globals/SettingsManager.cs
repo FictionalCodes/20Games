@@ -1,31 +1,28 @@
-using System;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
+
+using Game1flappy.Scripts.Globals.ConfigurationObjects;
 using Godot;
 
 
 public partial class SettingsManager : Node
 {
-    private float _musicVolumeNumber = 25;
-    private float _fxVolumeNumber = 25;
-    private bool _particlesOn = true;
-    private bool _lightingOn = true;
+
     private ConfigFile _config;
     private int _highScore;
 
-    public float MusicVolume { get => _musicVolumeNumber; set {_musicVolumeNumber = value; EmitSignal("MusicVolumeChange", _musicVolumeNumber);}}
-    public float FxVolume { get => _fxVolumeNumber; set {_fxVolumeNumber = value; EmitSignal("FxVolumeChange", _fxVolumeNumber); }}
-    public bool ParticlesOn { get => _particlesOn; set { _particlesOn = value; EmitSignal("ParticlesOnChange", _particlesOn); } }
-    public bool LightingOn { get => _lightingOn; set { _lightingOn = value; EmitSignal("LightingOnChange", _lightingOn); } }
+    public LightingSettings LightingSettings { get; } = new LightingSettings();
+    public ParticleSettings ParticleSettings { get; } = new ParticleSettings();
+    public SoundSettings SoundSettings { get; } = new SoundSettings();
+
 
     public int HighScore { get => _highScore; set => _highScore = value; }
 
+    [Signal] public delegate void LightingOnChangeEventHandler(LightingSettings settings);
+    [Signal] public delegate void ParticlesOnChangeEventHandler(ParticleSettings settings);
+    [Signal] public delegate void SoundOnChangeEventHandler(SoundSettings settings);
 
-    [Signal] public delegate void MusicVolumeChangeEventHandler(float volume);
-    [Signal] public delegate void FxVolumeChangeEventHandler(float volume);
-    [Signal] public delegate void ParticlesOnChangeEventHandler(bool enabled);
-    [Signal] public delegate void LightingOnChangeEventHandler(bool enabled);
-
+    public void NotifyLightingChanged() => EmitSignal(SignalName.LightingOnChange, LightingSettings);
+    public void NotifyParticlesChanged() => EmitSignal(SignalName.ParticlesOnChange, ParticleSettings);
+    public void NotifySoundChanged() => EmitSignal(SignalName.SoundOnChange, SoundSettings);
 
     private const string ConfigurationSection = "Settings";
     private const string ScoresSection = "Scores";
@@ -36,50 +33,44 @@ public partial class SettingsManager : Node
     {
         base._Ready();
         _config = new ConfigFile();
+        LightingSettings.UpdatedValueAction = NotifyLightingChanged;
+        ParticleSettings.UpdatedValueAction = NotifyParticlesChanged;
+        SoundSettings.UpdatedValueAction = NotifySoundChanged;
+
         // Load data from a file.
-        GD.Print("loading config file");
         Error err = _config.Load(ConfigFilePath);
 
 
         if (err == Error.DoesNotExist || err == Error.FileNotFound)
         {
-            GD.Print("saving default config file");
-
             SaveConfiguration();
         }
         else
         {
-            GD.Print("reading config file");
-
             LoadConfiguration();
         }
     }
 
     private void LoadConfiguration()
     {
-        _musicVolumeNumber = (float)_config.GetValue(ConfigurationSection, "MusicVolume");
-        _fxVolumeNumber = (float)_config.GetValue(ConfigurationSection, "FXVolume");
-        _particlesOn = (bool)_config.GetValue(ConfigurationSection, "ParticlesOn");
-        _lightingOn = (bool)_config.GetValue(ConfigurationSection, "LightingOn");
-        _highScore = (int)_config.GetValue(ScoresSection, "HighScore");
-        GD.Print("config loaded");
+        _highScore = _config.GetValue(ScoresSection, "HighScore").AsInt32();
 
-        GD.Print($"MusicVolume - {_musicVolumeNumber}");
-        GD.Print($"FXVolume - {_fxVolumeNumber}");
-        GD.Print($"ParticlesOn - {_particlesOn}");
-        GD.Print($"MusicVolume - {_lightingOn}");
+        LightingSettings.LoadFromConfig(_config);
+        ParticleSettings.LoadFromConfig(_config);
+        SoundSettings.LoadFromConfig(_config);
 
     }
 
 
     public void SaveConfiguration()
     {
-        _config.SetValue(ConfigurationSection, "MusicVolume", _musicVolumeNumber);
-        _config.SetValue(ConfigurationSection, "FXVolume", _fxVolumeNumber);
-        _config.SetValue(ConfigurationSection, "ParticlesOn", _particlesOn);
-        _config.SetValue(ConfigurationSection, "LightingOn", _lightingOn);
+        LightingSettings.SaveToConfig(_config);
+        ParticleSettings.SaveToConfig(_config);
+        SoundSettings.SaveToConfig(_config);
+
         _config.SetValue(ScoresSection, "HighScore", _highScore);
         _config.Save(ConfigFilePath);
-        GD.Print("config saved");
     }
+
+    //public static SettingsManager Instance =>uy 
 }

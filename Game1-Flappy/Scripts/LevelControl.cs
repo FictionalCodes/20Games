@@ -38,7 +38,6 @@ public partial class LevelControl : Node2D
     public override void _Ready()
     {
         base._Ready();
-        GD.Print($"Creating Level Control");
 
         _sceneController = GetParent<SceneController>();
 
@@ -56,7 +55,6 @@ public partial class LevelControl : Node2D
 
     public void BeginSpawning()
     {
-        GD.Print("Got to the LevelController");
         _spawnTimer.Stop();
 
         _pipePool.ForceAllObjectsDespawn();
@@ -73,8 +71,6 @@ public partial class LevelControl : Node2D
 
     public void SpawnSetupPlayer()
     {
-        GD.Print("Got to the StartLifePlayer");
-
         _playerObject.SpawnSetup(_playerSpawnPoint.GlobalPosition);
     }
 
@@ -92,7 +88,6 @@ public partial class LevelControl : Node2D
 
     public void OnObstacleCollisionDirect(Node node)
     {
-        GD.Print($"The Object that killed the game is {node.Name}");
         
         CallDeferred(MethodName.EndOfLife);
     }
@@ -116,8 +111,6 @@ public partial class LevelControl : Node2D
         var pipe = _pipePool.GetNextAvalibleItem();
 
         AddChild(pipe);
-
-        GD.Print($"Spawning Pipe - {pipe.Name}");
 
         pipe.Setup(_obstacleSpawnPoint.GlobalPosition, _obstacleSpeed);
         pipe.BindEvents(OnObstacleCollision, OnPointArea);

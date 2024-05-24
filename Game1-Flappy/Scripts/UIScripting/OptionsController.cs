@@ -2,13 +2,9 @@ using Godot;
 
 public partial class OptionsController : CanvasLayer
 {
-    [Export] Slider _musicVolumeControl;
-    [Export] Slider _fxVolumeControl;
-
-    [Export] BaseButton _particlesOnOff;
-    [Export] BaseButton _lightingOnOff;
     private SettingsManager _settingsBindings;
 
+    private SettingsBinder _binder;
     [Signal] public delegate void WindowClosedEventHandler();
 
 
@@ -17,28 +13,16 @@ public partial class OptionsController : CanvasLayer
         base._Ready();
 
         _settingsBindings = GetNode<SettingsManager>("/root/SettingsManager");
+        _binder = GetNode<SettingsBinder>("Binder");
+
     }
 
     public void OpenOptions()
     {
-        _musicVolumeControl.Value = _settingsBindings.MusicVolume;
-        _fxVolumeControl.Value = _settingsBindings.FxVolume;
-        _particlesOnOff.SetPressedNoSignal(_settingsBindings.ParticlesOn);
-        _lightingOnOff.SetPressedNoSignal(_settingsBindings.LightingOn);
-        Visible = true;
+        _binder.SetupValues();
+        this.Visible = true;
     }
 
-    public void UpdateMusicVolume(bool valueChanged)
-    {
-        if (valueChanged) _settingsBindings.MusicVolume = (float)_musicVolumeControl.Value;
-    }
-    public void UpdateFxVolume(bool valueChanged)
-    {
-        if (valueChanged) _settingsBindings.FxVolume = (float)_fxVolumeControl.Value;
-    }
-
-    public void ParticlesToggled(bool checkedValue) => _settingsBindings.ParticlesOn = checkedValue;
-    public void LightingToggle(bool checkedValue) => _settingsBindings.LightingOn = checkedValue;
     public void CloseButtonPress()
     {
         CloseOptions();
@@ -49,6 +33,5 @@ public partial class OptionsController : CanvasLayer
     {
         Visible = false;
         _settingsBindings.SaveConfiguration();
-
     }
 }
