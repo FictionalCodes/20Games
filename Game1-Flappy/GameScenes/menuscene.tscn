@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dk5o5yn2jig03"]
+[gd_scene load_steps=20 format=3 uid="uid://dk5o5yn2jig03"]
 
 [ext_resource type="Script" path="res://Scripts/UIScripting/MainMenuControl.cs" id="1_gi647"]
 [ext_resource type="Theme" uid="uid://d5oxpjcvfwdf" path="res://UI Theme/GameTheme.tres" id="1_t8f4y"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://cq8pyjubxau68" path="res://Images/starbaby.png" id="3_xi1wl"]
 [ext_resource type="Script" path="res://Scripts/MenuBackground.cs" id="4_rgeyn"]
 [ext_resource type="Texture2D" uid="uid://c5rebfjby7e0v" path="res://Images/Icons/gear.png" id="4_wajtr"]
+[ext_resource type="Texture2D" uid="uid://5dstxmak7l44" path="res://Images/surgingstar-title.png" id="5_23e13"]
 [ext_resource type="PackedScene" uid="uid://ct4r4lewwadbl" path="res://Prefabs/options_menu.tscn" id="7_0827e"]
 [ext_resource type="Texture2D" uid="uid://cbndn6gi2110q" path="res://Images/Icons/home.png" id="7_w1rgr"]
 [ext_resource type="AudioStream" uid="uid://dackkuv6j7tjr" path="res://Audio/Piano 4.wav" id="8_4ppj0"]
@@ -30,6 +31,32 @@ corner_detail = 20
 shadow_size = 40
 anti_aliasing = false
 
+[sub_resource type="Animation" id="Animation_a84un"]
+resource_name = "StarTitleBounce"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.58, 0.58), Vector2(0.75, 0.75)]
+}
+
+[sub_resource type="Animation" id="Animation_f8qwq"]
+length = 0.001
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6pcel"]
+_data = {
+"RESET": SubResource("Animation_f8qwq"),
+"StarTitleBounce": SubResource("Animation_a84un")
+}
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wpar5"]
 
 [node name="MainMenuRoot" type="Control" node_paths=PackedStringArray("mainMenuLayer", "optionsMenuLayer", "_highscoreLabel", "_menuEffectPlayer")]
@@ -38,7 +65,7 @@ anchors_preset = 0
 script = ExtResource("1_gi647")
 mainMenuLayer = NodePath("MainMenu")
 optionsMenuLayer = NodePath("MainMenu/OptionsMenu")
-_highscoreLabel = NodePath("MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer2/HBoxContainer/Highscore")
+_highscoreLabel = NodePath("MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer3/VBoxContainer2/HBoxContainer/Highscore")
 _menuEffectPlayer = NodePath("MenuEffectPlayer")
 
 [node name="ParallaxBackground" parent="." instance=ExtResource("3_b87tl")]
@@ -80,59 +107,47 @@ theme_override_constants/margin_top = 30
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 42
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MainMenu/Control/MarginContainer/Panel2/MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 8
-theme = ExtResource("1_t8f4y")
-theme_override_constants/separation = 20
-alignment = 2
+[node name="Sprite2D" type="Sprite2D" parent="MainMenu/Control/MarginContainer/Panel2/MarginContainer"]
+position = Vector2(331, 115)
+scale = Vector2(0.701326, 0.701326)
+texture = ExtResource("5_23e13")
 
-[node name="PlayButton" type="Button" parent="MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme = ExtResource("1_t8f4y")
-text = "Play"
-icon = ExtResource("3_xi1wl")
-expand_icon = true
+[node name="AnimationPlayer" type="AnimationPlayer" parent="MainMenu/Control/MarginContainer/Panel2/MarginContainer/Sprite2D"]
+libraries = {
+"": SubResource("AnimationLibrary_6pcel")
+}
 
-[node name="Options" type="Button" parent="MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer"]
+[node name="VBoxContainer3" type="VBoxContainer" parent="MainMenu/Control/MarginContainer/Panel2/MarginContainer"]
 layout_mode = 2
-theme = ExtResource("1_t8f4y")
-text = "Options
-"
-icon = ExtResource("4_wajtr")
 
-[node name="Button" type="Button" parent="MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer3"]
 layout_mode = 2
-text = "Quit"
-icon = ExtResource("7_w1rgr")
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="MainMenu/Control/MarginContainer/Panel2/MarginContainer"]
-layout_mode = 2
-size_flags_vertical = 0
+size_flags_vertical = 10
 theme = ExtResource("1_t8f4y")
 theme_override_constants/separation = 0
 
-[node name="TitleLabel" type="Label" parent="MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer2"]
+[node name="TitleLabel" type="Label" parent="MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer3/VBoxContainer2"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 0
+size_flags_vertical = 8
 theme = ExtResource("1_t8f4y")
 theme_override_font_sizes/font_size = 64
 text = "Surging Star"
 uppercase = true
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer2"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer3/VBoxContainer2"]
 layout_mode = 2
+size_flags_vertical = 8
 alignment = 1
 
-[node name="HighscoreText" type="Label" parent="MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer2/HBoxContainer"]
+[node name="HighscoreText" type="Label" parent="MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer3/VBoxContainer2/HBoxContainer"]
 layout_mode = 2
 text = "HighScore - "
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Highscore" type="Label" parent="MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer2/HBoxContainer"]
+[node name="Highscore" type="Label" parent="MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer3/VBoxContainer2/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
@@ -142,6 +157,33 @@ text = "000000"
 horizontal_alignment = 1
 vertical_alignment = 1
 uppercase = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+theme = ExtResource("1_t8f4y")
+theme_override_constants/separation = 20
+alignment = 2
+
+[node name="PlayButton" type="Button" parent="MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer3/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_t8f4y")
+text = "Play"
+icon = ExtResource("3_xi1wl")
+expand_icon = true
+
+[node name="Options" type="Button" parent="MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer3/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_t8f4y")
+text = "Options
+"
+icon = ExtResource("4_wajtr")
+
+[node name="Button" type="Button" parent="MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer3/VBoxContainer"]
+layout_mode = 2
+text = "Quit"
+icon = ExtResource("7_w1rgr")
 
 [node name="CreditsPanel" type="Panel" parent="MainMenu/Control/MarginContainer"]
 visible = false
@@ -207,8 +249,6 @@ Godot Engine Logo
 Copyright (c) 2017 Andrea Calabró
 This work is licensed under the Creative Commons Attribution 4.0 International
 license (CC BY 4.0 International): [url]https://creativecommons.org/licenses/by/4.0/[url]"
-scroll_following = true
-threaded = true
 
 [node name="Button" type="Button" parent="MainMenu/Control/MarginContainer/CreditsPanel/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -245,6 +285,7 @@ expand_icon = true
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_4ppj0")
 autoplay = true
+stream_paused = true
 bus = &"Music"
 
 [node name="MenuEffectPlayer" type="AudioStreamPlayer" parent="."]
@@ -252,9 +293,11 @@ stream = ExtResource("9_sv203")
 max_polyphony = 3
 bus = &"SoundEffect"
 
-[connection signal="pressed" from="MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/PlayButton" to="." method="ChangeToGameScene" flags=3]
-[connection signal="pressed" from="MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/Options" to="." method="ToggleMenu" binds= [true]]
-[connection signal="button_up" from="MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/Button" to="." method="QuitGame" flags=3]
+[connection signal="ready" from="MainMenu/Control/MarginContainer/Panel2/MarginContainer/Sprite2D/AnimationPlayer" to="MainMenu/Control/MarginContainer/Panel2/MarginContainer/Sprite2D/AnimationPlayer" method="play" flags=3 binds= ["StarTitleBounce"]]
+[connection signal="pressed" from="MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer3/VBoxContainer/PlayButton" to="." method="ChangeToGameScene" flags=3]
+[connection signal="pressed" from="MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer3/VBoxContainer/Options" to="." method="ToggleMenu" binds= [true]]
+[connection signal="button_up" from="MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer3/VBoxContainer/Button" to="." method="QuitGame" flags=3]
+[connection signal="visibility_changed" from="MainMenu/Control/MarginContainer/CreditsPanel/MarginContainer/VBoxContainer/RichTextLabel" to="MainMenu/Control/MarginContainer/CreditsPanel/MarginContainer/VBoxContainer/RichTextLabel" method="scroll_to_line" binds= [0]]
 [connection signal="pressed" from="MainMenu/Control/MarginContainer/CreditsPanel/MarginContainer/VBoxContainer/Button" to="MainMenu/Control/MarginContainer/CreditsPanel" method="hide"]
 [connection signal="WindowClosed" from="MainMenu/OptionsMenu" to="." method="ToggleMenu" binds= [false]]
 [connection signal="pressed" from="MainMenu/Button" to="MainMenu/Control/MarginContainer/CreditsPanel" method="show" flags=3]
