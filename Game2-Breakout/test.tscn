@@ -18,7 +18,10 @@ radius = 18.0
 
 [node name="Node2D" type="Node2D"]
 
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
 [node name="Wall" type="StaticBody2D" parent="."]
+position = Vector2(4, 38)
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="Wall"]
@@ -45,7 +48,7 @@ position = Vector2(-0.499996, 296.5)
 shape = SubResource("RectangleShape2D_do3vs")
 
 [node name="Wall3" type="StaticBody2D" parent="."]
-position = Vector2(1133, -17)
+position = Vector2(1040, 48)
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="Wall3"]
