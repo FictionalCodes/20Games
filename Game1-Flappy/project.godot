@@ -14,12 +14,14 @@ config/name="SurgingStar"
 config/version="0.0.1"
 run/main_scene="res://GameScenes/menuscene.tscn"
 config/features=PackedStringArray("4.2", "C#", "GL Compatibility")
-config/icon="res://icon.svg"
+boot_splash/bg_color=Color(0, 0, 0, 1)
+boot_splash/image="res://Images/Splash/star-splash.png"
+config/icon="res://Images/starbaby.png"
 
 [autoload]
 
-AudioManager="res://Scripts/Globals/AudioManager.cs"
-SettingsManager="res://Scripts/Globals/SettingsManager.cs"
+SettingsManager="*res://Scripts/Globals/SettingsManager.cs"
+AudioManager="*res://Scripts/Globals/AudioManager.cs"
 
 [display]
 
@@ -34,7 +36,7 @@ project/assembly_name="Game 1-flappy"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg")
+enabled=PackedStringArray()
 
 [input]
 
@@ -61,5 +63,5 @@ pointing/android/enable_long_press_as_right_click=true
 
 [rendering]
 
-renderer/rendering_method="mobile"
+renderer/rendering_method="gl_compatibility"
 textures/vram_compression/import_etc2_astc=true

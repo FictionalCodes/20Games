@@ -1,12 +1,38 @@
-using Godot;
 using System;
+using Game1flappy.Scripts.Globals.ConfigurationObjects;
+using Godot;
 
 public partial class SceneController : Node2D
 {
     [Export] LevelControl _levelController;
     [Export] PopupMenuController _menuOverlay;
+    [Export] CanvasModulate _lightingFilter;
     private SettingsManager _settingsBindings;
+    [Export] private AudioStreamPlayer _menuEffectPlayer;
 
+
+    public override void _Ready()
+    {
+        _settingsBindings = GetNode<SettingsManager>("/root/SettingsManager");
+
+        _settingsBindings.LightingOnChange += OnLightingChange;
+        OnLightingChange(_settingsBindings.LightingSettings);
+
+        var allChildren = FindChildren("*", "Control");
+
+        foreach (var control in allChildren)
+        {
+            if (control is BaseButton button)
+            {
+                button.ButtonDown += () => _menuEffectPlayer.Play();
+            }
+            else if (control is Slider slider)
+            {
+                slider.ValueChanged += (_) => _menuEffectPlayer.Play();
+            }
+        }
+
+    }
 
     public void TogglePause()
     {
@@ -18,13 +44,17 @@ public partial class SceneController : Node2D
         _menuOverlay.ActivatePaused();
         _menuOverlay.Visible = !currentState;
 
-        _settingsBindings = GetNode<SettingsManager>("/root/SettingsManager");
+    }
+
+    private void OnLightingChange(LightingSettings settings)
+    {
+        _lightingFilter.Visible = settings.DynamicLightingEnabled;
 
     }
 
+
     public void StartLife()
     {
-        GD.Print("Got to the SceneController");
         _levelController.BeginSpawning();
         _menuOverlay.Visible = false;
     }

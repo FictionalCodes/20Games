@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dk5o5yn2jig03"]
+[gd_scene load_steps=20 format=3 uid="uid://dk5o5yn2jig03"]
 
 [ext_resource type="Script" path="res://Scripts/UIScripting/MainMenuControl.cs" id="1_gi647"]
 [ext_resource type="Theme" uid="uid://d5oxpjcvfwdf" path="res://UI Theme/GameTheme.tres" id="1_t8f4y"]
@@ -6,7 +6,14 @@
 [ext_resource type="Texture2D" uid="uid://cq8pyjubxau68" path="res://Images/starbaby.png" id="3_xi1wl"]
 [ext_resource type="Script" path="res://Scripts/MenuBackground.cs" id="4_rgeyn"]
 [ext_resource type="Texture2D" uid="uid://c5rebfjby7e0v" path="res://Images/Icons/gear.png" id="4_wajtr"]
+[ext_resource type="Texture2D" uid="uid://5dstxmak7l44" path="res://Images/surgingstar-title.png" id="5_23e13"]
 [ext_resource type="PackedScene" uid="uid://ct4r4lewwadbl" path="res://Prefabs/options_menu.tscn" id="7_0827e"]
+[ext_resource type="Texture2D" uid="uid://cbndn6gi2110q" path="res://Images/Icons/home.png" id="7_w1rgr"]
+[ext_resource type="AudioStream" uid="uid://dackkuv6j7tjr" path="res://Audio/Piano 4.wav" id="8_4ppj0"]
+[ext_resource type="Texture2D" uid="uid://cullflikl8nka" path="res://Images/Icons/door.png" id="8_med7f"]
+[ext_resource type="FontVariation" uid="uid://dj6tqpjbwr6hn" path="res://UI Theme/fonts/MonoBold.tres" id="8_pi1jc"]
+[ext_resource type="AudioStream" uid="uid://brvbdcb3mxj3m" path="res://UI Theme/MenuFX.tres" id="9_sv203"]
+[ext_resource type="Texture2D" uid="uid://pxpu785xhvel" path="res://Images/Icons/information.png" id="10_loj0y"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8nmvg"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -24,13 +31,42 @@ corner_detail = 20
 shadow_size = 40
 anti_aliasing = false
 
-[node name="MainMenuRoot" type="Control" node_paths=PackedStringArray("mainMenuLayer", "optionsMenuLayer", "_highscoreLabel")]
+[sub_resource type="Animation" id="Animation_a84un"]
+resource_name = "StarTitleBounce"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.58, 0.58), Vector2(0.75, 0.75)]
+}
+
+[sub_resource type="Animation" id="Animation_f8qwq"]
+length = 0.001
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6pcel"]
+_data = {
+"RESET": SubResource("Animation_f8qwq"),
+"StarTitleBounce": SubResource("Animation_a84un")
+}
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wpar5"]
+
+[node name="MainMenuRoot" type="Control" node_paths=PackedStringArray("mainMenuLayer", "optionsMenuLayer", "_highscoreLabel", "_menuEffectPlayer")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_gi647")
 mainMenuLayer = NodePath("MainMenu")
 optionsMenuLayer = NodePath("MainMenu/OptionsMenu")
-_highscoreLabel = NodePath("MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer2/HBoxContainer/Highscore")
+_highscoreLabel = NodePath("MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer3/VBoxContainer2/HBoxContainer/Highscore")
+_menuEffectPlayer = NodePath("MenuEffectPlayer")
 
 [node name="ParallaxBackground" parent="." instance=ExtResource("3_b87tl")]
 script = ExtResource("4_rgeyn")
@@ -71,54 +107,47 @@ theme_override_constants/margin_top = 30
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 42
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MainMenu/Control/MarginContainer/Panel2/MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 8
-theme = ExtResource("1_t8f4y")
-theme_override_constants/separation = 100
-alignment = 2
+[node name="Sprite2D" type="Sprite2D" parent="MainMenu/Control/MarginContainer/Panel2/MarginContainer"]
+position = Vector2(331, 115)
+scale = Vector2(0.701326, 0.701326)
+texture = ExtResource("5_23e13")
 
-[node name="PlayButton" type="Button" parent="MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme = ExtResource("1_t8f4y")
-text = "Play"
-icon = ExtResource("3_xi1wl")
-expand_icon = true
+[node name="AnimationPlayer" type="AnimationPlayer" parent="MainMenu/Control/MarginContainer/Panel2/MarginContainer/Sprite2D"]
+libraries = {
+"": SubResource("AnimationLibrary_6pcel")
+}
 
-[node name="Options" type="Button" parent="MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer"]
+[node name="VBoxContainer3" type="VBoxContainer" parent="MainMenu/Control/MarginContainer/Panel2/MarginContainer"]
 layout_mode = 2
-theme = ExtResource("1_t8f4y")
-text = "Options
-"
-icon = ExtResource("4_wajtr")
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="MainMenu/Control/MarginContainer/Panel2/MarginContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer3"]
 layout_mode = 2
-size_flags_vertical = 0
+size_flags_vertical = 10
 theme = ExtResource("1_t8f4y")
 theme_override_constants/separation = 0
 
-[node name="TitleLabel" type="Label" parent="MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer2"]
+[node name="TitleLabel" type="Label" parent="MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer3/VBoxContainer2"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 0
+size_flags_vertical = 8
 theme = ExtResource("1_t8f4y")
 theme_override_font_sizes/font_size = 64
 text = "Surging Star"
 uppercase = true
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer2"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer3/VBoxContainer2"]
 layout_mode = 2
+size_flags_vertical = 8
 alignment = 1
 
-[node name="HighscoreText" type="Label" parent="MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer2/HBoxContainer"]
+[node name="HighscoreText" type="Label" parent="MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer3/VBoxContainer2/HBoxContainer"]
 layout_mode = 2
 text = "HighScore - "
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Highscore" type="Label" parent="MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer2/HBoxContainer"]
+[node name="Highscore" type="Label" parent="MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer3/VBoxContainer2/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
@@ -129,9 +158,148 @@ horizontal_alignment = 1
 vertical_alignment = 1
 uppercase = true
 
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+theme = ExtResource("1_t8f4y")
+theme_override_constants/separation = 20
+alignment = 2
+
+[node name="PlayButton" type="Button" parent="MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer3/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_t8f4y")
+text = "Play"
+icon = ExtResource("3_xi1wl")
+expand_icon = true
+
+[node name="Options" type="Button" parent="MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer3/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_t8f4y")
+text = "Options
+"
+icon = ExtResource("4_wajtr")
+
+[node name="Button" type="Button" parent="MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer3/VBoxContainer"]
+layout_mode = 2
+text = "Quit"
+icon = ExtResource("7_w1rgr")
+
+[node name="CreditsPanel" type="Panel" parent="MainMenu/Control/MarginContainer"]
+visible = false
+layout_mode = 2
+theme = ExtResource("1_t8f4y")
+
+[node name="MarginContainer" type="MarginContainer" parent="MainMenu/Control/MarginContainer/CreditsPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_t8f4y")
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenu/Control/MarginContainer/CreditsPanel/MarginContainer"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MainMenu/Control/MarginContainer/CreditsPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("1_t8f4y")
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 0)
+theme_override_constants/outline_size = 0
+theme_override_fonts/bold_font = ExtResource("8_pi1jc")
+theme_override_font_sizes/normal_font_size = 18
+theme_override_font_sizes/bold_font_size = 24
+theme_override_font_sizes/mono_font_size = 18
+bbcode_enabled = true
+text = "Programming and Additional Art by Lucy \"Fictional\" Daniels
+Created as part of the [url=https://20_games_challenge.gitlab.io/]20 Games Challenge![/url]
+
+Created using the Godot Game Engine
+
+With Thanks to my Friends!
+The Star Baby Himself - Made by Justin from [url=https://shoutingcrow.press/]Shouting Crow Press[/url]
+Star Twinkle Sounds - Made by Hex from Cursed Audio - [url=https://github.com/Cursed-Audio]GitHub[/url]
+
+3rd Party Assets
+
+[b]Background Music [/b]
+Alkakrab on [url=https://alkakrab.itch.io/piano-instrumental]Itch.Io[/url]
+- Piano Ambient Music Pack Vol. 2
+- Piano Instrumental Music Loops
+
+[b]Scrolling Background[/b]
+[url=https://craftpix.net/product/sky-2d-game-backgrounds]Sky 2d Game Background[/url] by Craftpix
+[url]https://craftpix.net[/url] 
+
+[b]UI Icons[/b]
+[url=https://kenney.nl/assets/game-icons]Game Icons Pack[/url] by Kenney
+[url]https://kenney.nl/[/url]
+
+[b]Font[/b]
+Open Dyslexic Mono
+[url]https://opendyslexic.org/[/url]
+
+
+Godot Engine Logo
+Copyright (c) 2017 Andrea Calabró
+This work is licensed under the Creative Commons Attribution 4.0 International
+license (CC BY 4.0 International): [url]https://creativecommons.org/licenses/by/4.0/[url]"
+
+[node name="Button" type="Button" parent="MainMenu/Control/MarginContainer/CreditsPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "Back"
+icon = ExtResource("8_med7f")
+
 [node name="OptionsMenu" parent="MainMenu" instance=ExtResource("7_0827e")]
 visible = false
 
-[connection signal="pressed" from="MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/PlayButton" to="." method="ChangeToGameScene"]
-[connection signal="pressed" from="MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer/Options" to="." method="ToggleMenu" binds= [true]]
-[connection signal="WindowClosed" from="MainMenu/OptionsMenu" to="." method="ToggleMenu" flags=3 binds= [false]]
+[node name="Button" type="Button" parent="MainMenu"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -171.0
+offset_top = -122.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme = ExtResource("1_t8f4y")
+theme_type_variation = &"FlatButton"
+theme_override_styles/focus = SubResource("StyleBoxEmpty_wpar5")
+text = "Credits"
+icon = ExtResource("10_loj0y")
+flat = true
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_4ppj0")
+autoplay = true
+stream_paused = true
+bus = &"Music"
+
+[node name="MenuEffectPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_sv203")
+max_polyphony = 3
+bus = &"SoundEffect"
+
+[connection signal="ready" from="MainMenu/Control/MarginContainer/Panel2/MarginContainer/Sprite2D/AnimationPlayer" to="MainMenu/Control/MarginContainer/Panel2/MarginContainer/Sprite2D/AnimationPlayer" method="play" flags=3 binds= ["StarTitleBounce"]]
+[connection signal="pressed" from="MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer3/VBoxContainer/PlayButton" to="." method="ChangeToGameScene" flags=3]
+[connection signal="pressed" from="MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer3/VBoxContainer/Options" to="." method="ToggleMenu" binds= [true]]
+[connection signal="button_up" from="MainMenu/Control/MarginContainer/Panel2/MarginContainer/VBoxContainer3/VBoxContainer/Button" to="." method="QuitGame" flags=3]
+[connection signal="visibility_changed" from="MainMenu/Control/MarginContainer/CreditsPanel/MarginContainer/VBoxContainer/RichTextLabel" to="MainMenu/Control/MarginContainer/CreditsPanel/MarginContainer/VBoxContainer/RichTextLabel" method="scroll_to_line" binds= [0]]
+[connection signal="pressed" from="MainMenu/Control/MarginContainer/CreditsPanel/MarginContainer/VBoxContainer/Button" to="MainMenu/Control/MarginContainer/CreditsPanel" method="hide"]
+[connection signal="WindowClosed" from="MainMenu/OptionsMenu" to="." method="ToggleMenu" binds= [false]]
+[connection signal="pressed" from="MainMenu/Button" to="MainMenu/Control/MarginContainer/CreditsPanel" method="show" flags=3]
+[connection signal="finished" from="MusicPlayer" to="MusicPlayer" method="play" flags=3 binds= [0.0]]
+[connection signal="ready" from="MusicPlayer" to="MusicPlayer" method="play" flags=3 binds= [0.0]]

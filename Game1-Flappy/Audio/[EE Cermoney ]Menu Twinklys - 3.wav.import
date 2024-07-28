@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://35o0so7hnwto"
+path="res://.godot/imported/[EE Cermoney ]Menu Twinklys - 3.wav-74365cc6b233e396b6e7dd0e206334e1.sample"
+
+[deps]
+
+source_file="res://Audio/[EE Cermoney ]Menu Twinklys - 3.wav"
+dest_files=["res://.godot/imported/[EE Cermoney ]Menu Twinklys - 3.wav-74365cc6b233e396b6e7dd0e206334e1.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0
