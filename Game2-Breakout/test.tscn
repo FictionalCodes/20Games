@@ -1,20 +1,15 @@
-[gd_scene load_steps=8 format=3 uid="uid://cn8032rp1egd8"]
+[gd_scene load_steps=7 format=3 uid="uid://cn8032rp1egd8"]
 
 [ext_resource type="Texture2D" uid="uid://dgx8vi4of612t" path="res://icon.svg" id="1_7h4gr"]
-[ext_resource type="Script" path="res://Scripts/Ball.gd" id="2_s5akh"]
-[ext_resource type="Script" path="res://Scripts/Block.gd" id="2_tfiwj"]
+[ext_resource type="PackedScene" uid="uid://bj7517men25dq" path="res://prefabs/BasicBlock.tscn" id="2_hsd6l"]
+[ext_resource type="PackedScene" uid="uid://pkm3csnlrhwl" path="res://prefabs/Ball/Ball.tscn" id="3_sscjr"]
+[ext_resource type="PackedScene" uid="uid://y2r2uyxgpmnt" path="res://prefabs/Paddle.tscn" id="4_5556a"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_im5e7"]
 size = Vector2(117, 770)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_do3vs"]
 size = Vector2(117, 1023)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_dqmbu"]
-size = Vector2(127, 128)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_uqe45"]
-radius = 18.0
 
 [node name="Node2D" type="Node2D"]
 
@@ -60,57 +55,12 @@ texture = ExtResource("1_7h4gr")
 position = Vector2(-0.5, 317)
 shape = SubResource("RectangleShape2D_im5e7")
 
-[node name="Block" type="StaticBody2D" parent="." groups=["brick"]]
-position = Vector2(385, 327)
-collision_mask = 0
-script = ExtResource("2_tfiwj")
+[node name="Block" parent="." instance=ExtResource("2_hsd6l")]
 
-[node name="Sprite2D" type="Sprite2D" parent="Block"]
-texture = ExtResource("1_7h4gr")
+[node name="Ball" parent="." instance=ExtResource("3_sscjr")]
+position = Vector2(392, 647)
+speed = 750.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Block"]
-shape = SubResource("RectangleShape2D_dqmbu")
-
-[node name="Label" type="Label" parent="Block"]
-offset_right = 40.0
-offset_bottom = 23.0
-text = "3"
-
-[node name="Block2" type="StaticBody2D" parent="." groups=["brick"]]
-position = Vector2(689, 325)
-collision_mask = 0
-script = ExtResource("2_tfiwj")
-
-[node name="Sprite2D" type="Sprite2D" parent="Block2"]
-texture = ExtResource("1_7h4gr")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Block2"]
-shape = SubResource("RectangleShape2D_dqmbu")
-
-[node name="Label" type="Label" parent="Block2"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -11.5
-offset_right = 20.0
-offset_bottom = 11.5
-grow_horizontal = 2
-grow_vertical = 2
-text = "3"
-horizontal_alignment = 1
-
-[node name="Ball" type="CharacterBody2D" parent="."]
-position = Vector2(552, 617)
-collision_layer = 4
-collision_mask = 11
-script = ExtResource("2_s5akh")
-
-[node name="Sprite2D" type="Sprite2D" parent="Ball"]
-scale = Vector2(0.28125, 0.28125)
-texture = ExtResource("1_7h4gr")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Ball"]
-shape = SubResource("CircleShape2D_uqe45")
+[node name="Paddle" parent="." instance=ExtResource("4_5556a")]
+position = Vector2(492, 706)
+paddle_speed = 2000.0

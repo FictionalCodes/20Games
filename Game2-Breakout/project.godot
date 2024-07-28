@@ -25,6 +25,10 @@ window/stretch/mode="viewport"
 
 naming/scene_name_casing=1
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/collapse_folders/plugin.cfg", "res://addons/radial_progress/plugin.cfg", "res://addons/random_audio_player/plugin.cfg", "res://addons/trail_2d/plugin.cfg")
+
 [input]
 
 shoot={

@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://pkm3csnlrhwl"]
+
+[ext_resource type="Script" path="res://Scripts/Ball.gd" id="1_npmhl"]
+[ext_resource type="Texture2D" uid="uid://dqorvpvwpxnwi" path="res://Sprites/ball.png" id="2_s8o0i"]
+[ext_resource type="Curve" uid="uid://cc2h663awkclk" path="res://prefabs/Ball/trailSettings.tres" id="3_8rvnm"]
+[ext_resource type="Script" path="res://addons/trail_2d/trail_2d.gd" id="4_ye4eb"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uqe45"]
+radius = 9.05539
+
+[node name="Ball" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 11
+script = ExtResource("1_npmhl")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.28125, 0.28125)
+texture = ExtResource("2_s8o0i")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_uqe45")
+
+[node name="Trail2D" type="Line2D" parent="."]
+width_curve = ExtResource("3_8rvnm")
+joint_mode = 1
+begin_cap_mode = 2
+end_cap_mode = 2
+script = ExtResource("4_ye4eb")
+length = 20
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="exited_screen"]
