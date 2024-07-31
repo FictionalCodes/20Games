@@ -7,7 +7,6 @@
 size = Vector2(68, 26)
 
 [node name="Block" type="StaticBody2D" groups=["brick"]]
-position = Vector2(385, 327)
 collision_mask = 0
 script = ExtResource("1_redoj")
 hp = 1
@@ -17,5 +16,4 @@ scale = Vector2(0.27, 0.27)
 texture = ExtResource("2_25lti")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 shape = SubResource("RectangleShape2D_kqo8f")

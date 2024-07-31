@@ -1,0 +1,12 @@
+[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://cmxkohnm0qub5"]
+
+[ext_resource type="PackedScene" uid="uid://bj7517men25dq" path="res://prefabs/BasicBlock.tscn" id="1_am01y"]
+
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_7y58d"]
+resource_name = "Blocks"
+scenes/1/scene = ExtResource("1_am01y")
+
+[resource]
+tile_shape = 2
+tile_size = Vector2i(68, 26)
+sources/0 = SubResource("TileSetScenesCollectionSource_7y58d")
