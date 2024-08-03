@@ -1,12 +1,23 @@
 [gd_resource type="TileSet" load_steps=3 format=3 uid="uid://cmxkohnm0qub5"]
 
-[ext_resource type="PackedScene" uid="uid://bj7517men25dq" path="res://prefabs/BasicBlock.tscn" id="1_am01y"]
+[ext_resource type="Texture2D" uid="uid://dqoncdxdjwsui" path="res://Sprites/block placeholder.png" id="1_jia2m"]
 
-[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_7y58d"]
-resource_name = "Blocks"
-scenes/1/scene = ExtResource("1_am01y")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5sk5b"]
+texture = ExtResource("1_jia2m")
+texture_region_size = Vector2i(68, 26)
+0:0/0 = 0
+1:0/0 = 0
+1:0/0/custom_data_0 = 1
+2:0/0 = 0
+2:0/0/custom_data_0 = 2
+3:0/0 = 0
+3:0/0/custom_data_0 = 3
+4:0/0 = 0
+4:0/0/custom_data_0 = 4
 
 [resource]
 tile_shape = 2
 tile_size = Vector2i(68, 26)
-sources/0 = SubResource("TileSetScenesCollectionSource_7y58d")
+custom_data_layer_0/name = "ColourKey"
+custom_data_layer_0/type = 2
+sources/2 = SubResource("TileSetAtlasSource_5sk5b")

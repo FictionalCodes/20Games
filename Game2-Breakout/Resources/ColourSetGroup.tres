@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ResourceGroup" load_steps=2 format=3 uid="uid://dqeqkkvqy4lro"]
+
+[ext_resource type="Script" path="res://addons/godot_resource_groups/resource_group.gd" id="1_3vqqh"]
+
+[resource]
+script = ExtResource("1_3vqqh")
+base_folder = "res://Resources/ColourSets"
+includes = Array[String](["*.tres"])
+excludes = Array[String]([])
+paths = Array[String](["res://Resources/ColourSets/Default.tres"])

@@ -15,6 +15,11 @@ run/main_scene="res://test.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+SettingsManager="*res://Scripts/Globals/SettingsManager.gd"
+AudioManager="*res://Scripts/Globals/AudioManager.gd"
+
 [display]
 
 window/size/viewport_width=1600
@@ -27,7 +32,11 @@ naming/scene_name_casing=1
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/collapse_folders/plugin.cfg", "res://addons/radial_progress/plugin.cfg", "res://addons/random_audio_player/plugin.cfg", "res://addons/trail_2d/plugin.cfg")
+enabled=PackedStringArray("res://addons/collapse_folders/plugin.cfg", "res://addons/godot_resource_groups/plugin.cfg", "res://addons/radial_progress/plugin.cfg", "res://addons/random_audio_player/plugin.cfg", "res://addons/trail_2d/plugin.cfg")
+
+[godot_resource_groups]
+
+auto_rebuild=true
 
 [input]
 

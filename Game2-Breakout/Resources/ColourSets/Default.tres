@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ColourSettings" load_steps=2 format=3 uid="uid://cyx6qadvx4fso"]
+
+[ext_resource type="Script" path="res://Scripts/Settings/ColourSettings.gd" id="1_nr81g"]
+
+[resource]
+script = ExtResource("1_nr81g")
+name = "MyColours"
+wall_colour = Color(0, 1, 1, 1)
+ball_colour = Color(1, 0, 1, 1)
+paddle_colour = Color(1, 1, 0, 1)
+block_colours = Array[Color]([Color(0, 0, 0, 1), Color(0.649663, 0.477703, 1.92523e-07, 1), Color(0, 0, 1, 1), Color(0, 1, 0, 1), Color(0.662745, 0.176471, 0.486275, 1)])
