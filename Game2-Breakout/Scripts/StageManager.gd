@@ -2,6 +2,9 @@ class_name StageManager extends Node2D
 
 var blockPrefab := preload("res://prefabs/BasicBlock.tscn")
 var _colourSettings : ColourSettings 
+var _currentBlockCount := 0
+
+signal StageCompelted()
 
 func _ready():
 	_colourSettings = SettingsManager.VisualConfig.CurrentColourSet
@@ -18,7 +21,10 @@ func setup_next_level(levelSet: TileMap, layer : int) -> void :
 								1, 
 								blockDestroyed)
 		add_child(newBlock)
+		_currentBlockCount += 1
 		await get_tree().process_frame
 
 func blockDestroyed():
-	pass
+	_currentBlockCount -= 1
+	if _currentBlockCount <= 0:
+		StageCompelted.emit()

@@ -2,10 +2,16 @@ class_name Ball extends CharacterBody2D
 
 
 @export var speed := 300.0
-const JUMP_VELOCITY = -400.0
+@export var _playerPaddle : AnimatableBody2D
+
+@onready var _trail : Line2D = $Trail2D
+
+var locked: bool = true
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+
+signal PlayerDeath()
 
 func _process(delta):
 	if Input.is_action_just_pressed(&"shoot"):
@@ -13,8 +19,15 @@ func _process(delta):
 
 func start(_direction: Vector2):
 	velocity = _direction
+	locked = false
+	_trail.clear_points()
+	_trail.visible = true
+
+	
 
 func _physics_process(delta):
+	if locked: return
+
 	var collision := move_and_collide(velocity * speed * delta)
 	if collision:
 		velocity = velocity.bounce(collision.get_normal())
@@ -32,9 +45,8 @@ func _physics_process(delta):
 		velocity = velocity.rotated(adjustment)
 		print(originalVelocity, velocity)
 
-func _on_VisibilityNotifier2D_screen_exited():
-	# Deletes the bullet when it exits the screen.
-	queue_free()
 
 func exited_screen():
-	pass # Replace with function body.
+	locked = true
+	_trail.visible = false
+	PlayerDeath.emit()

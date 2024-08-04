@@ -1,9 +1,12 @@
 class_name VisualSettings extends RefCounted
 
 var colourResources :ResourceGroup = load("res://Resources/ColourSetGroup.tres")
+var _colourSettings : Array[ColourSettings] = []
 
 var _updateSettingsCallback: Callable
+
 const CONFIG_SECTION_NAME:= "VisualSettings"
+
 func _init(callback: Callable):
 	_updateSettingsCallback = callback
 	colourResources.load_all_into(_colourSettings)
@@ -11,7 +14,6 @@ func _init(callback: Callable):
 var _colourSetName: String = "Default"
 var _currentColourSet: ColourSettings
 
-var _colourSettings : Array[ColourSettings] = []
 
 var ColourSetName: String:
 	get:
@@ -24,7 +26,7 @@ var ColourSetName: String:
 func UpdateColourSet(setName : String) -> void:
 	var found: ColourSettings = null
 	for colset in _colourSettings:
-		if colset.name == setName:
+		if colset.name.nocasecmp_to(setName):
 			found = colset
 			break
 	

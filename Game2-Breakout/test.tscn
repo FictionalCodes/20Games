@@ -1,5 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://cn8032rp1egd8"]
+[gd_scene load_steps=10 format=3 uid="uid://cn8032rp1egd8"]
 
+[ext_resource type="Script" path="res://Scripts/GameManager.gd" id="1_c4xgi"]
+[ext_resource type="Theme" uid="uid://dek4ckcpb67c4" path="res://Resources/UITheme.tres" id="1_eybye"]
+[ext_resource type="Script" path="res://Scripts/UI/UIManager.gd" id="1_p3o10"]
 [ext_resource type="Script" path="res://Scripts/LevelManager.gd" id="3_4grjq"]
 [ext_resource type="TileSet" uid="uid://e20e3vkmge4b" path="res://Resources/DecorationTileMap.tres" id="3_b6bvi"]
 [ext_resource type="PackedScene" uid="uid://pkm3csnlrhwl" path="res://prefabs/Ball/Ball.tscn" id="3_sscjr"]
@@ -7,17 +10,71 @@
 [ext_resource type="TileSet" uid="uid://cmxkohnm0qub5" path="res://Resources/BlockTileMap.tres" id="4_emus0"]
 [ext_resource type="Script" path="res://Scripts/StageManager.gd" id="6_57yv1"]
 
-[node name="GameRoot" type="Node2D"]
+[node name="GameRoot" type="Node2D" node_paths=PackedStringArray("_levelManager", "_stageManger", "_uiManager")]
+script = ExtResource("1_c4xgi")
+_levelManager = NodePath("Level")
+_stageManger = NodePath("StageBlocks")
+_uiManager = NodePath("CanvasLayer")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." node_paths=PackedStringArray("_livesLabel", "_scoreLabel")]
+script = ExtResource("1_p3o10")
+_livesLabel = NodePath("CenterContainer/VBoxContainer/HBoxContainer2/LivesValue")
+_scoreLabel = NodePath("CenterContainer/VBoxContainer/HBoxContainer/ScoreValue")
 
-[node name="Ball" parent="." instance=ExtResource("3_sscjr")]
+[node name="CenterContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -483.0
+offset_top = -2.0
+offset_bottom = 692.0
+grow_horizontal = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/CenterContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="ScoreTitle" type="Label" parent="CanvasLayer/CenterContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Score"
+
+[node name="ScoreValue" type="Label" parent="CanvasLayer/CenterContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_eybye")
+text = "00000"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="LivesTitle" type="Label" parent="CanvasLayer/CenterContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Lives"
+
+[node name="LivesValue" type="Label" parent="CanvasLayer/CenterContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme = ExtResource("1_eybye")
+text = "00000"
+
+[node name="Ball" parent="." node_paths=PackedStringArray("_playerPaddle") instance=ExtResource("3_sscjr")]
 position = Vector2(392, 647)
 speed = 750.0
+_playerPaddle = NodePath("../Paddle")
 
-[node name="Paddle" parent="." instance=ExtResource("4_5556a")]
+[node name="Paddle" parent="." node_paths=PackedStringArray("_ball") instance=ExtResource("4_5556a")]
 position = Vector2(492, 706)
-paddle_speed = 2000.0
+paddle_speed = 1000.0
+_ball = NodePath("../Ball")
 
 [node name="Level" type="Node2D" parent="."]
 script = ExtResource("3_4grjq")
@@ -33,8 +90,14 @@ layer_1/tile_data = PackedInt32Array()
 [node name="Blocks" type="TileMap" parent="Level"]
 tile_set = ExtResource("4_emus0")
 format = 2
-layer_0/name = "Level1"
-layer_0/tile_data = PackedInt32Array(262153, 131074, 0, 393225, 2, 0, 327689, 65538, 0, 393224, 2, 0, 327688, 131074, 0, 327687, 65538, 0, 262152, 131074, 0, 262151, 131074, 0, 327686, 65538, 0, 393222, 2, 0, 393223, 2, 0, 458758, 196610, 0, 458759, 196610, 0, 524296, 196610, 0, 524297, 196610, 0, 524298, 196610, 0, 458760, 262146, 0, 458761, 262146, 0, 458762, 262146, 0, 393226, 262146, 0, 393227, 262146, 0, 327690, 262146, 0, 327691, 262146, 0, 262155, 262146, 0, 851969, 65538, 0, 851970, 65538, 0, 851971, 65538, 0, 851972, 65538, 0, 851973, 65538, 0, 851974, 65538, 0, 851975, 65538, 0, 851976, 65538, 0, 851977, 65538, 0, 917506, 131074, 0, 917507, 131074, 0, 917508, 131074, 0, 917509, 131074, 0, 917510, 131074, 0, 917511, 131074, 0, 917512, 131074, 0, 917513, 131074, 0, 917514, 131074, 0)
+layer_0/name = "0"
+layer_0/tile_data = PackedInt32Array(917511, 2, 0)
+layer_1/name = "Level1"
+layer_1/enabled = false
+layer_1/tile_data = PackedInt32Array(262153, 131074, 0, 393225, 2, 0, 327689, 65538, 0, 393224, 2, 0, 327688, 131074, 0, 327687, 65538, 0, 262152, 131074, 0, 262151, 131074, 0, 327686, 65538, 0, 393222, 2, 0, 393223, 2, 0, 458758, 196610, 0, 458759, 196610, 0, 524296, 196610, 0, 524297, 196610, 0, 524298, 196610, 0, 458760, 262146, 0, 458761, 262146, 0, 458762, 262146, 0, 393226, 262146, 0, 393227, 262146, 0, 327690, 262146, 0, 327691, 262146, 0, 262155, 262146, 0, 589825, 131074, 0, 655361, 131074, 0, 720897, 131074, 0, 786433, 131074, 0, 786434, 131074, 0, 851969, 131074, 0, 917506, 131074, 0, 983041, 131074, 0, 1048578, 131074, 0, 1114113, 131074, 0, 1179650, 131074, 0, 1245185, 131074, 0, 1310721, 131074, 0, 589826, 131074, 0, 655362, 131074, 0, 655363, 131074, 0, 720898, 131074, 0, 720899, 131074, 0, 786436, 131074, 0, 851972, 131074, 0, 917509, 131074, 0, 983044, 131074, 0, 1048581, 131074, 0, 1114116, 131074, 0, 1114115, 131074, 0, 1114114, 131074, 0, 1179651, 131074, 0, 1245186, 131074, 0, 1245187, 131074, 0, 1310723, 131074, 0, 1310724, 131074, 0, 1376259, 131074, 0, 1376260, 131074, 0, 1441796, 131074, 0, 1441797, 131074, 0, 1376257, 131074, 0, 1376256, 131074, 0, 1441793, 131074, 0, 1507328, 131074, 0, 1572865, 131074, 0, 655371, 262146, 0, 655370, 262146, 0, 720905, 262146, 0, 720904, 262146, 0, 786441, 262146, 0, 851976, 262146, 0, 917513, 262146, 0, 983049, 262146, 0, 983050, 262146, 0, 1048586, 262146, 0, 1048587, 262146, 0, 1114123, 262146, 0, 1179660, 262146, 0, 1245196, 262146, 0, 1310732, 262146, 0, 1376268, 262146, 0, 1441804, 262146, 0, 1507339, 262146, 0, 1507338, 262146, 0, 1572874, 262146, 0, 1572873, 262146, 0)
 
-[node name="LevelBlocks" type="Node2D" parent="Level"]
+[node name="StageBlocks" type="Node2D" parent="."]
 script = ExtResource("6_57yv1")
+
+[connection signal="PlayerDeath" from="Ball" to="." method="PlayerDied"]
+[connection signal="StageCompelted" from="StageBlocks" to="Level" method="stage_compelted" flags=3]

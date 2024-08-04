@@ -1,5 +1,4 @@
-class_name ColourSettings 
-extends Resource
+class_name ColourSettings extends Resource
 
 @export var name := "MyColours"
 @export var wall_colour := Color.WHITE

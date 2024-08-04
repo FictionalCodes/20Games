@@ -1,4 +1,4 @@
-extends Node2D
+class_name LevelManager extends Node2D
 
 
 var _currentLayerNumber := 0
@@ -8,7 +8,7 @@ var _levelsInSetNotUsed : Array[int]
 var levelSet: TileMap
 
 
-@onready var blocks_container : StageManager = $LevelBlocks as StageManager
+@onready var blocks_container : StageManager = $"../StageBlocks" as StageManager
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -31,3 +31,5 @@ func randomise_and_setup_next_level() -> void:
 	_currentLayerNumber = selectedStageNumber
 	await blocks_container.setup_next_level(levelSet, selectedStageNumber)
 
+func stage_compelted() -> void:
+	randomise_and_setup_next_level()
