@@ -1,0 +1,62 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="Game 2-breakout"
+run/main_scene="res://test.tscn"
+config/features=PackedStringArray("4.2", "GL Compatibility")
+config/icon="res://icon.svg"
+
+[autoload]
+
+SettingsManager="*res://Scripts/Globals/SettingsManager.gd"
+AudioManager="*res://Scripts/Globals/AudioManager.gd"
+
+[display]
+
+window/size/viewport_width=1600
+window/size/viewport_height=720
+window/stretch/mode="viewport"
+
+[editor]
+
+naming/scene_name_casing=1
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/collapse_folders/plugin.cfg", "res://addons/godot_resource_groups/plugin.cfg", "res://addons/radial_progress/plugin.cfg", "res://addons/random_audio_player/plugin.cfg", "res://addons/trail_2d/plugin.cfg")
+
+[godot_resource_groups]
+
+auto_rebuild=true
+
+[input]
+
+shoot={
+"deadzone": 0.5,
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":1,"canceled":false,"pressed":false,"double_click":false,"script":null)
+]
+}
+
+[layer_names]
+
+2d_physics/layer_1="Wall"
+2d_physics/layer_2="Paddle"
+2d_physics/layer_3="Ball"
+2d_physics/layer_4="Blocks"
+
+[physics]
+
+2d/default_gravity=0.0
+
+[rendering]
+
+renderer/rendering_method="mobile"
