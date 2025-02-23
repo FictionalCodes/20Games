@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://c5a22qec3ldqu"]
+
+[ext_resource type="Texture2D" uid="uid://bk8m6t2qym3bo" path="res://assets/playerShip3_blue.png" id="1_y8e4i"]
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+motion_mode = 1
+slide_on_ceiling = false
+floor_stop_on_slope = false
+floor_block_on_wall = false
+
+[node name="PlayerShip3Blue" type="Sprite2D" parent="."]
+texture = ExtResource("1_y8e4i")
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(9, -24, 4, -36, -4, -36, -10, -24, -49, 27, 49, 27)
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(0, 37)
+gizmo_extents = 5.0
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+rect = Rect2(-50, -40, 100, 80)
