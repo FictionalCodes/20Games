@@ -1,12 +1,21 @@
-[gd_scene load_steps=2 format=3 uid="uid://c5a22qec3ldqu"]
+[gd_scene load_steps=4 format=3 uid="uid://c5a22qec3ldqu"]
 
+[ext_resource type="Script" path="res://scripts/Playership.gd" id="1_g7dm1"]
 [ext_resource type="Texture2D" uid="uid://bk8m6t2qym3bo" path="res://assets/playerShip3_blue.png" id="1_y8e4i"]
 
-[node name="CharacterBody2D" type="CharacterBody2D"]
-motion_mode = 1
-slide_on_ceiling = false
-floor_stop_on_slope = false
-floor_block_on_wall = false
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_c2x5h"]
+
+[node name="PlayerShip" type="RigidBody2D"]
+collision_mask = 2
+physics_material_override = SubResource("PhysicsMaterial_c2x5h")
+continuous_cd = 2
+contact_monitor = true
+max_contacts_reported = 1
+linear_damp = 0.15
+angular_damp = 0.3
+script = ExtResource("1_g7dm1")
+SPEED = 500.0
+turnSpeed = 3000.0
 
 [node name="PlayerShip3Blue" type="Sprite2D" parent="."]
 texture = ExtResource("1_y8e4i")
