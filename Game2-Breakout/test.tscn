@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cn8032rp1egd8"]
+[gd_scene load_steps=13 format=3 uid="uid://cn8032rp1egd8"]
 
 [ext_resource type="Script" path="res://Scripts/GameManager.gd" id="1_c4xgi"]
 [ext_resource type="Theme" uid="uid://dek4ckcpb67c4" path="res://Resources/UITheme.tres" id="1_eybye"]
@@ -9,6 +9,13 @@
 [ext_resource type="PackedScene" uid="uid://y2r2uyxgpmnt" path="res://prefabs/Paddle.tscn" id="4_5556a"]
 [ext_resource type="TileSet" uid="uid://cmxkohnm0qub5" path="res://Resources/BlockTileMap.tres" id="4_emus0"]
 [ext_resource type="Script" path="res://Scripts/StageManager.gd" id="6_57yv1"]
+[ext_resource type="Script" path="res://Scripts/Controlls/PaddleControlArea.gd" id="9_ig26q"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2xonb"]
+size = Vector2(1121, 127)
+
+[sub_resource type="Environment" id="Environment_48pga"]
+glow_enabled = true
 
 [node name="GameRoot" type="Node2D" node_paths=PackedStringArray("_levelManager", "_stageManger", "_uiManager")]
 script = ExtResource("1_c4xgi")
@@ -18,8 +25,8 @@ _uiManager = NodePath("CanvasLayer")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." node_paths=PackedStringArray("_livesLabel", "_scoreLabel")]
 script = ExtResource("1_p3o10")
-_livesLabel = NodePath("CenterContainer/VBoxContainer/HBoxContainer2/LivesValue")
-_scoreLabel = NodePath("CenterContainer/VBoxContainer/HBoxContainer/ScoreValue")
+_livesLabel = NodePath("CenterContainer/StageTextContainer/HBoxContainer2/LivesValue")
+_scoreLabel = NodePath("CenterContainer/StageTextContainer/HBoxContainer/ScoreValue")
 
 [node name="CenterContainer" type="MarginContainer" parent="CanvasLayer"]
 anchors_preset = 1
@@ -29,39 +36,47 @@ offset_left = -483.0
 offset_top = -2.0
 offset_bottom = 692.0
 grow_horizontal = 0
+theme = ExtResource("1_eybye")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/CenterContainer"]
+[node name="StageTextContainer" type="VBoxContainer" parent="CanvasLayer/CenterContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/CenterContainer/VBoxContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/CenterContainer/StageTextContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/CenterContainer/StageTextContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Stage"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/CenterContainer/StageTextContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 alignment = 1
 
-[node name="ScoreTitle" type="Label" parent="CanvasLayer/CenterContainer/VBoxContainer/HBoxContainer"]
+[node name="ScoreTitle" type="Label" parent="CanvasLayer/CenterContainer/StageTextContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 48
 text = "Score"
 
-[node name="ScoreValue" type="Label" parent="CanvasLayer/CenterContainer/VBoxContainer/HBoxContainer"]
+[node name="ScoreValue" type="Label" parent="CanvasLayer/CenterContainer/StageTextContainer/HBoxContainer"]
 layout_mode = 2
 theme = ExtResource("1_eybye")
 text = "00000"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/CenterContainer/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/CenterContainer/StageTextContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 alignment = 1
 
-[node name="LivesTitle" type="Label" parent="CanvasLayer/CenterContainer/VBoxContainer/HBoxContainer2"]
+[node name="LivesTitle" type="Label" parent="CanvasLayer/CenterContainer/StageTextContainer/HBoxContainer2"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 48
 text = "Lives"
 
-[node name="LivesValue" type="Label" parent="CanvasLayer/CenterContainer/VBoxContainer/HBoxContainer2"]
+[node name="LivesValue" type="Label" parent="CanvasLayer/CenterContainer/StageTextContainer/HBoxContainer2"]
 layout_mode = 2
 theme = ExtResource("1_eybye")
 text = "00000"
@@ -69,12 +84,7 @@ text = "00000"
 [node name="Ball" parent="." node_paths=PackedStringArray("_playerPaddle") instance=ExtResource("3_sscjr")]
 position = Vector2(392, 647)
 speed = 750.0
-_playerPaddle = NodePath("../Paddle")
-
-[node name="Paddle" parent="." node_paths=PackedStringArray("_ball") instance=ExtResource("4_5556a")]
-position = Vector2(492, 706)
-paddle_speed = 1000.0
-_ball = NodePath("../Ball")
+_playerPaddle = NodePath("../PaddleControlArea/Paddle")
 
 [node name="Level" type="Node2D" parent="."]
 script = ExtResource("3_4grjq")
@@ -99,5 +109,22 @@ layer_1/tile_data = PackedInt32Array(262153, 131074, 0, 393225, 2, 0, 327689, 65
 [node name="StageBlocks" type="Node2D" parent="."]
 script = ExtResource("6_57yv1")
 
+[node name="PaddleControlArea" type="Area2D" parent="."]
+self_modulate = Color(1, 0.298039, 1, 1)
+position = Vector2(556, 688)
+monitorable = false
+script = ExtResource("9_ig26q")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PaddleControlArea"]
+shape = SubResource("RectangleShape2D_2xonb")
+
+[node name="Paddle" parent="PaddleControlArea" node_paths=PackedStringArray("_ball") instance=ExtResource("4_5556a")]
+paddle_speed = 1000.0
+_ball = NodePath("../../Ball")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_48pga")
+
 [connection signal="PlayerDeath" from="Ball" to="." method="PlayerDied"]
+[connection signal="ScoreUpdate" from="StageBlocks" to="." method="BlockDestroyed"]
 [connection signal="StageCompelted" from="StageBlocks" to="Level" method="stage_compelted" flags=3]

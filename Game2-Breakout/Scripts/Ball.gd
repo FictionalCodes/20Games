@@ -14,8 +14,8 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 signal PlayerDeath()
 
 func _process(delta):
-	if Input.is_action_just_pressed(&"shoot"):
-		start(position.direction_to(get_global_mouse_position()))
+	pass
+		#start(position.direction_to(get_global_mouse_position()))
 
 func start(_direction: Vector2):
 	velocity = _direction
