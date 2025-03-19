@@ -1,9 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://c5a22qec3ldqu"]
+[gd_scene load_steps=5 format=3 uid="uid://c5a22qec3ldqu"]
 
 [ext_resource type="Script" path="res://scripts/Playership.gd" id="1_g7dm1"]
 [ext_resource type="Texture2D" uid="uid://bk8m6t2qym3bo" path="res://assets/playerShip3_blue.png" id="1_y8e4i"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_c2x5h"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7d2qn"]
+radius = 140.014
 
 [node name="PlayerShip" type="RigidBody2D"]
 collision_mask = 2
@@ -11,21 +14,38 @@ physics_material_override = SubResource("PhysicsMaterial_c2x5h")
 continuous_cd = 2
 contact_monitor = true
 max_contacts_reported = 1
+linear_damp_mode = 1
 linear_damp = 0.15
-angular_damp = 0.3
+angular_damp_mode = 1
+angular_damp = 0.2
 script = ExtResource("1_g7dm1")
 SPEED = 500.0
-turnSpeed = 3000.0
+turnSpeed = 1000.0
 
 [node name="PlayerShip3Blue" type="Sprite2D" parent="."]
+scale = Vector2(0.4, 0.4)
 texture = ExtResource("1_y8e4i")
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
+scale = Vector2(0.4, 0.4)
 polygon = PackedVector2Array(9, -24, 4, -36, -4, -36, -10, -24, -49, 27, 49, 27)
 
-[node name="Marker2D" type="Marker2D" parent="."]
-position = Vector2(0, 37)
+[node name="ThrustMarker" type="Marker2D" parent="."]
+position = Vector2(0, 16)
 gizmo_extents = 5.0
 
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-rect = Rect2(-50, -40, 100, 80)
+[node name="ScreenWrapper" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="ShotMarker" type="Marker2D" parent="."]
+position = Vector2(0, -16)
+
+[node name="SpawnSafeArea" type="Area2D" parent="."]
+collision_mask = 0
+input_pickable = false
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpawnSafeArea"]
+shape = SubResource("CircleShape2D_7d2qn")
+
+[connection signal="screen_exited" from="ScreenWrapper" to="." method="_screenWrapperExited" flags=3]

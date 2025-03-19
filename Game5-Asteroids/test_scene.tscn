@@ -4,6 +4,7 @@
 
 [node name="Node2D" type="Node2D"]
 
-[node name="CharacterBody2D" parent="." instance=ExtResource("1_yfsux")]
-position = Vector2(479, 292)
-linear_damp = 0.1
+[node name="AsteroidSpawner" type="Node2D" parent="."]
+
+[node name="PlayerShip" parent="." instance=ExtResource("1_yfsux")]
+position = Vector2(109.5, 13)

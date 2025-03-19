@@ -1,10 +1,11 @@
-extends RigidBody2D
+class_name PlayerShip extends ScreenWrapObject
 
 
 @export var SPEED := 1000.0
 @export var turnSpeed := 500.0
 
 @onready var thrustAmount = Vector2.UP * SPEED
+
 
 	
 func _integrate_forces(state):
@@ -14,3 +15,5 @@ func _integrate_forces(state):
 	var rotation_direction = 0
 	var rotationDir = Input.get_axis("turn_left", "turn_right")
 	state.apply_torque(rotationDir * turnSpeed)
+	
+	

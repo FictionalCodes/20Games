@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://b0r4h3ec1phud"]
+
+[ext_resource type="Script" path="res://scripts/ScreenWrapObject.gd" id="1_4gdbw"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_c2x5h"]
+
+[node name="WrapObject" type="RigidBody2D"]
+collision_mask = 2
+physics_material_override = SubResource("PhysicsMaterial_c2x5h")
+contact_monitor = true
+max_contacts_reported = 1
+linear_damp = 0.15
+angular_damp = 0.3
+script = ExtResource("1_4gdbw")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+
+[node name="ScreenWrapper" type="VisibleOnScreenNotifier2D" parent="."]
+rect = Rect2(-50, -40, 100, 80)
+
+[connection signal="screen_entered" from="ScreenWrapper" to="." method="_screenEntered"]
+[connection signal="screen_exited" from="ScreenWrapper" to="." method="_screenWrapperExited" flags=3]
