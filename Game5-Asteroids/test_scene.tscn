@@ -1,10 +1,152 @@
-[gd_scene load_steps=2 format=3 uid="uid://b4ud16pnxfqgh"]
+[gd_scene load_steps=27 format=3 uid="uid://b4ud16pnxfqgh"]
 
 [ext_resource type="PackedScene" uid="uid://c5a22qec3ldqu" path="res://prefabs/playership.tscn" id="1_yfsux"]
+[ext_resource type="Script" uid="uid://0qahtlox0jnn" path="res://scripts/GameManager.gd" id="1_ykxp3"]
+[ext_resource type="Script" uid="uid://dsxvwka4s5pc8" path="res://scripts/AsteroidSpawner.gd" id="2_ia1lp"]
+[ext_resource type="PackedScene" uid="uid://di2l1i0dpi32s" path="res://prefabs/Asteroids/AsteroidLargeB1.tscn" id="3_vr1i5"]
+[ext_resource type="PackedScene" uid="uid://4yj4ykwc24dv" path="res://prefabs/Asteroids/AsteroidLargeB2.tscn" id="4_rpuu0"]
+[ext_resource type="PackedScene" uid="uid://xhk2ufcam5oj" path="res://prefabs/Asteroids/AsteroidLargeB3.tscn" id="5_oo8pe"]
+[ext_resource type="PackedScene" uid="uid://bvw6k47cla4on" path="res://prefabs/Asteroids/AsteroidLargeB4.tscn" id="6_4gito"]
+[ext_resource type="PackedScene" uid="uid://qescj5xvnwts" path="res://prefabs/Asteroids/AsteroidLargeG1.tscn" id="7_fbuy2"]
+[ext_resource type="PackedScene" uid="uid://b6nk4it78cwce" path="res://prefabs/Asteroids/AsteroidLargeG2.tscn" id="8_0k8yu"]
+[ext_resource type="PackedScene" uid="uid://da7e7mju72rgg" path="res://prefabs/Asteroids/AsteroidLargeG3.tscn" id="9_hiucn"]
+[ext_resource type="PackedScene" uid="uid://hynhto3ljoop" path="res://prefabs/Asteroids/AsteroidLargeG4.tscn" id="10_k6its"]
+[ext_resource type="PackedScene" uid="uid://cg4brxwudbkye" path="res://prefabs/Asteroids/AsteroidMedB1.tscn" id="11_2dw41"]
+[ext_resource type="PackedScene" uid="uid://dkb7h5w68hvfu" path="res://prefabs/Asteroids/AsteroidMedB2.tscn" id="12_ykxp3"]
+[ext_resource type="PackedScene" uid="uid://urdkkx1jvw0n" path="res://prefabs/Asteroids/AsteroidMedG1.tscn" id="13_g6y4b"]
+[ext_resource type="PackedScene" uid="uid://cun7jwp368oaf" path="res://prefabs/Asteroids/AsteroidMedG2.tscn" id="14_pvxhv"]
+[ext_resource type="PackedScene" uid="uid://cvmcpdok8ao5" path="res://prefabs/Asteroids/AsteroidSmB1.tscn" id="15_6h1ut"]
+[ext_resource type="PackedScene" uid="uid://1uewnvp1rklc" path="res://prefabs/Asteroids/AsteroidSmB2.tscn" id="16_6m80x"]
+[ext_resource type="PackedScene" uid="uid://dvr77funs0671" path="res://prefabs/Asteroids/AsteroidSmG1.tscn" id="17_cqn77"]
+[ext_resource type="PackedScene" uid="uid://duwrol0e5sgd7" path="res://prefabs/Asteroids/AsteroidSmG2.tscn" id="18_22oil"]
+[ext_resource type="Script" uid="uid://dpqxjirsquddo" path="res://scripts/UI/Overlay.gd" id="20_g6y4b"]
+[ext_resource type="LabelSettings" uid="uid://b1ov2ofbnyfx" path="res://assets/UI/over_label.tres" id="21_pvxhv"]
+[ext_resource type="Texture2D" uid="uid://bms63cu2v4s4m" path="res://assets/background/bg7.png" id="22_6h1ut"]
+[ext_resource type="Texture2D" uid="uid://cv2q7ebo2h5ia" path="res://assets/background/bg41.png" id="22_6m80x"]
+[ext_resource type="Texture2D" uid="uid://drcnuvbom3af6" path="res://assets/UI/lifeCounter.tres" id="22_22oil"]
+[ext_resource type="Script" uid="uid://hm3h2hq42383" path="res://scripts/StarBackground.gd" id="22_cqn77"]
 
-[node name="Node2D" type="Node2D"]
+[sub_resource type="Curve2D" id="Curve2D_k6its"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -1, -5, 0, 0, 0, 0, 1199, -8, 0, 0, 0, 0, 1199, 901, 0, 0, 0, 0, -4, 901, 0, 0, 0, 0, -1, -5)
+}
+point_count = 5
 
-[node name="AsteroidSpawner" type="Node2D" parent="."]
+[node name="LevelArea" type="Node2D" node_paths=PackedStringArray("player", "spawner")]
+script = ExtResource("1_ykxp3")
+player = NodePath("PlayerShip")
+spawner = NodePath("SpawnerArea")
 
 [node name="PlayerShip" parent="." instance=ExtResource("1_yfsux")]
-position = Vector2(109.5, 13)
+position = Vector2(556, 376)
+SPEED = 200.0
+turnSpeed = 500.0
+
+[node name="SpawnerArea" type="Path2D" parent="."]
+curve = SubResource("Curve2D_k6its")
+script = ExtResource("2_ia1lp")
+possibleSpawns = Array[PackedScene]([ExtResource("3_vr1i5"), ExtResource("4_rpuu0"), ExtResource("5_oo8pe"), ExtResource("6_4gito"), ExtResource("7_fbuy2"), ExtResource("8_0k8yu"), ExtResource("9_hiucn"), ExtResource("10_k6its")])
+bigOnKillSpawns = Array[PackedScene]([ExtResource("11_2dw41"), ExtResource("12_ykxp3"), ExtResource("13_g6y4b"), ExtResource("14_pvxhv")])
+medOnKillSpawns = Array[PackedScene]([ExtResource("15_6h1ut"), ExtResource("16_6m80x"), ExtResource("17_cqn77"), ExtResource("18_22oil")])
+
+[node name="SpawnPoint" type="PathFollow2D" parent="SpawnerArea"]
+position = Vector2(-1, -5)
+rotation = -0.00249999
+loop = false
+
+[node name="Timer" type="Timer" parent="SpawnerArea"]
+wait_time = 3.0
+autostart = true
+
+[node name="GameOverlay" type="CanvasLayer" parent="." node_paths=PackedStringArray("ScoreLabel")]
+script = ExtResource("20_g6y4b")
+ScoreLabel = NodePath("HBoxContainer/ScoreLabel")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GameOverlay"]
+offset_left = 15.0
+offset_top = 10.0
+offset_right = 160.0
+offset_bottom = 50.0
+
+[node name="ScoreName" type="Label" parent="GameOverlay/HBoxContainer"]
+layout_mode = 2
+text = "Score:"
+label_settings = ExtResource("21_pvxhv")
+horizontal_alignment = 2
+vertical_alignment = 1
+uppercase = true
+
+[node name="ScoreLabel" type="Label" parent="GameOverlay/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "000000"
+label_settings = ExtResource("21_pvxhv")
+vertical_alignment = 1
+uppercase = true
+
+[node name="HBoxContainer_2" type="HBoxContainer" parent="GameOverlay"]
+offset_left = 840.0
+offset_top = 4.0
+offset_right = 1191.0
+offset_bottom = 79.0
+
+[node name="ScoreName" type="Label" parent="GameOverlay/HBoxContainer_2"]
+layout_mode = 2
+text = "Lives"
+label_settings = ExtResource("21_pvxhv")
+horizontal_alignment = 2
+vertical_alignment = 1
+uppercase = true
+
+[node name="ProgressBar" type="TextureProgressBar" parent="GameOverlay/HBoxContainer_2"]
+texture_repeat = 2
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 3.0
+value = 2.0
+allow_greater = true
+texture_progress = ExtResource("22_22oil")
+
+[node name="GameOver" type="CanvasLayer" parent="."]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="." node_paths=PackedStringArray("focusObject")]
+script = ExtResource("22_cqn77")
+focusObject = NodePath("../PlayerShip")
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.3, 0.3)
+motion_mirroring = Vector2(1200, 900)
+
+[node name="TextureRect" type="TextureRect" parent="ParallaxBackground/ParallaxLayer"]
+custom_minimum_size = Vector2(1200, 900)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1200.0
+offset_bottom = 900.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("22_6h1ut")
+stretch_mode = 1
+
+[node name="ParallaxLayer_2" type="ParallaxLayer" parent="ParallaxBackground"]
+visible = false
+motion_scale = Vector2(0.5, 0.5)
+motion_mirroring = Vector2(1200, 900)
+
+[node name="TextureRect" type="TextureRect" parent="ParallaxBackground/ParallaxLayer_2"]
+custom_minimum_size = Vector2(1200, 900)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1200.0
+offset_bottom = 900.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("22_6m80x")
+stretch_mode = 1
+
+[connection signal="scoreUpdated" from="." to="GameOverlay" method="_on_score_updated"]
+[connection signal="timeout" from="SpawnerArea/Timer" to="SpawnerArea" method="_on_timer_timeout"]

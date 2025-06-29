@@ -1,7 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://c5a22qec3ldqu"]
+[gd_scene load_steps=10 format=3 uid="uid://c5a22qec3ldqu"]
 
-[ext_resource type="Script" path="res://scripts/Playership.gd" id="1_g7dm1"]
+[ext_resource type="Script" uid="uid://bpc7yefwrvw2p" path="res://scripts/Playership.gd" id="1_g7dm1"]
 [ext_resource type="Texture2D" uid="uid://bk8m6t2qym3bo" path="res://assets/playerShip3_blue.png" id="1_y8e4i"]
+[ext_resource type="PackedScene" uid="uid://blb343re0vnrc" path="res://prefabs/Laser.tscn" id="2_ooph6"]
+[ext_resource type="Script" uid="uid://dngehwlhumnrx" path="res://scripts/states/PlayerStateMachine.gd" id="4_8qe2m"]
+[ext_resource type="Script" uid="uid://dh234gip04scv" path="res://scripts/states/PlayerActiveState.gd" id="5_q844g"]
+[ext_resource type="Script" uid="uid://bsh07430lylwj" path="res://scripts/states/PlayerInvunerableState.gd" id="5_wd0a1"]
+[ext_resource type="Script" uid="uid://sdj6i1mavgdw" path="res://scripts/states/PlayerDeadState.gd" id="7_myygw"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_c2x5h"]
 
@@ -9,18 +14,21 @@
 radius = 140.014
 
 [node name="PlayerShip" type="RigidBody2D"]
+z_index = 10
 collision_mask = 2
 physics_material_override = SubResource("PhysicsMaterial_c2x5h")
 continuous_cd = 2
 contact_monitor = true
 max_contacts_reported = 1
 linear_damp_mode = 1
-linear_damp = 0.15
+linear_damp = 0.5
 angular_damp_mode = 1
-angular_damp = 0.2
+angular_damp = 1.0
 script = ExtResource("1_g7dm1")
 SPEED = 500.0
-turnSpeed = 1000.0
+turnSpeed = 1250.0
+lazer = ExtResource("2_ooph6")
+invunerableModulate = Color(0.449359, 0.0992663, 0.795475, 1)
 
 [node name="PlayerShip3Blue" type="Sprite2D" parent="."]
 scale = Vector2(0.4, 0.4)
@@ -48,4 +56,34 @@ monitorable = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SpawnSafeArea"]
 shape = SubResource("CircleShape2D_7d2qn")
 
+[node name="PlayerStateMachine" type="Node" parent="." node_paths=PackedStringArray("stateList")]
+script = ExtResource("4_8qe2m")
+stateList = {
+1: NodePath("PlayerActiveState"),
+2: NodePath("PlayerInvunerableState"),
+3: NodePath("PlayerDeadState")
+}
+metadata/_custom_type_script = "uid://dngehwlhumnrx"
+
+[node name="PlayerInvunerableState" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("player")]
+script = ExtResource("5_wd0a1")
+flashIntervalMin = 0.2
+flashIntervalMax = 0.6
+ThisState = 2
+player = NodePath("../..")
+metadata/_custom_type_script = "uid://bsh07430lylwj"
+
+[node name="PlayerActiveState" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("player")]
+script = ExtResource("5_q844g")
+ThisState = 1
+player = NodePath("../..")
+metadata/_custom_type_script = "uid://dh234gip04scv"
+
+[node name="PlayerDeadState" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("player")]
+script = ExtResource("7_myygw")
+ThisState = 3
+player = NodePath("../..")
+metadata/_custom_type_script = "uid://sdj6i1mavgdw"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="screen_exited" from="ScreenWrapper" to="." method="_screenWrapperExited" flags=3]

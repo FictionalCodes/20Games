@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://da7e7mju72rgg"]
+
+[ext_resource type="PackedScene" uid="uid://di2l1i0dpi32s" path="res://prefabs/Asteroids/AsteroidLargeB1.tscn" id="1_5oad8"]
+[ext_resource type="Texture2D" uid="uid://xf4qha2rd0sf" path="res://assets/Meteors/meteorGrey_big3.png" id="2_02u8a"]
+
+[node name="WrapObject" instance=ExtResource("1_5oad8")]
+
+[node name="Sprite" parent="." index="0"]
+texture = ExtResource("2_02u8a")
+
+[node name="CollisionPolygon2D" parent="." index="2"]
+polygon = PackedVector2Array(-11, -38, -42, -19, -40, 14, -27, 31, 19, 38, 42, 1, 27, -27)

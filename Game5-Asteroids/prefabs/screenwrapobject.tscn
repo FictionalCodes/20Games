@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://b0r4h3ec1phud"]
 
-[ext_resource type="Script" path="res://scripts/ScreenWrapObject.gd" id="1_4gdbw"]
+[ext_resource type="Script" uid="uid://cuel7qkn6ynk8" path="res://scripts/ScreenWrapObject.gd" id="1_4gdbw"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_c2x5h"]
 
