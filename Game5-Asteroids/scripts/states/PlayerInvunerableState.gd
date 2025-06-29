@@ -1,4 +1,4 @@
-class_name PlayerInvunerableState extends PlayerActiveState
+class_name PlayerInvunerableState extends PlayerBaseState
 
 @export var invunTime := 3.0
 @export var flashIntervalMin:= 0.1

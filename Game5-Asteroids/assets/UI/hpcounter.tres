@@ -1,0 +1,8 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://br03p8on1fuq1"]
+
+[ext_resource type="Texture2D" uid="uid://v6dq8ien5ogc" path="res://assets/UI/Health_Dot.png" id="1_10ibr"]
+
+[resource]
+atlas = ExtResource("1_10ibr")
+region = Rect2(0, 0, 150, 58)
+margin = Rect2(0, 6, 0, 10)

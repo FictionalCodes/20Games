@@ -15,10 +15,14 @@ class_name PlayerShip extends ScreenWrapObject
 
 @export var playerHealthMax: int = 5
 
+signal playerHurt(newHP: int)
+signal playerDead
+
 @export var invunerableModulate: Color
 @onready var normalColour:= modulate
 
-var playerHealthCurrent: int
+
+@onready var playerHealthCurrent: int = playerHealthMax
 	
 func _integrate_forces(state):
 	var thrustDir := Input.get_axis("thrust_reverse","thrust_forward");
@@ -32,7 +36,7 @@ var lazerTimer = lazerCooldown
 func _process(delta: float) -> void:
 	
 	lazerTimer -= delta
-	if(lazerTimer < 0.0 and Input.is_action_pressed("shoot")):
+	if(stateMachine.currentStateIndex == PlayerBaseState.PlayerState.Alive and lazerTimer < 0.0 and Input.is_action_pressed("shoot")):
 		var direction := Vector2(lazerSpawn.global_position - global_position).normalized()
 		var created := lazer.instantiate() as Laser
 		created.global_position = lazerSpawn.global_position
@@ -45,7 +49,7 @@ func _process(delta: float) -> void:
 func Respawn(position: Vector2) -> void:
 	playerHealthCurrent = playerHealthMax
 	JumpToPosition(position)
-	stateMachine.QueueSwapState(PlayerBaseState.PlayerState.Invunerable)
+	stateMachine.QueueSwapState(PlayerBaseState.PlayerState.Respawning)
 	
 func JumpToPosition(position: Vector2) -> void:
 	linear_velocity = Vector2.ZERO
@@ -55,8 +59,15 @@ func JumpToPosition(position: Vector2) -> void:
 
 
 func _on_body_entered(body: Node) -> void:
-	playerHealthCurrent -= 1
-	stateMachine.QueueSwapState(PlayerBaseState.PlayerState.Invunerable)
+	
+	if stateMachine.currentState.can_be_hurt():
+		playerHealthCurrent -= 1
+		playerHurt.emit(playerHealthCurrent)
+		if playerHealthCurrent <= 0:
+			playerDead.emit()
+			stateMachine.QueueSwapState(PlayerBaseState.PlayerState.Dead)
+		else:	
+			stateMachine.QueueSwapState(PlayerBaseState.PlayerState.Invunerable)
 	
 func set_invun(on: bool) -> void:
 	set_collision_mask_value(2, on)

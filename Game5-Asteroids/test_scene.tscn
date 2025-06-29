@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://b4ud16pnxfqgh"]
+[gd_scene load_steps=29 format=3 uid="uid://b4ud16pnxfqgh"]
 
 [ext_resource type="PackedScene" uid="uid://c5a22qec3ldqu" path="res://prefabs/playership.tscn" id="1_yfsux"]
 [ext_resource type="Script" uid="uid://0qahtlox0jnn" path="res://scripts/GameManager.gd" id="1_ykxp3"]
@@ -25,6 +25,8 @@
 [ext_resource type="Texture2D" uid="uid://cv2q7ebo2h5ia" path="res://assets/background/bg41.png" id="22_6m80x"]
 [ext_resource type="Texture2D" uid="uid://drcnuvbom3af6" path="res://assets/UI/lifeCounter.tres" id="22_22oil"]
 [ext_resource type="Script" uid="uid://hm3h2hq42383" path="res://scripts/StarBackground.gd" id="22_cqn77"]
+[ext_resource type="Texture2D" uid="uid://ceu3ga7v1p7gr" path="res://assets/UI/Health_Bar_Table.png" id="23_b11sm"]
+[ext_resource type="Texture2D" uid="uid://br03p8on1fuq1" path="res://assets/UI/hpcounter.tres" id="24_b11sm"]
 
 [sub_resource type="Curve2D" id="Curve2D_k6its"]
 _data = {
@@ -32,10 +34,12 @@ _data = {
 }
 point_count = 5
 
-[node name="LevelArea" type="Node2D" node_paths=PackedStringArray("player", "spawner")]
+[node name="LevelArea" type="Node2D" node_paths=PackedStringArray("respawnTimer", "player", "spawner", "playerSpawnPoint")]
 script = ExtResource("1_ykxp3")
+respawnTimer = NodePath("PlayerRespawnTimer")
 player = NodePath("PlayerShip")
 spawner = NodePath("SpawnerArea")
+playerSpawnPoint = NodePath("Marker2D")
 
 [node name="PlayerShip" parent="." instance=ExtResource("1_yfsux")]
 position = Vector2(556, 376)
@@ -58,17 +62,26 @@ loop = false
 wait_time = 3.0
 autostart = true
 
-[node name="GameOverlay" type="CanvasLayer" parent="." node_paths=PackedStringArray("ScoreLabel")]
+[node name="GameOverlay" type="CanvasLayer" parent="." node_paths=PackedStringArray("ScoreLabel", "LivesProgress", "HealthProgress")]
 script = ExtResource("20_g6y4b")
-ScoreLabel = NodePath("HBoxContainer/ScoreLabel")
+ScoreLabel = NodePath("Container/HBoxContainer/ScoreLabel")
+LivesProgress = NodePath("Container/HBoxContainer_2/LivesBar")
+HealthProgress = NodePath("Container/HBox3/HealthBar")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="GameOverlay"]
-offset_left = 15.0
-offset_top = 10.0
-offset_right = 160.0
-offset_bottom = 50.0
+[node name="Container" type="PanelContainer" parent="GameOverlay"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 70.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
 
-[node name="ScoreName" type="Label" parent="GameOverlay/HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="GameOverlay/Container"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="ScoreName" type="Label" parent="GameOverlay/Container/HBoxContainer"]
 layout_mode = 2
 text = "Score:"
 label_settings = ExtResource("21_pvxhv")
@@ -76,7 +89,7 @@ horizontal_alignment = 2
 vertical_alignment = 1
 uppercase = true
 
-[node name="ScoreLabel" type="Label" parent="GameOverlay/HBoxContainer"]
+[node name="ScoreLabel" type="Label" parent="GameOverlay/Container/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 6
@@ -85,13 +98,12 @@ label_settings = ExtResource("21_pvxhv")
 vertical_alignment = 1
 uppercase = true
 
-[node name="HBoxContainer_2" type="HBoxContainer" parent="GameOverlay"]
-offset_left = 840.0
-offset_top = 4.0
-offset_right = 1191.0
-offset_bottom = 79.0
+[node name="HBoxContainer_2" type="HBoxContainer" parent="GameOverlay/Container"]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 6
 
-[node name="ScoreName" type="Label" parent="GameOverlay/HBoxContainer_2"]
+[node name="ScoreName" type="Label" parent="GameOverlay/Container/HBoxContainer_2"]
 layout_mode = 2
 text = "Lives"
 label_settings = ExtResource("21_pvxhv")
@@ -99,7 +111,7 @@ horizontal_alignment = 2
 vertical_alignment = 1
 uppercase = true
 
-[node name="ProgressBar" type="TextureProgressBar" parent="GameOverlay/HBoxContainer_2"]
+[node name="LivesBar" type="TextureProgressBar" parent="GameOverlay/Container/HBoxContainer_2"]
 texture_repeat = 2
 layout_mode = 2
 size_flags_horizontal = 3
@@ -108,6 +120,27 @@ max_value = 3.0
 value = 2.0
 allow_greater = true
 texture_progress = ExtResource("22_22oil")
+
+[node name="HBox3" type="HBoxContainer" parent="GameOverlay/Container"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="GameOverlay/Container/HBox3"]
+layout_mode = 2
+text = "Health"
+label_settings = ExtResource("21_pvxhv")
+uppercase = true
+
+[node name="HealthBar" type="TextureProgressBar" parent="GameOverlay/Container/HBox3"]
+texture_repeat = 2
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 5.0
+value = 5.0
+texture_under = ExtResource("23_b11sm")
+texture_progress = ExtResource("24_b11sm")
+texture_progress_offset = Vector2(5, 0)
 
 [node name="GameOver" type="CanvasLayer" parent="."]
 
@@ -148,5 +181,16 @@ grow_vertical = 2
 texture = ExtResource("22_6m80x")
 stretch_mode = 1
 
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(559, 597)
+
+[node name="PlayerRespawnTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[connection signal="livesUpdated" from="." to="GameOverlay" method="_on_lives_updates"]
 [connection signal="scoreUpdated" from="." to="GameOverlay" method="_on_score_updated"]
+[connection signal="playerDead" from="PlayerShip" to="." method="player_dead"]
+[connection signal="playerHurt" from="PlayerShip" to="GameOverlay" method="_on_health_updates"]
 [connection signal="timeout" from="SpawnerArea/Timer" to="SpawnerArea" method="_on_timer_timeout"]
+[connection signal="timeout" from="PlayerRespawnTimer" to="." method="_on_player_respawn_timer_timeout"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://c5a22qec3ldqu"]
+[gd_scene load_steps=11 format=3 uid="uid://c5a22qec3ldqu"]
 
 [ext_resource type="Script" uid="uid://bpc7yefwrvw2p" path="res://scripts/Playership.gd" id="1_g7dm1"]
 [ext_resource type="Texture2D" uid="uid://bk8m6t2qym3bo" path="res://assets/playerShip3_blue.png" id="1_y8e4i"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://dh234gip04scv" path="res://scripts/states/PlayerActiveState.gd" id="5_q844g"]
 [ext_resource type="Script" uid="uid://bsh07430lylwj" path="res://scripts/states/PlayerInvunerableState.gd" id="5_wd0a1"]
 [ext_resource type="Script" uid="uid://sdj6i1mavgdw" path="res://scripts/states/PlayerDeadState.gd" id="7_myygw"]
+[ext_resource type="Script" uid="uid://c2hpq8rkgj5g7" path="res://scripts/states/PlayerRespawningState.gd" id="8_lvgib"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_c2x5h"]
 
@@ -48,9 +49,9 @@ gizmo_extents = 5.0
 position = Vector2(0, -16)
 
 [node name="SpawnSafeArea" type="Area2D" parent="."]
-collision_mask = 0
+collision_layer = 0
+collision_mask = 2
 input_pickable = false
-monitoring = false
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SpawnSafeArea"]
@@ -61,7 +62,8 @@ script = ExtResource("4_8qe2m")
 stateList = {
 1: NodePath("PlayerActiveState"),
 2: NodePath("PlayerInvunerableState"),
-3: NodePath("PlayerDeadState")
+3: NodePath("PlayerDeadState"),
+4: NodePath("PlayerRespawnState")
 }
 metadata/_custom_type_script = "uid://dngehwlhumnrx"
 
@@ -84,6 +86,13 @@ script = ExtResource("7_myygw")
 ThisState = 3
 player = NodePath("../..")
 metadata/_custom_type_script = "uid://sdj6i1mavgdw"
+
+[node name="PlayerRespawnState" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("respawnSafeArea", "player")]
+script = ExtResource("8_lvgib")
+respawnSafeArea = NodePath("../../SpawnSafeArea")
+ThisState = 4
+player = NodePath("../..")
+metadata/_custom_type_script = "uid://c2hpq8rkgj5g7"
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="screen_exited" from="ScreenWrapper" to="." method="_screenWrapperExited" flags=3]
