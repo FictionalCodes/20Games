@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://c5a22qec3ldqu"]
+[gd_scene load_steps=22 format=3 uid="uid://c5a22qec3ldqu"]
 
 [ext_resource type="Script" uid="uid://bpc7yefwrvw2p" path="res://scripts/Playership.gd" id="1_g7dm1"]
 [ext_resource type="Texture2D" uid="uid://bk8m6t2qym3bo" path="res://assets/playerShip3_blue.png" id="1_y8e4i"]
@@ -9,12 +9,33 @@
 [ext_resource type="Texture2D" uid="uid://dxoc70b2qn07v" path="res://assets/player/playerShip3_damage1.png" id="5_n41p4"]
 [ext_resource type="Script" uid="uid://dh234gip04scv" path="res://scripts/states/PlayerActiveState.gd" id="5_q844g"]
 [ext_resource type="Script" uid="uid://bsh07430lylwj" path="res://scripts/states/PlayerInvunerableState.gd" id="5_wd0a1"]
+[ext_resource type="Texture2D" uid="uid://qu7o2x4qrdqd" path="res://assets/player/fire16.png" id="7_8rr51"]
+[ext_resource type="PackedScene" uid="uid://cyniek8qxemf7" path="res://prefabs/ThrustMarker.tscn" id="7_aak0m"]
+[ext_resource type="PackedScene" uid="uid://daqe5iy6bos1j" path="res://prefabs/ThrustMarkerSmall.tscn" id="7_iksm6"]
 [ext_resource type="Script" uid="uid://sdj6i1mavgdw" path="res://scripts/states/PlayerDeadState.gd" id="7_myygw"]
+[ext_resource type="Texture2D" uid="uid://n4mrderpvmeo" path="res://assets/player/fire17.png" id="8_aak0m"]
 [ext_resource type="Script" uid="uid://c2hpq8rkgj5g7" path="res://scripts/states/PlayerRespawningState.gd" id="8_lvgib"]
 [ext_resource type="AudioStream" uid="uid://c3d1e1xhffg33" path="res://assets/soundeffects/Laser_Shoot6.wav" id="9_82dxl"]
 [ext_resource type="AudioStream" uid="uid://bysoxbpk6spmy" path="res://assets/soundeffects/Laser_Shoot19.wav" id="10_82dxl"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_c2x5h"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_iksm6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_8rr51")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_aak0m")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"default",
+"speed": 30.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7d2qn"]
 radius = 140.014
@@ -42,7 +63,7 @@ script = ExtResource("1_g7dm1")
 SPEED = 500.0
 turnSpeed = 1250.0
 lazer = ExtResource("2_ooph6")
-lazerCooldown = 0.15
+lazerCooldown = 0.12
 damageTexture75 = ExtResource("5_n41p4")
 damageTexture50 = ExtResource("4_82dxl")
 damageTexture25 = ExtResource("3_a5me7")
@@ -54,7 +75,6 @@ texture = ExtResource("1_y8e4i")
 
 [node name="DamageSprite" type="Sprite2D" parent="PlayerShip3Blue"]
 visible = false
-scale = Vector2(1, 1)
 texture = ExtResource("4_82dxl")
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
@@ -62,14 +82,27 @@ visible = false
 scale = Vector2(0.4, 0.4)
 polygon = PackedVector2Array(9, -24, 4, -36, -4, -36, -10, -24, -49, 27, 49, 27)
 
-[node name="ThrustMarker" type="Marker2D" parent="."]
+[node name="LeftThrust" parent="." instance=ExtResource("7_iksm6")]
+position = Vector2(-15, 2)
+rotation = 1.79973
+
+[node name="RIghtThrust" parent="." instance=ExtResource("7_iksm6")]
+position = Vector2(12, 2)
+rotation = 4.4855
+
+[node name="ForwardThrust" parent="." instance=ExtResource("7_aak0m")]
 position = Vector2(0, 16)
-gizmo_extents = 5.0
 
 [node name="ScreenWrapper" type="VisibleOnScreenNotifier2D" parent="."]
 
 [node name="ShotMarker" type="Marker2D" parent="."]
 position = Vector2(0, -16)
+
+[node name="LazerFire" type="AnimatedSprite2D" parent="ShotMarker"]
+visible = false
+position = Vector2(0, -13)
+sprite_frames = SubResource("SpriteFrames_iksm6")
+frame_progress = 1.0
 
 [node name="SpawnSafeArea" type="Area2D" parent="."]
 visible = false
@@ -91,10 +124,12 @@ stateList = {
 }
 metadata/_custom_type_script = "uid://dngehwlhumnrx"
 
-[node name="PlayerInvunerableState" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("player")]
+[node name="PlayerInvunerableState" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("flashItems", "modulateItems", "player")]
 script = ExtResource("5_wd0a1")
 flashIntervalMin = 0.2
 flashIntervalMax = 0.6
+flashItems = [NodePath("../../PlayerShip3Blue")]
+modulateItems = [NodePath("../../ForwardThrust/ThrustForward"), NodePath("../../RIghtThrust/ThrustForward"), NodePath("../../LeftThrust/ThrustForward"), NodePath("../../PlayerShip3Blue"), NodePath("../../ShotMarker/LazerFire")]
 ThisState = 2
 player = NodePath("../..")
 metadata/_custom_type_script = "uid://bsh07430lylwj"
@@ -125,3 +160,7 @@ bus = &"Effects"
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="screen_exited" from="ScreenWrapper" to="." method="_screenWrapperExited" flags=3]
+
+[editable path="LeftThrust"]
+[editable path="RIghtThrust"]
+[editable path="ForwardThrust"]

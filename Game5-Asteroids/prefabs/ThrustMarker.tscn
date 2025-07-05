@@ -1,0 +1,97 @@
+[gd_scene load_steps=17 format=3 uid="uid://cyniek8qxemf7"]
+
+[ext_resource type="Script" uid="uid://bxi4wj641jq1x" path="res://scripts/PlayerThruster.gd" id="1_wc8ye"]
+[ext_resource type="Texture2D" uid="uid://buvl5ko8nhp8d" path="res://assets/player/Exhaust_5_000.png" id="2_iaaj8"]
+[ext_resource type="Texture2D" uid="uid://dw47y6u5t5gs8" path="res://assets/player/Exhaust_5_001.png" id="3_tmfde"]
+[ext_resource type="Texture2D" uid="uid://bh26awyhjexmx" path="res://assets/player/Exhaust_5_002.png" id="4_l2ecr"]
+[ext_resource type="Texture2D" uid="uid://d2dqfkh77u3te" path="res://assets/player/Exhaust_5_003.png" id="5_3vgd3"]
+[ext_resource type="Texture2D" uid="uid://baj06h133kcw2" path="res://assets/player/Exhaust_5_004.png" id="6_iec6f"]
+[ext_resource type="Texture2D" uid="uid://lpnjyfq62wvf" path="res://assets/player/Exhaust_5_005.png" id="7_46x1m"]
+[ext_resource type="Texture2D" uid="uid://dt02emoeeomh0" path="res://assets/player/Exhaust_5_006.png" id="8_s6xk4"]
+[ext_resource type="Texture2D" uid="uid://11nabmribsvb" path="res://assets/player/Exhaust_5_007.png" id="9_ty8pi"]
+[ext_resource type="Texture2D" uid="uid://cfeygdn2u5g4y" path="res://assets/player/Exhaust_5_008.png" id="10_5027v"]
+[ext_resource type="Texture2D" uid="uid://bn1j4l72agra1" path="res://assets/player/Exhaust_5_009.png" id="11_al5u8"]
+[ext_resource type="Material" uid="uid://c7iedgy620hbm" path="res://prefabs/player_smoke_emission_matl.tres" id="12_oooyj"]
+[ext_resource type="Texture2D" uid="uid://dikmet3xxkmpb" path="res://assets/player/Fumacinha.png" id="13_cl2kd"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_70b63"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_iaaj8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_tmfde")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_l2ecr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_3vgd3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_iec6f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_46x1m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_s6xk4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_ty8pi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_5027v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_al5u8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 25.0
+}]
+
+[sub_resource type="Curve" id="Curve_s7sti"]
+_limits = [-1.0, 1.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_wc8ye"]
+_limits = [0.0, 1.0, 0.0, 0.5]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.318182, 0.674157), 0.0, 0.0, 0, 0, Vector2(0.474432, 0.224719), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[node name="ThrustMarker" type="Marker2D"]
+gizmo_extents = 5.0
+script = ExtResource("1_wc8ye")
+
+[node name="ThrustForward" type="AnimatedSprite2D" parent="."]
+visible = false
+z_index = -1
+position = Vector2(0, 14)
+scale = Vector2(0.15, 0.15)
+sprite_frames = SubResource("SpriteFrames_70b63")
+
+[node name="ThrustForwardParticles" type="CPUParticles2D" parent="."]
+z_index = -2
+material = ExtResource("12_oooyj")
+position = Vector2(0, -1)
+rotation = 1.5708
+emitting = false
+amount = 20
+texture = ExtResource("13_cl2kd")
+lifetime = 0.5
+particle_flag_align_y = true
+spread = 10.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 200.0
+initial_velocity_max = 400.0
+linear_accel_min = 10.0
+linear_accel_max = 10.0
+scale_amount_min = 0.05
+scale_amount_max = 0.1
+hue_variation_curve = SubResource("Curve_s7sti")
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+anim_speed_curve = SubResource("Curve_wc8ye")

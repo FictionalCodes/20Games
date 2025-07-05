@@ -18,8 +18,13 @@ class_name PlayerShip extends ScreenWrapObject
 @onready var stateMachine : PlayerStateMachine = $PlayerStateMachine
 @onready var pewpewnoises : AudioStreamPlayer2D = $AudioStreamPlayer2D
 @onready var damageOverlay : Sprite2D = $PlayerShip3Blue/DamageSprite 
-
+@onready var lazerShootEffect: AnimatedSprite2D = $ShotMarker/LazerFire
+@onready var forwardThrust: PlayerThruster = $ForwardThrust
+@onready var leftThrust: PlayerThruster = $LeftThrust
+@onready var rightThrust: PlayerThruster = $RIghtThrust
 @export var playerHealthMax: int = 5
+
+
 
 signal playerHurt(newHP: int)
 signal playerDead
@@ -33,8 +38,16 @@ func _integrate_forces(state):
 	var thrustDir := Input.get_axis("thrust_reverse","thrust_forward");
 	if thrustDir != 0.0:
 		state.apply_central_force(thrustAmount.rotated(rotation) * thrustDir)
+	
+	forwardThrust.thrusting = thrustDir > 0.0
+	
+	
 	var rotation_direction = 0
 	var rotationDir = Input.get_axis("turn_left", "turn_right")
+	
+	leftThrust.thrusting = rotationDir < 0.0
+	rightThrust.thrusting = rotationDir > 0.0
+
 	state.apply_torque(rotationDir * turnSpeed)
 	
 var lazerTimer = lazerCooldown
@@ -50,6 +63,7 @@ func shoot_lazer() -> void:
 	var direction := Vector2(lazerSpawn.global_position - global_position).normalized()
 	var created := lazer.instantiate() as Laser
 	created.global_position = lazerSpawn.global_position
+	lazerShootEffect.play()
 	created.shoot(direction)
 	get_parent().add_child(created)
 	pewpewnoises.play()

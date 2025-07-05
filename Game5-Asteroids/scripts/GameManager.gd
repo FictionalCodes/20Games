@@ -35,6 +35,9 @@ func player_dead() -> void:
 	respawnTimer.start()
 	spawner.stop()
 
+func _physics_process(delta: float) -> void:
+	if Input.is_action_just_pressed("pause"):
+		get_tree().paused = !get_tree().paused
 
 	
 func end_game() -> void:
@@ -51,3 +54,4 @@ func reset_game() -> void:
 	player.reset()
 	spawner.start()
 	gameOverOverlay.hide()
+	

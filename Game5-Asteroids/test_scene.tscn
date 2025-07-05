@@ -45,7 +45,6 @@ playerSpawnPoint = NodePath("Marker2D")
 position = Vector2(556, 376)
 SPEED = 200.0
 turnSpeed = 500.0
-lazerCooldown = 0.15
 
 [node name="SpawnerArea" type="Path2D" parent="."]
 curve = SubResource("Curve2D_k6its")
