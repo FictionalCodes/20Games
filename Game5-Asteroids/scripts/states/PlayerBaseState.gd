@@ -12,3 +12,6 @@ enum PlayerState{
 	
 func can_be_hurt() -> bool:
 	return false
+
+func can_shoot() -> bool:
+	return false

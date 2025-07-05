@@ -3,7 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://di2l1i0dpi32s" path="res://prefabs/Asteroids/AsteroidLargeB1.tscn" id="1_cw2ma"]
 [ext_resource type="Texture2D" uid="uid://dntrh5d17nb1b" path="res://assets/Meteors/meteorGrey_med2.png" id="2_cw2ma"]
 
-[node name="WrapObject" instance=ExtResource("1_cw2ma")]
+[node name="Asteroid" instance=ExtResource("1_cw2ma")]
+_maxSpeed = 400.0
 size = 2
 
 [node name="Sprite" parent="." index="0"]
@@ -11,3 +12,9 @@ texture = ExtResource("2_cw2ma")
 
 [node name="CollisionPolygon2D" parent="." index="2"]
 polygon = PackedVector2Array(-15, -13, -20, 3, -8, 15, 5, 17, 20, -2, 7, -17)
+
+[node name="CPUParticles2D" parent="." index="3"]
+amount = 5
+
+[node name="AnimatedSprite2D" parent="." index="4"]
+scale = Vector2(0.3, 0.3)

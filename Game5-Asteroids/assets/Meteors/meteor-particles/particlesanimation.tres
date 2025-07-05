@@ -1,0 +1,17 @@
+[gd_resource type="AnimatedTexture" load_steps=5 format=3 uid="uid://dhbhb8x8lvrwr"]
+
+[ext_resource type="Texture2D" uid="uid://4nkt5k8bu1sr" path="res://assets/Meteors/meteor-particles/mini1.tres" id="1_2k203"]
+[ext_resource type="Texture2D" uid="uid://blj8emtkeuwnu" path="res://assets/Meteors/meteor-particles/mini2.tres" id="2_xl88e"]
+[ext_resource type="Texture2D" uid="uid://rg6cetrtk04y" path="res://assets/Meteors/meteor-particles/mini3.tres" id="3_b6ghu"]
+[ext_resource type="Texture2D" uid="uid://dwbsqw3bkjtho" path="res://assets/Meteors/meteor-particles/mini4.tres" id="4_gr45y"]
+
+[resource]
+frames = 4
+pause = true
+frame_0/texture = ExtResource("1_2k203")
+frame_1/texture = ExtResource("2_xl88e")
+frame_1/duration = 1.0
+frame_2/texture = ExtResource("3_b6ghu")
+frame_2/duration = 1.0
+frame_3/texture = ExtResource("4_gr45y")
+frame_3/duration = 1.0

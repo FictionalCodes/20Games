@@ -1,11 +1,16 @@
 class_name AsteroidSpawner extends Path2D
 
 @onready var spawningPoint := $SpawnPoint as PathFollow2D
+@onready var spawnTimer := $Timer as Timer
 
 @export var possibleSpawns: Array[PackedScene]
 @export var bigOnKillSpawns: Array[PackedScene]
 @export var medOnKillSpawns: Array[PackedScene]
 
+@export var minSpawnTime: float = 2.0
+@export var maxSpawnTime: float = 5.0
+
+var rocks : Array[Asteroid] = []
 var scoreCallback: Callable
 
 func spawn_rock() -> void:
@@ -20,10 +25,12 @@ func spawn_rock() -> void:
 	spawnedRock.On_kill_callback = rock_dead
 
 	add_child(spawnedRock)
+	rocks.push_back(spawnedRock)
 	
 func rock_dead(rock: Asteroid) -> void:
-	
 	var arrayToChooseFrom : Array[PackedScene]
+	rocks.erase(rock)
+
 	match rock.size:
 		Asteroid.Size.Big:
 			scoreCallback.call(1)
@@ -33,22 +40,46 @@ func rock_dead(rock: Asteroid) -> void:
 			arrayToChooseFrom = medOnKillSpawns
 		Asteroid.Size.Small:
 			scoreCallback.call(3)
-			return
-			
+	
+	if arrayToChooseFrom == null or arrayToChooseFrom.is_empty():
+		if rocks.is_empty():
+			_on_timer_timeout()
+		return
+				
+	for i in getAsteroidSpawnNumber():
+		var spawnedRock : Asteroid = arrayToChooseFrom.pick_random().instantiate()
+		spawnedRock.global_position = rock.global_position
+		# to determine rough yeet direction we get the center of the view and grab the sign of each bit
+		spawnedRock.yeet_random()
+		spawnedRock.On_kill_callback = rock_dead
+		add_child(spawnedRock, true)
+
+func getAsteroidSpawnNumber() -> int:
 	var spawnRandom = randf()
 	var numSpawn = 2
 	if spawnRandom < 0.25:
 		numSpawn = 1
 	elif spawnRandom > 0.75:
 		numSpawn = 3
-	for i in numSpawn:
-		var spawnedRock : Asteroid = arrayToChooseFrom.pick_random().instantiate()
-		spawnedRock.global_position = rock.global_position
-		# to determine rough yeet direction we get the center of the view and grab the sign of each bit
-		spawnedRock.yeet_random()
-		spawnedRock.On_kill_callback = rock_dead
-		add_child(spawnedRock)
 	
+	return numSpawn
 
 func _on_timer_timeout() -> void:
-	spawn_rock() # Replace with function body.
+	var numberToMake = getAsteroidSpawnNumber()
+	for i in numberToMake:
+		spawn_rock() # Replace with function body.
+	
+	var timer = randf_range(minSpawnTime, maxSpawnTime) * numberToMake
+	spawnTimer.wait_time = timer
+ 
+
+func start() -> void:
+	stop()
+	spawnTimer.start()
+	
+func stop() -> void:
+	spawnTimer.stop()
+	for rock in rocks:
+		rock.kill_when_leave_screen = true
+	
+	rocks.clear()

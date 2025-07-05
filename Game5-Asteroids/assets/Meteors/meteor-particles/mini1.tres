@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://4nkt5k8bu1sr"]
+
+[ext_resource type="Texture2D" uid="uid://coebwowhm25ty" path="res://assets/Meteors/mini-meteors.png" id="1_vrv8e"]
+
+[resource]
+atlas = ExtResource("1_vrv8e")
+region = Rect2(0, 0, 18, 18)

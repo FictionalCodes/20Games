@@ -5,3 +5,6 @@ func Update(delta:float) -> int:
 
 func can_be_hurt() -> bool:
 	return true
+
+func can_shoot() -> bool:
+	return true

@@ -33,3 +33,7 @@ func Update(delta: float) -> int:
 		return PlayerState.Alive
 		
 	return ThisState
+
+
+func can_shoot() -> bool:
+	return true

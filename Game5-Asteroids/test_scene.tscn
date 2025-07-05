@@ -45,6 +45,7 @@ playerSpawnPoint = NodePath("Marker2D")
 position = Vector2(556, 376)
 SPEED = 200.0
 turnSpeed = 500.0
+lazerCooldown = 0.15
 
 [node name="SpawnerArea" type="Path2D" parent="."]
 curve = SubResource("Curve2D_k6its")
@@ -77,12 +78,15 @@ size_flags_horizontal = 3
 size_flags_vertical = 0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="GameOverlay/Container"]
+custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
+alignment = 2
 
 [node name="ScoreName" type="Label" parent="GameOverlay/Container/HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Score:"
 label_settings = ExtResource("21_pvxhv")
 horizontal_alignment = 2
@@ -99,8 +103,9 @@ vertical_alignment = 1
 uppercase = true
 
 [node name="HBoxContainer_2" type="HBoxContainer" parent="GameOverlay/Container"]
+custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
-size_flags_horizontal = 10
+size_flags_horizontal = 8
 size_flags_vertical = 6
 
 [node name="ScoreName" type="Label" parent="GameOverlay/Container/HBoxContainer_2"]
@@ -143,6 +148,39 @@ texture_progress = ExtResource("24_b11sm")
 texture_progress_offset = Vector2(5, 0)
 
 [node name="GameOver" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="CenterContainer" type="CenterContainer" parent="GameOver"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOver/CenterContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="GameOver/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Game Over"
+label_settings = ExtResource("21_pvxhv")
+
+[node name="Label_2" type="Label" parent="GameOver/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Final Score"
+label_settings = ExtResource("21_pvxhv")
+
+[node name="PanelContainer" type="PanelContainer" parent="GameOver/CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOver/CenterContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="GameOver/CenterContainer/VBoxContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Retry"
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="." node_paths=PackedStringArray("focusObject")]
 script = ExtResource("22_cqn77")
@@ -165,11 +203,11 @@ texture = ExtResource("22_6h1ut")
 stretch_mode = 1
 
 [node name="ParallaxLayer_2" type="ParallaxLayer" parent="ParallaxBackground"]
-visible = false
 motion_scale = Vector2(0.5, 0.5)
 motion_mirroring = Vector2(1200, 900)
 
 [node name="TextureRect" type="TextureRect" parent="ParallaxBackground/ParallaxLayer_2"]
+visible = false
 custom_minimum_size = Vector2(1200, 900)
 anchors_preset = 15
 anchor_right = 1.0
@@ -193,4 +231,5 @@ one_shot = true
 [connection signal="playerDead" from="PlayerShip" to="." method="player_dead"]
 [connection signal="playerHurt" from="PlayerShip" to="GameOverlay" method="_on_health_updates"]
 [connection signal="timeout" from="SpawnerArea/Timer" to="SpawnerArea" method="_on_timer_timeout"]
+[connection signal="pressed" from="GameOver/CenterContainer/VBoxContainer/PanelContainer/VBoxContainer/Button" to="." method="reset_game"]
 [connection signal="timeout" from="PlayerRespawnTimer" to="." method="_on_player_respawn_timer_timeout"]

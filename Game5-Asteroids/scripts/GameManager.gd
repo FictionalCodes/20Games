@@ -17,6 +17,8 @@ var playerLives := 2
 @export var spawner: AsteroidSpawner
 @export var playerSpawnPoint: Node2D
 
+@export var gameOverOverlay : CanvasLayer
+
 func _ready() -> void:
 	spawner.scoreCallback = update_score
 	
@@ -31,10 +33,21 @@ func player_dead() -> void:
 	playerLives -= 1
 	livesUpdated.emit(playerLives)
 	respawnTimer.start()
+	spawner.stop()
+
 
 	
 func end_game() -> void:
-	pass
+	spawner.stop()
+	gameOverOverlay.show()
 
 func _on_player_respawn_timer_timeout() -> void:
 	player.Respawn(playerSpawnPoint.global_position)
+	spawner.start()
+
+
+func reset_game() -> void:
+	player.JumpToPosition(playerSpawnPoint.global_position)
+	player.reset()
+	spawner.start()
+	gameOverOverlay.hide()

@@ -8,12 +8,21 @@
 
 config_version=5
 
+[Fictional_Options_Manager]
+
+General/option_sections=[&"AudioOptions"]
+
 [application]
 
 config/name="Asteroids"
 run/main_scene="res://test_scene.tscn"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[autoload]
+
+FictionalOptionsManager="*res://addons/fictional_options_manager/options_manager.gd"
+AudioManager="res://scripts/Globals/AudioManager.gd"
 
 [display]
 
@@ -31,7 +40,7 @@ naming/script_name_casing=1
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/auto_class_name/plugin.cfg", "res://addons/hide_private_properties/plugin.cfg", "res://addons/script-ide/plugin.cfg")
+enabled=PackedStringArray("res://addons/auto_class_name/plugin.cfg", "res://addons/fictional_options_manager/plugin.cfg", "res://addons/gdscript_utilities/plugin.cfg", "res://addons/hide_private_properties/plugin.cfg", "res://addons/script-ide/plugin.cfg")
 
 [input]
 
@@ -85,6 +94,10 @@ shoot={
 2d/default_gravity=0.0
 2d/default_gravity_vector=Vector2(0, 0)
 common/physics_interpolation=true
+
+[plugins]
+
+gdscript_utilities/print_internal_messages=true
 
 [rendering]
 

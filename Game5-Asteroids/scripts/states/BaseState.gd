@@ -8,3 +8,6 @@ func ExitState() -> void:
 
 func Update(_delta:float) -> int:
 	return 0
+
+func can_shoot() -> bool:
+	return false

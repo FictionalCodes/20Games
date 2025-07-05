@@ -15,7 +15,7 @@ continuous_cd = 1
 contact_monitor = true
 max_contacts_reported = 1
 script = ExtResource("1_hv2fr")
-speed = 1000.0
+speed = 1500.0
 
 [node name="LaserRed01" type="Sprite2D" parent="."]
 scale = Vector2(0.5, 0.5)

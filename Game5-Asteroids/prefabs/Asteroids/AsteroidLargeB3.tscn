@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://di2l1i0dpi32s" path="res://prefabs/Asteroids/AsteroidLargeB1.tscn" id="1_3wc4x"]
 [ext_resource type="Texture2D" uid="uid://bi2c7gwlntrtx" path="res://assets/Meteors/meteorBrown_big3.png" id="2_a16ef"]
 
-[node name="WrapObject" instance=ExtResource("1_3wc4x")]
+[node name="Asteroid" instance=ExtResource("1_3wc4x")]
 
 [node name="Sprite" parent="." index="0"]
 texture = ExtResource("2_a16ef")
