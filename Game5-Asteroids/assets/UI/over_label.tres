@@ -1,44 +1,11 @@
 [gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://b1ov2ofbnyfx"]
 
-[sub_resource type="FontFile" id="FontFile_ykxp3"]
-cache/0/16/0/ascent = 0.0
-cache/0/16/0/descent = 0.0
-cache/0/16/0/underline_position = 0.0
-cache/0/16/0/underline_thickness = 0.0
-cache/0/16/0/scale = 1.0
-cache/0/17/0/ascent = 0.0
-cache/0/17/0/descent = 0.0
-cache/0/17/0/underline_position = 0.0
-cache/0/17/0/underline_thickness = 0.0
-cache/0/17/0/scale = 1.0
-cache/0/18/0/ascent = 0.0
-cache/0/18/0/descent = 0.0
-cache/0/18/0/underline_position = 0.0
-cache/0/18/0/underline_thickness = 0.0
-cache/0/18/0/scale = 1.0
-cache/0/19/0/ascent = 0.0
-cache/0/19/0/descent = 0.0
-cache/0/19/0/underline_position = 0.0
-cache/0/19/0/underline_thickness = 0.0
-cache/0/19/0/scale = 1.0
-cache/0/20/0/ascent = 0.0
-cache/0/20/0/descent = 0.0
-cache/0/20/0/underline_position = 0.0
-cache/0/20/0/underline_thickness = 0.0
-cache/0/20/0/scale = 1.0
-cache/0/21/0/ascent = 0.0
-cache/0/21/0/descent = 0.0
-cache/0/21/0/underline_position = 0.0
-cache/0/21/0/underline_thickness = 0.0
-cache/0/21/0/scale = 1.0
-cache/0/22/0/ascent = 0.0
-cache/0/22/0/descent = 0.0
-cache/0/22/0/underline_position = 0.0
-cache/0/22/0/underline_thickness = 0.0
-cache/0/22/0/scale = 1.0
+[ext_resource type="FontFile" uid="uid://c3ypp5gar1qb1" path="res://assets/UI/fonts/OpenDyslexicMono-Regular.otf" id="1_m5ljp"]
 
 [resource]
-font = SubResource("FontFile_ykxp3")
+font = ExtResource("1_m5ljp")
 font_size = 22
-outline_size = 3
+outline_size = 6
 outline_color = Color(0, 0, 0, 1)
+shadow_size = 2
+shadow_color = Color(0.0980392, 0.0980392, 0.0980392, 1)

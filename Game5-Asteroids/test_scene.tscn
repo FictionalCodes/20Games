@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://b4ud16pnxfqgh"]
+[gd_scene load_steps=33 format=3 uid="uid://b4ud16pnxfqgh"]
 
 [ext_resource type="PackedScene" uid="uid://c5a22qec3ldqu" path="res://prefabs/playership.tscn" id="1_yfsux"]
 [ext_resource type="Script" uid="uid://0qahtlox0jnn" path="res://scripts/GameManager.gd" id="1_ykxp3"]
@@ -27,6 +27,68 @@
 [ext_resource type="Script" uid="uid://hm3h2hq42383" path="res://scripts/StarBackground.gd" id="22_cqn77"]
 [ext_resource type="Texture2D" uid="uid://ceu3ga7v1p7gr" path="res://assets/UI/Health_Bar_Table.png" id="23_b11sm"]
 [ext_resource type="Texture2D" uid="uid://br03p8on1fuq1" path="res://assets/UI/hpcounter.tres" id="24_b11sm"]
+[ext_resource type="Theme" uid="uid://pcv3pcmsvpvh" path="res://menu-theme.tres" id="25_mfkbt"]
+
+[sub_resource type="Animation" id="Animation_mfkbt"]
+resource_name = "spawning"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(600, 950), Vector2(600, 600)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ForwardThrust:thrusting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.0333333, 1.96667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_077gh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(556, 376)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ForwardThrust:thrusting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_077gh"]
+_data = {
+&"RESET": SubResource("Animation_077gh"),
+&"spawning": SubResource("Animation_mfkbt")
+}
 
 [sub_resource type="Curve2D" id="Curve2D_k6its"]
 _data = {
@@ -34,17 +96,31 @@ _data = {
 }
 point_count = 5
 
-[node name="LevelArea" type="Node2D" node_paths=PackedStringArray("respawnTimer", "player", "spawner", "playerSpawnPoint")]
+[node name="LevelArea" type="Node2D" node_paths=PackedStringArray("respawnTimer", "player", "spawner", "playerSpawnPoint", "gameOverOverlay")]
 script = ExtResource("1_ykxp3")
 respawnTimer = NodePath("PlayerRespawnTimer")
 player = NodePath("PlayerShip")
 spawner = NodePath("SpawnerArea")
 playerSpawnPoint = NodePath("Marker2D")
+gameOverOverlay = NodePath("GameOverlay")
 
 [node name="PlayerShip" parent="." instance=ExtResource("1_yfsux")]
 position = Vector2(556, 376)
 SPEED = 200.0
 turnSpeed = 500.0
+
+[node name="PlayerStateMachine" parent="PlayerShip" index="8" node_paths=PackedStringArray("stateList")]
+stateList = {
+1: NodePath("PlayerActiveState"),
+2: NodePath("PlayerInvunerableState"),
+3: NodePath("PlayerDeadState"),
+4: NodePath("PlayerRespawnState")
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PlayerShip"]
+libraries = {
+&"": SubResource("AnimationLibrary_077gh")
+}
 
 [node name="SpawnerArea" type="Path2D" parent="."]
 curve = SubResource("Curve2D_k6its")
@@ -60,9 +136,9 @@ loop = false
 
 [node name="Timer" type="Timer" parent="SpawnerArea"]
 wait_time = 3.0
-autostart = true
 
 [node name="GameOverlay" type="CanvasLayer" parent="." node_paths=PackedStringArray("ScoreLabel", "LivesProgress", "HealthProgress")]
+visible = false
 script = ExtResource("20_g6y4b")
 ScoreLabel = NodePath("Container/HBoxContainer/ScoreLabel")
 LivesProgress = NodePath("Container/HBoxContainer_2/LivesBar")
@@ -146,10 +222,9 @@ texture_under = ExtResource("23_b11sm")
 texture_progress = ExtResource("24_b11sm")
 texture_progress_offset = Vector2(5, 0)
 
-[node name="GameOver" type="CanvasLayer" parent="."]
-visible = false
+[node name="Menu" type="CanvasLayer" parent="."]
 
-[node name="CenterContainer" type="CenterContainer" parent="GameOver"]
+[node name="CenterContainer" type="CenterContainer" parent="Menu"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -157,29 +232,54 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("25_mfkbt")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="GameOver/CenterContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="Menu/CenterContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="GameOver/CenterContainer/VBoxContainer"]
+[node name="VBoxContainer_2" type="VBoxContainer" parent="Menu/CenterContainer/PanelContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="MenuTypeLabel" type="Label" parent="Menu/CenterContainer/PanelContainer/VBoxContainer_2"]
 layout_mode = 2
 text = "Game Over"
 label_settings = ExtResource("21_pvxhv")
+horizontal_alignment = 1
+uppercase = true
 
-[node name="Label_2" type="Label" parent="GameOver/CenterContainer/VBoxContainer"]
+[node name="FinalScoreText" type="Label" parent="Menu/CenterContainer/PanelContainer/VBoxContainer_2"]
 layout_mode = 2
 text = "Final Score"
 label_settings = ExtResource("21_pvxhv")
+horizontal_alignment = 2
+uppercase = true
 
-[node name="PanelContainer" type="PanelContainer" parent="GameOver/CenterContainer/VBoxContainer"]
+[node name="FinalScoreNumber" type="Label" parent="Menu/CenterContainer/PanelContainer/VBoxContainer_2"]
+layout_mode = 2
+text = "000000"
+label_settings = ExtResource("21_pvxhv")
+horizontal_alignment = 1
+uppercase = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Menu/CenterContainer/PanelContainer/VBoxContainer_2"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="GameOver/CenterContainer/VBoxContainer/PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/CenterContainer/PanelContainer/VBoxContainer_2"]
 layout_mode = 2
+size_flags_vertical = 10
 
-[node name="Button" type="Button" parent="GameOver/CenterContainer/VBoxContainer/PanelContainer/VBoxContainer"]
+[node name="Button" type="Button" parent="Menu/CenterContainer/PanelContainer/VBoxContainer_2/VBoxContainer"]
 layout_mode = 2
-text = "Retry"
+text = "RETRY"
+
+[node name="Button_2" type="Button" parent="Menu/CenterContainer/PanelContainer/VBoxContainer_2/VBoxContainer"]
+layout_mode = 2
+text = "OPTIONS"
+
+[node name="Button_3" type="Button" parent="Menu/CenterContainer/PanelContainer/VBoxContainer_2/VBoxContainer"]
+layout_mode = 2
+text = "QUIT"
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="." node_paths=PackedStringArray("focusObject")]
 script = ExtResource("22_cqn77")
@@ -219,16 +319,28 @@ texture = ExtResource("22_6m80x")
 stretch_mode = 1
 
 [node name="Marker2D" type="Marker2D" parent="."]
-position = Vector2(559, 597)
+position = Vector2(600, 600)
 
 [node name="PlayerRespawnTimer" type="Timer" parent="."]
 wait_time = 3.0
 one_shot = true
 
+[connection signal="gameReset" from="." to="SpawnerArea" method="start"]
+[connection signal="gameReset" from="." to="GameOverlay" method="show"]
+[connection signal="gameReset" from="." to="Menu" method="hide"]
 [connection signal="livesUpdated" from="." to="GameOverlay" method="_on_lives_updates"]
+[connection signal="playerRespawn" from="." to="PlayerShip" method="reset"]
+[connection signal="playerRespawn" from="." to="SpawnerArea" method="start"]
 [connection signal="scoreUpdated" from="." to="GameOverlay" method="_on_score_updated"]
 [connection signal="playerDead" from="PlayerShip" to="." method="player_dead"]
 [connection signal="playerHurt" from="PlayerShip" to="GameOverlay" method="_on_health_updates"]
 [connection signal="timeout" from="SpawnerArea/Timer" to="SpawnerArea" method="_on_timer_timeout"]
-[connection signal="pressed" from="GameOver/CenterContainer/VBoxContainer/PanelContainer/VBoxContainer/Button" to="." method="reset_game"]
+[connection signal="pressed" from="Menu/CenterContainer/PanelContainer/VBoxContainer_2/VBoxContainer/Button" to="." method="reset_game"]
+[connection signal="pressed" from="Menu/CenterContainer/PanelContainer/VBoxContainer_2/VBoxContainer/Button_2" to="." method="reset_game"]
+[connection signal="pressed" from="Menu/CenterContainer/PanelContainer/VBoxContainer_2/VBoxContainer/Button_3" to="." method="reset_game"]
 [connection signal="timeout" from="PlayerRespawnTimer" to="." method="_on_player_respawn_timer_timeout"]
+
+[editable path="PlayerShip"]
+[editable path="PlayerShip/LeftThrust"]
+[editable path="PlayerShip/RIghtThrust"]
+[editable path="PlayerShip/ForwardThrust"]

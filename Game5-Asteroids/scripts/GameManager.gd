@@ -2,6 +2,8 @@ class_name GameManger extends Node2D
 
 signal scoreUpdated(newScore:int)
 signal livesUpdated(newLives:int)
+signal playerRespawn
+signal gameReset
 
 var _score = 0
 var Score:
@@ -10,8 +12,12 @@ var Score:
 		_score = value
 		scoreUpdated.emit(Score)
 	
-var playerLives := 2
-
+var _playerLives := 2
+var PlayerLives:
+	get: return _playerLives
+	set(value): 
+		_playerLives = value
+		livesUpdated.emit(_playerLives)
 @export var respawnTimer: Timer
 @export var player: PlayerShip
 @export var spawner: AsteroidSpawner
@@ -26,12 +32,11 @@ func update_score(value: int) -> void:
 	Score += value
 
 func player_dead() -> void:
-	if playerLives <= 0:
+	if PlayerLives <= 0:
 		end_game()
 		return
 	
-	playerLives -= 1
-	livesUpdated.emit(playerLives)
+	PlayerLives -= 1
 	respawnTimer.start()
 	spawner.stop()
 
@@ -43,15 +48,12 @@ func _physics_process(delta: float) -> void:
 func end_game() -> void:
 	spawner.stop()
 	gameOverOverlay.show()
+	
 
 func _on_player_respawn_timer_timeout() -> void:
-	player.Respawn(playerSpawnPoint.global_position)
-	spawner.start()
-
+	playerRespawn.emit()
 
 func reset_game() -> void:
-	player.JumpToPosition(playerSpawnPoint.global_position)
-	player.reset()
-	spawner.start()
-	gameOverOverlay.hide()
-	
+	Score = 0
+	PlayerLives = 2
+	gameReset.emit()
