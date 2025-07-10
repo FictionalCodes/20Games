@@ -1,0 +1,39 @@
+[gd_resource type="SpriteFrames" load_steps=6 format=3 uid="uid://b7sr00d7r4xng"]
+
+[ext_resource type="Texture2D" uid="uid://coebwowhm25ty" path="res://assets/Meteors/mini-meteors.png" id="1_iw8ea"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ni0i7"]
+atlas = ExtResource("1_iw8ea")
+region = Rect2(0, 0, 18, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xey5n"]
+atlas = ExtResource("1_iw8ea")
+region = Rect2(18, 0, 18, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nc1qj"]
+atlas = ExtResource("1_iw8ea")
+region = Rect2(36, 0, 18, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hwvft"]
+atlas = ExtResource("1_iw8ea")
+region = Rect2(54, 0, 18, 18)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ni0i7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xey5n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nc1qj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hwvft")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]

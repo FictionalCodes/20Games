@@ -1,0 +1,11 @@
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://bx5tuae0hl2bc"]
+
+[ext_resource type="Texture2D" uid="uid://b5ux2wscj6tj3" path="res://assets/UI/element_0090_save_button.png" id="1_bgr1q"]
+
+[resource]
+texture = ExtResource("1_bgr1q")
+texture_margin_left = 15.0
+texture_margin_top = 12.0
+texture_margin_right = 15.0
+texture_margin_bottom = 12.0
+modulate_color = Color(0.560955, 0.560955, 0.560955, 1)

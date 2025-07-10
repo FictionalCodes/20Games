@@ -1,0 +1,69 @@
+[gd_scene load_steps=8 format=3 uid="uid://di2l1i0dpi32s"]
+
+[ext_resource type="PackedScene" uid="uid://b0r4h3ec1phud" path="res://prefabs/screenwrapobject.tscn" id="1_olhjs"]
+[ext_resource type="Script" uid="uid://do3gqab1o7tu7" path="res://scripts/Asteroid.gd" id="2_65gpf"]
+[ext_resource type="Texture2D" uid="uid://dbcgh00twd3p4" path="res://assets/Meteors/meteorBrown_big1.png" id="3_q0tf3"]
+[ext_resource type="Material" uid="uid://yrxwsh52g0r7" path="res://assets/Meteors/new_canvas_item_material.tres" id="4_3lkmv"]
+[ext_resource type="Texture2D" uid="uid://coebwowhm25ty" path="res://assets/Meteors/mini-meteors.png" id="5_aiptv"]
+[ext_resource type="SpriteFrames" uid="uid://btpfrvc65nqwm" path="res://assets/explosions/explosions.tres" id="6_wfg63"]
+
+[sub_resource type="Gradient" id="Gradient_nw3g7"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0.748792, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
+
+[node name="Asteroid" instance=ExtResource("1_olhjs")]
+collision_layer = 2
+collision_mask = 5
+linear_damp_mode = 1
+linear_damp = 0.0
+angular_velocity = 0.349066
+angular_damp_mode = 1
+angular_damp = 0.0
+script = ExtResource("2_65gpf")
+_minSpeed = 150.0
+_maxSpeed = 300.0
+_minSpin = 50.0
+_maxSpin = 150.0
+size = 1
+
+[node name="Sprite" parent="." index="0"]
+texture = ExtResource("3_q0tf3")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." index="2"]
+polygon = PackedVector2Array(25, -38, -32, -39, -47, 9, -23, 39, 9, 26, 33, 31, 47, -1)
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="." index="3"]
+material = ExtResource("4_3lkmv")
+emitting = false
+texture = ExtResource("5_aiptv")
+lifetime = 0.75
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+emission_shape = 2
+emission_sphere_radius = 20.0
+particle_flag_align_y = true
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 30.0
+initial_velocity_max = 100.0
+angular_velocity_min = -90.0
+angular_velocity_max = 90.0
+angle_min = 180.0
+angle_max = 720.0
+scale_amount_min = 0.2
+scale_amount_max = 0.8
+color_ramp = SubResource("Gradient_nw3g7")
+anim_offset_max = 1.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="4"]
+visible = false
+scale = Vector2(0.5, 0.5)
+sprite_frames = ExtResource("6_wfg63")
+animation = &"5"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered" flags=3]
+[connection signal="finished" from="CPUParticles2D" to="." method="_on_cpu_particles_2d_finished" flags=3]
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_cpu_particles_2d_finished" flags=3]
+[connection signal="animation_finished" from="AnimatedSprite2D" to="AnimatedSprite2D" method="hide"]

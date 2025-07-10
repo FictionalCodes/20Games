@@ -1,0 +1,23 @@
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://pcv3pcmsvpvh"]
+
+[ext_resource type="FontFile" uid="uid://c3ypp5gar1qb1" path="res://assets/UI/fonts/OpenDyslexicMono-Regular.otf" id="1_b8uwv"]
+[ext_resource type="StyleBox" uid="uid://b4i54dqx8rph3" path="res://ui/button-standard-lighter.tres" id="1_t1ly5"]
+[ext_resource type="StyleBox" uid="uid://bx5tuae0hl2bc" path="res://ui/button-standard-texture.tres" id="2_t1ly5"]
+[ext_resource type="Texture2D" uid="uid://cyvnmt2ffu3rk" path="res://assets/UI/element_0112_border.png" id="3_s8evs"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kauls"]
+texture = ExtResource("3_s8evs")
+texture_margin_left = 27.0
+texture_margin_top = 18.0
+texture_margin_right = 27.0
+texture_margin_bottom = 18.0
+
+[resource]
+default_font = ExtResource("1_b8uwv")
+default_font_size = 16
+Button/constants/outline_size = 5
+Button/styles/focus = ExtResource("1_t1ly5")
+Button/styles/hover = ExtResource("1_t1ly5")
+Button/styles/normal = ExtResource("2_t1ly5")
+Button/styles/pressed = ExtResource("2_t1ly5")
+PanelContainer/styles/panel = SubResource("StyleBoxTexture_kauls")

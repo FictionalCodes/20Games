@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://daqe5iy6bos1j"]
+
+[ext_resource type="PackedScene" uid="uid://cyniek8qxemf7" path="res://prefabs/ThrustMarker.tscn" id="1_ativ8"]
+
+[node name="ThrustMarkerSmall" instance=ExtResource("1_ativ8")]
+scale = Vector2(0.5, 0.5)
+
+[node name="ThrustForwardParticles" parent="." index="1"]
+scale_amount_min = 0.01
+scale_amount_max = 0.05
