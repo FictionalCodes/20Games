@@ -22,7 +22,9 @@ class_name PlayerShip extends ScreenWrapObject
 @onready var forwardThrust: PlayerThruster = $ForwardThrust
 @onready var leftThrust: PlayerThruster = $LeftThrust
 @onready var rightThrust: PlayerThruster = $RIghtThrust
+@onready var reverseThrust: PlayerThruster = $ReverseThrust
 @export var playerHealthMax: int = 5
+@onready var animation: AnimationPlayer = $AnimationPlayer
 
 
 
@@ -35,12 +37,13 @@ signal playerDead
 @onready var playerHealthCurrent: int = playerHealthMax
 	
 func _integrate_forces(state):
+	if !stateMachine.currentState.own_movement(): return
 	var thrustDir := Input.get_axis("thrust_reverse","thrust_forward");
 	if thrustDir != 0.0:
 		state.apply_central_force(thrustAmount.rotated(rotation) * thrustDir)
 	
 	forwardThrust.thrusting = thrustDir > 0.0
-	
+	reverseThrust.thrusting = thrustDir < 0.0
 	
 	var rotation_direction = 0
 	var rotationDir = Input.get_axis("turn_left", "turn_right")
@@ -69,14 +72,15 @@ func shoot_lazer() -> void:
 	pewpewnoises.play()
 
 func reset() ->void:
+	stateMachine.SwapStateImmediateKey(PlayerBaseState.PlayerState.Respawning)
+	animation.play("RESET")
+
+func Respawn() -> void:
 	playerHealthCurrent = playerHealthMax
 	damage_visual_update()
+	animation.play("spawning")
+	await animation.animation_finished
 	stateMachine.QueueSwapState(PlayerBaseState.PlayerState.Alive)
-
-func Respawn(position: Vector2) -> void:
-	playerHealthCurrent = playerHealthMax
-	JumpToPosition(position)
-	stateMachine.QueueSwapState(PlayerBaseState.PlayerState.Respawning)
 	
 func JumpToPosition(position: Vector2) -> void:
 	linear_velocity = Vector2.ZERO

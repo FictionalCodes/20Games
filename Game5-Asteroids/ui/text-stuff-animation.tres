@@ -1,0 +1,8 @@
+[gd_resource type="AnimationLibrary" load_steps=2 format=3 uid="uid://b1mn6ogr6hgfe"]
+
+[sub_resource type="Animation" id="Animation_15d1s"]
+
+[resource]
+_data = {
+&"text-start-countdown": SubResource("Animation_15d1s")
+}

@@ -45,3 +45,6 @@ func Update(delta: float) -> int:
 
 func can_shoot() -> bool:
 	return true
+	
+func own_movement() -> bool:
+	return true

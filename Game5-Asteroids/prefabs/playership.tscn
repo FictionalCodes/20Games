@@ -24,17 +24,17 @@
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("7_8rr51")
+"texture": ExtResource("8_aak0m")
 }, {
 "duration": 1.0,
-"texture": ExtResource("8_aak0m")
+"texture": ExtResource("7_8rr51")
 }, {
 "duration": 1.0,
 "texture": null
 }],
 "loop": false,
 "name": &"default",
-"speed": 30.0
+"speed": 25.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7d2qn"]
@@ -78,17 +78,29 @@ visible = false
 texture = ExtResource("4_82dxl")
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
-visible = false
 scale = Vector2(0.4, 0.4)
 polygon = PackedVector2Array(9, -24, 4, -36, -4, -36, -10, -24, -49, 27, 49, 27)
 
 [node name="LeftThrust" parent="." instance=ExtResource("7_iksm6")]
-position = Vector2(-15, 2)
+position = Vector2(-12, 2)
 rotation = 1.79973
+
+[node name="ThrustForwardParticles" parent="LeftThrust" index="1"]
+color_ramp = null
 
 [node name="RIghtThrust" parent="." instance=ExtResource("7_iksm6")]
 position = Vector2(12, 2)
 rotation = 4.4855
+
+[node name="ThrustForwardParticles" parent="RIghtThrust" index="1"]
+color_ramp = null
+
+[node name="ReverseThrust" parent="." instance=ExtResource("7_iksm6")]
+position = Vector2(0, -11)
+rotation = 3.12351
+
+[node name="ThrustForwardParticles" parent="ReverseThrust" index="1"]
+color_ramp = null
 
 [node name="ForwardThrust" parent="." instance=ExtResource("7_aak0m")]
 position = Vector2(0, 16)
@@ -127,8 +139,8 @@ metadata/_custom_type_script = "uid://dngehwlhumnrx"
 script = ExtResource("5_wd0a1")
 flashIntervalMin = 0.2
 flashIntervalMax = 0.6
-flashItems = [NodePath("../../PlayerShip3Blue")]
-modulateItems = [NodePath("../../ForwardThrust/ThrustForward"), NodePath("../../RIghtThrust/ThrustForward"), NodePath("../../LeftThrust/ThrustForward"), NodePath("../../PlayerShip3Blue"), NodePath("../../ShotMarker/LazerFire")]
+flashItems = [NodePath("../../PlayerShip3Blue"), NodePath("../../ForwardThrust/ThrustForward"), NodePath("../../ForwardThrust/ThrustForward"), NodePath("../../ForwardThrust/ThrustForward")]
+modulateItems = [NodePath("../../PlayerShip3Blue")]
 ThisState = 2
 player = NodePath("../..")
 metadata/_custom_type_script = "uid://bsh07430lylwj"
@@ -162,4 +174,5 @@ bus = &"Effects"
 
 [editable path="LeftThrust"]
 [editable path="RIghtThrust"]
+[editable path="ReverseThrust"]
 [editable path="ForwardThrust"]

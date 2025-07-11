@@ -8,3 +8,6 @@ func can_be_hurt() -> bool:
 
 func can_shoot() -> bool:
 	return true
+
+func own_movement() -> bool:
+	return true
