@@ -45,7 +45,8 @@ func _on_body_entered(body: Node) -> void:
 func _screenWrapperExited() -> void:
 	if kill_when_leave_screen:
 		queue_free()
-	else: super._screenWrapperExited()
+	else: 
+		super._screenWrapperExited()
 	
 func start_kill_animation() -> void:
 	particles.emitting = true
@@ -54,8 +55,6 @@ func start_kill_animation() -> void:
 	explosion.play(animations.pick_random())
 	
 	
-
-
 func _on_cpu_particles_2d_finished() -> void:
 	if !explosion.is_playing() and !particles.emitting:
 		queue_free()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cyniek8qxemf7"]
+[gd_scene load_steps=18 format=3 uid="uid://cyniek8qxemf7"]
 
 [ext_resource type="Script" uid="uid://bxi4wj641jq1x" path="res://scripts/PlayerThruster.gd" id="1_wc8ye"]
 [ext_resource type="Texture2D" uid="uid://buvl5ko8nhp8d" path="res://assets/player/Exhaust_5_000.png" id="2_iaaj8"]
@@ -52,6 +52,10 @@ animations = [{
 "speed": 25.0
 }]
 
+[sub_resource type="Gradient" id="Gradient_wc8ye"]
+offsets = PackedFloat32Array(0.763285, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
 [sub_resource type="Curve" id="Curve_s7sti"]
 _limits = [-1.0, 1.0, 0.0, 1.0]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -91,6 +95,7 @@ linear_accel_min = 10.0
 linear_accel_max = 10.0
 scale_amount_min = 0.05
 scale_amount_max = 0.1
+color_ramp = SubResource("Gradient_wc8ye")
 hue_variation_curve = SubResource("Curve_s7sti")
 anim_speed_min = 1.0
 anim_speed_max = 1.0

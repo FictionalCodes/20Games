@@ -10,7 +10,6 @@ class_name AsteroidSpawner extends Path2D
 @export var minSpawnTime: float = 2.0
 @export var maxSpawnTime: float = 5.0
 
-var rocks : Array[Asteroid] = []
 var scoreCallback: Callable
 
 func spawn_rock() -> void:
@@ -25,11 +24,9 @@ func spawn_rock() -> void:
 	spawnedRock.On_kill_callback = rock_dead
 
 	add_child(spawnedRock)
-	rocks.push_back(spawnedRock)
 	
 func rock_dead(rock: Asteroid) -> void:
 	var arrayToChooseFrom : Array[PackedScene]
-	rocks.erase(rock)
 
 	match rock.size:
 		Asteroid.Size.Big:
@@ -42,7 +39,7 @@ func rock_dead(rock: Asteroid) -> void:
 			scoreCallback.call(3)
 	
 	if arrayToChooseFrom == null or arrayToChooseFrom.is_empty():
-		if rocks.is_empty():
+		if get_all_rocks().is_empty():
 			_on_timer_timeout()
 		return
 				
@@ -77,9 +74,17 @@ func start() -> void:
 	stop()
 	spawnTimer.start()
 	
-func stop() -> void:
+func stop(nuke: bool = false) -> void:
 	spawnTimer.stop()
-	for rock in rocks:
-		rock.kill_when_leave_screen = true
 	
-	rocks.clear()
+	for rock: Asteroid in get_all_rocks():
+		if nuke:
+			rock.queue_free()
+		else:
+			rock.kill_when_leave_screen = true
+
+	
+	
+func get_all_rocks() -> Array:
+	return get_children().filter(func(node: Node): return node is Asteroid).map(func(node: Node): return node as Asteroid) 
+	

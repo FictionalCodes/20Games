@@ -1,7 +1,8 @@
-[gd_scene load_steps=33 format=3 uid="uid://b4ud16pnxfqgh"]
+[gd_scene load_steps=37 format=3 uid="uid://b4ud16pnxfqgh"]
 
 [ext_resource type="PackedScene" uid="uid://c5a22qec3ldqu" path="res://prefabs/playership.tscn" id="1_yfsux"]
 [ext_resource type="Script" uid="uid://0qahtlox0jnn" path="res://scripts/GameManager.gd" id="1_ykxp3"]
+[ext_resource type="Script" uid="uid://bxbwi5mm446nq" path="res://scripts/PauseHandler.gd" id="2_8fq6b"]
 [ext_resource type="Script" uid="uid://dsxvwka4s5pc8" path="res://scripts/AsteroidSpawner.gd" id="2_ia1lp"]
 [ext_resource type="PackedScene" uid="uid://di2l1i0dpi32s" path="res://prefabs/Asteroids/AsteroidLargeB1.tscn" id="3_vr1i5"]
 [ext_resource type="PackedScene" uid="uid://4yj4ykwc24dv" path="res://prefabs/Asteroids/AsteroidLargeB2.tscn" id="4_rpuu0"]
@@ -19,7 +20,7 @@
 [ext_resource type="PackedScene" uid="uid://1uewnvp1rklc" path="res://prefabs/Asteroids/AsteroidSmB2.tscn" id="16_6m80x"]
 [ext_resource type="PackedScene" uid="uid://dvr77funs0671" path="res://prefabs/Asteroids/AsteroidSmG1.tscn" id="17_cqn77"]
 [ext_resource type="PackedScene" uid="uid://duwrol0e5sgd7" path="res://prefabs/Asteroids/AsteroidSmG2.tscn" id="18_22oil"]
-[ext_resource type="Script" uid="uid://dpqxjirsquddo" path="res://scripts/UI/Overlay.gd" id="20_g6y4b"]
+[ext_resource type="Script" uid="uid://ghsh4865p5ig" path="res://scripts/UI/GameOverlay.gd" id="20_077gh"]
 [ext_resource type="LabelSettings" uid="uid://b1ov2ofbnyfx" path="res://assets/UI/over_label.tres" id="21_pvxhv"]
 [ext_resource type="Texture2D" uid="uid://bms63cu2v4s4m" path="res://assets/background/bg7.png" id="22_6h1ut"]
 [ext_resource type="Texture2D" uid="uid://cv2q7ebo2h5ia" path="res://assets/background/bg41.png" id="22_6m80x"]
@@ -27,35 +28,10 @@
 [ext_resource type="Script" uid="uid://hm3h2hq42383" path="res://scripts/StarBackground.gd" id="22_cqn77"]
 [ext_resource type="Texture2D" uid="uid://ceu3ga7v1p7gr" path="res://assets/UI/Health_Bar_Table.png" id="23_b11sm"]
 [ext_resource type="Texture2D" uid="uid://br03p8on1fuq1" path="res://assets/UI/hpcounter.tres" id="24_b11sm"]
+[ext_resource type="AnimationLibrary" uid="uid://b1mn6ogr6hgfe" path="res://ui/text-stuff-animation.tres" id="25_7kp7o"]
+[ext_resource type="AnimationLibrary" uid="uid://ouunbhawtlj0" path="res://ui/ui-fade-animation.tres" id="25_077gh"]
 [ext_resource type="Theme" uid="uid://pcv3pcmsvpvh" path="res://menu-theme.tres" id="25_mfkbt"]
-
-[sub_resource type="Animation" id="Animation_mfkbt"]
-resource_name = "spawning"
-length = 3.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(600, 950), Vector2(600, 600)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("ForwardThrust:thrusting")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.0333333, 1.96667),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
+[ext_resource type="Script" uid="uid://cogkrhakduh0o" path="res://scripts/UI/MenuOverlay.gd" id="26_5qgi0"]
 
 [sub_resource type="Animation" id="Animation_077gh"]
 length = 0.001
@@ -69,7 +45,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(556, 376)]
+"values": [Vector2(600, 1000)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -82,6 +58,58 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_mfkbt"]
+resource_name = "spawning"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(600, 950), Vector2(600, 600)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ForwardThrust:thrusting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0.0333333, 1.96667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_077gh"]
@@ -96,26 +124,42 @@ _data = {
 }
 point_count = 5
 
-[node name="LevelArea" type="Node2D" node_paths=PackedStringArray("respawnTimer", "player", "spawner", "playerSpawnPoint", "gameOverOverlay")]
+[node name="LevelArea" type="Node2D" node_paths=PackedStringArray("respawnTimer", "player", "spawner", "playerSpawnPoint", "gameOverOverlay", "gameStatsOverlay")]
 script = ExtResource("1_ykxp3")
 respawnTimer = NodePath("PlayerRespawnTimer")
 player = NodePath("PlayerShip")
 spawner = NodePath("SpawnerArea")
 playerSpawnPoint = NodePath("Marker2D")
-gameOverOverlay = NodePath("GameOverlay")
+gameOverOverlay = NodePath("Menu")
+gameStatsOverlay = NodePath("GameOverlay")
+
+[node name="PauseHandler" type="Node2D" parent="."]
+process_mode = 3
+script = ExtResource("2_8fq6b")
 
 [node name="PlayerShip" parent="." instance=ExtResource("1_yfsux")]
-position = Vector2(556, 376)
+visible = false
+position = Vector2(600, 1000)
 SPEED = 200.0
 turnSpeed = 500.0
 
-[node name="PlayerStateMachine" parent="PlayerShip" index="8" node_paths=PackedStringArray("stateList")]
+[node name="LazerFire" parent="PlayerShip/ShotMarker" index="0"]
+frame = 2
+frame_progress = 0.0
+
+[node name="PlayerStateMachine" parent="PlayerShip" index="9" node_paths=PackedStringArray("stateList")]
 stateList = {
 1: NodePath("PlayerActiveState"),
 2: NodePath("PlayerInvunerableState"),
 3: NodePath("PlayerDeadState"),
 4: NodePath("PlayerRespawnState")
 }
+
+[node name="PlayerInvunerableState" parent="PlayerShip/PlayerStateMachine" index="0"]
+invunTime = null
+
+[node name="AudioStreamPlayer2D" parent="PlayerShip" index="10"]
+process_mode = 4
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="PlayerShip"]
 libraries = {
@@ -137,14 +181,15 @@ loop = false
 [node name="Timer" type="Timer" parent="SpawnerArea"]
 wait_time = 3.0
 
-[node name="GameOverlay" type="CanvasLayer" parent="." node_paths=PackedStringArray("ScoreLabel", "LivesProgress", "HealthProgress")]
-visible = false
-script = ExtResource("20_g6y4b")
-ScoreLabel = NodePath("Container/HBoxContainer/ScoreLabel")
+[node name="GameOverlay" type="CanvasLayer" parent="." node_paths=PackedStringArray("LivesProgress", "HealthProgress", "ScoreLabel")]
+script = ExtResource("20_077gh")
 LivesProgress = NodePath("Container/HBoxContainer_2/LivesBar")
 HealthProgress = NodePath("Container/HBox3/HealthBar")
+ScoreLabel = NodePath("Container/HBoxContainer/ScoreLabel")
 
 [node name="Container" type="PanelContainer" parent="GameOverlay"]
+visible = false
+modulate = Color(1, 1, 1, 0)
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 70.0
@@ -222,9 +267,33 @@ texture_under = ExtResource("23_b11sm")
 texture_progress = ExtResource("24_b11sm")
 texture_progress_offset = Vector2(5, 0)
 
-[node name="Menu" type="CanvasLayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="GameOverlay"]
+libraries = {
+&"text-stuff-animation": ExtResource("25_7kp7o"),
+&"ui-fade-animation": ExtResource("25_077gh")
+}
 
-[node name="CenterContainer" type="CenterContainer" parent="Menu"]
+[node name="GameStartingLabel" type="Label" parent="GameOverlay"]
+visible = false
+offset_right = 40.0
+offset_bottom = 23.0
+label_settings = ExtResource("21_pvxhv")
+
+[node name="Menu" type="CanvasLayer" parent="." node_paths=PackedStringArray("menuTypeLabel", "scoreNameLabel", "resumeButton", "startGameButton", "ScoreLabel")]
+process_mode = 3
+script = ExtResource("26_5qgi0")
+menuTypeLabel = NodePath("Container/PanelContainer/VBoxContainer_2/MenuTypeLabel")
+scoreNameLabel = NodePath("Container/PanelContainer/VBoxContainer_2/FinalScoreText")
+resumeButton = NodePath("Container/PanelContainer/VBoxContainer_2/VBoxContainer/Unpause")
+startGameButton = NodePath("Container/PanelContainer/VBoxContainer_2/VBoxContainer/StartGameButton")
+ScoreLabel = NodePath("Container/PanelContainer/VBoxContainer_2/FinalScoreNumber")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Menu"]
+libraries = {
+&"": ExtResource("25_077gh")
+}
+
+[node name="Container" type="CenterContainer" parent="Menu"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -234,50 +303,56 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("25_mfkbt")
 
-[node name="PanelContainer" type="PanelContainer" parent="Menu/CenterContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="Menu/Container"]
 layout_mode = 2
 
-[node name="VBoxContainer_2" type="VBoxContainer" parent="Menu/CenterContainer/PanelContainer"]
+[node name="VBoxContainer_2" type="VBoxContainer" parent="Menu/Container/PanelContainer"]
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="MenuTypeLabel" type="Label" parent="Menu/CenterContainer/PanelContainer/VBoxContainer_2"]
+[node name="MenuTypeLabel" type="Label" parent="Menu/Container/PanelContainer/VBoxContainer_2"]
 layout_mode = 2
 text = "Game Over"
 label_settings = ExtResource("21_pvxhv")
 horizontal_alignment = 1
 uppercase = true
 
-[node name="FinalScoreText" type="Label" parent="Menu/CenterContainer/PanelContainer/VBoxContainer_2"]
+[node name="FinalScoreText" type="Label" parent="Menu/Container/PanelContainer/VBoxContainer_2"]
 layout_mode = 2
 text = "Final Score"
 label_settings = ExtResource("21_pvxhv")
 horizontal_alignment = 2
 uppercase = true
 
-[node name="FinalScoreNumber" type="Label" parent="Menu/CenterContainer/PanelContainer/VBoxContainer_2"]
+[node name="FinalScoreNumber" type="Label" parent="Menu/Container/PanelContainer/VBoxContainer_2"]
 layout_mode = 2
 text = "000000"
 label_settings = ExtResource("21_pvxhv")
 horizontal_alignment = 1
 uppercase = true
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Menu/CenterContainer/PanelContainer/VBoxContainer_2"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Menu/Container/PanelContainer/VBoxContainer_2"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Menu/CenterContainer/PanelContainer/VBoxContainer_2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/Container/PanelContainer/VBoxContainer_2"]
 layout_mode = 2
 size_flags_vertical = 10
 
-[node name="Button" type="Button" parent="Menu/CenterContainer/PanelContainer/VBoxContainer_2/VBoxContainer"]
+[node name="Unpause" type="Button" parent="Menu/Container/PanelContainer/VBoxContainer_2/VBoxContainer"]
+layout_mode = 2
+text = "RESUME
+"
+
+[node name="StartGameButton" type="Button" parent="Menu/Container/PanelContainer/VBoxContainer_2/VBoxContainer"]
 layout_mode = 2
 text = "RETRY"
 
-[node name="Button_2" type="Button" parent="Menu/CenterContainer/PanelContainer/VBoxContainer_2/VBoxContainer"]
+[node name="OptionsButton" type="Button" parent="Menu/Container/PanelContainer/VBoxContainer_2/VBoxContainer"]
+visible = false
 layout_mode = 2
 text = "OPTIONS"
 
-[node name="Button_3" type="Button" parent="Menu/CenterContainer/PanelContainer/VBoxContainer_2/VBoxContainer"]
+[node name="QuitButton" type="Button" parent="Menu/Container/PanelContainer/VBoxContainer_2/VBoxContainer"]
 layout_mode = 2
 text = "QUIT"
 
@@ -325,22 +400,20 @@ position = Vector2(600, 600)
 wait_time = 3.0
 one_shot = true
 
-[connection signal="gameReset" from="." to="SpawnerArea" method="start"]
-[connection signal="gameReset" from="." to="GameOverlay" method="show"]
-[connection signal="gameReset" from="." to="Menu" method="hide"]
 [connection signal="livesUpdated" from="." to="GameOverlay" method="_on_lives_updates"]
 [connection signal="playerRespawn" from="." to="PlayerShip" method="reset"]
-[connection signal="playerRespawn" from="." to="SpawnerArea" method="start"]
 [connection signal="scoreUpdated" from="." to="GameOverlay" method="_on_score_updated"]
+[connection signal="scoreUpdated" from="." to="Menu" method="_on_score_updated"]
 [connection signal="playerDead" from="PlayerShip" to="." method="player_dead"]
 [connection signal="playerHurt" from="PlayerShip" to="GameOverlay" method="_on_health_updates"]
 [connection signal="timeout" from="SpawnerArea/Timer" to="SpawnerArea" method="_on_timer_timeout"]
-[connection signal="pressed" from="Menu/CenterContainer/PanelContainer/VBoxContainer_2/VBoxContainer/Button" to="." method="reset_game"]
-[connection signal="pressed" from="Menu/CenterContainer/PanelContainer/VBoxContainer_2/VBoxContainer/Button_2" to="." method="reset_game"]
-[connection signal="pressed" from="Menu/CenterContainer/PanelContainer/VBoxContainer_2/VBoxContainer/Button_3" to="." method="reset_game"]
+[connection signal="pressed" from="Menu/Container/PanelContainer/VBoxContainer_2/VBoxContainer/Unpause" to="PauseHandler" method="toggle_pause"]
+[connection signal="pressed" from="Menu/Container/PanelContainer/VBoxContainer_2/VBoxContainer/StartGameButton" to="." method="reset_game"]
+[connection signal="pressed" from="Menu/Container/PanelContainer/VBoxContainer_2/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
 [connection signal="timeout" from="PlayerRespawnTimer" to="." method="_on_player_respawn_timer_timeout"]
 
 [editable path="PlayerShip"]
 [editable path="PlayerShip/LeftThrust"]
 [editable path="PlayerShip/RIghtThrust"]
+[editable path="PlayerShip/ReverseThrust"]
 [editable path="PlayerShip/ForwardThrust"]

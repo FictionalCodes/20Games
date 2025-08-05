@@ -23,7 +23,10 @@ var PlayerLives:
 @export var spawner: AsteroidSpawner
 @export var playerSpawnPoint: Node2D
 
-@export var gameOverOverlay : CanvasLayer
+@export var gameOverOverlay : MenuOverlay
+@export var gameStatsOverlay : GameOverlay
+
+@onready var pauseHandler: PauseHandler = $PauseHandler
 
 func _ready() -> void:
 	spawner.scoreCallback = update_score
@@ -40,20 +43,33 @@ func player_dead() -> void:
 	respawnTimer.start()
 	spawner.stop()
 
-func _physics_process(delta: float) -> void:
-	if Input.is_action_just_pressed("pause"):
-		get_tree().paused = !get_tree().paused
-
-	
+func set_paused(paused: bool) -> void:
+	if paused:
+		gameOverOverlay.show_menu(MenuOverlay.MenuType.Pause)
+	else:
+		gameOverOverlay.set_visible_immediate(false)
+		
 func end_game() -> void:
 	spawner.stop()
-	gameOverOverlay.show()
+	gameOverOverlay.start_fade()
+	gameStatsOverlay.start_fade(false)
 	
 
 func _on_player_respawn_timer_timeout() -> void:
 	playerRespawn.emit()
 
 func reset_game() -> void:
+	pauseHandler.set_paused(false)
+	spawner.stop(true)
+
 	Score = 0
 	PlayerLives = 2
+	player.reset()
+	gameStatsOverlay.start_fade()
+	await gameOverOverlay.start_fade(false, true)
+	await player.Respawn()
+	spawner.start()
 	gameReset.emit()
+
+func _on_quit_button_pressed() -> void:
+	get_tree().quit()
