@@ -1,0 +1,65 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[Fictional_Options_Manager]
+
+General/option_sections=[&"AudioOptions"]
+
+[application]
+
+config/name="CommandAndConquer"
+config/features=PackedStringArray("4.4", "GL Compatibility")
+config/icon="res://icon.svg"
+
+[autoload]
+
+OptionsManager="*res://addons/fictional_options_manager/options_manager.gd"
+
+[display]
+
+window/size/viewport_width=1080
+window/size/viewport_height=720
+window/stretch/mode="canvas_items"
+window/stretch/scale_mode="integer"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/fictional_options_manager/plugin.cfg")
+
+[input_devices]
+
+pointing/android/enable_long_press_as_right_click=true
+
+[layer_names]
+
+2d_render/layer_1="Terrain"
+2d_render/layer_2="Objects"
+2d_render/layer_3="Units"
+2d_render/layer_4="Overlay"
+2d_navigation/layer_1="Ground"
+2d_navigation/layer_2="Water"
+
+[navigation]
+
+pathfinding/max_threads=8
+
+[physics]
+
+common/physics_ticks_per_second=30
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=3
+textures/canvas_textures/default_texture_repeat=1
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+camera/depth_of_field/depth_of_field_bokeh_shape=0
+environment/ssao/quality=1
+environment/glow/upscale_mode=0
