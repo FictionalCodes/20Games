@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://cb2nk8yv8bwcq"]
+
+[ext_resource type="Script" uid="uid://dfvuxyygci7tr" path="res://addons/TopDownCamera2D/top_down_camera_2d.gd" id="1_jotil"]
+[ext_resource type="Texture2D" uid="uid://bml20xph5sqgk" path="res://icon.svg" id="2_44gc5"]
+[ext_resource type="Script" uid="uid://cd5e2hgox57sc" path="res://scripts/gamemanagers/game_input_manager.gd" id="3_612pj"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_44gc5"]
+vertices = PackedVector2Array(3349.22, 2000.18, -4849.94, 2156.78, -4339.75, -3029.82, 3506.7, -4795.42)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-4349, -3038, -4861, 2167, 3359, 2010, 3517, -4808)])
+cell_size = 16.0
+agent_radius = 16.0
+
+[node name="Node2D" type="Node2D"]
+
+[node name="TopDownCamera2D" type="Camera2D" parent="."]
+editor_draw_limits = true
+script = ExtResource("1_jotil")
+edge_scroll_margin = 50.0
+edge_scroll_speed = 600.0
+boundary_color = Color(0.2, 0, 0.8, 0.101961)
+metadata/_custom_type_script = "uid://dfvuxyygci7tr"
+
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(312, 275)
+texture = ExtResource("2_44gc5")
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_44gc5")
+
+[node name="GameInputManager" type="Node2D" parent="."]
+script = ExtResource("3_612pj")
