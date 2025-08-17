@@ -22,6 +22,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 OptionsManager="*res://addons/fictional_options_manager/options_manager.gd"
+MainAudioManager="*res://addons/fictional_options_manager/audio_options_implementation/audio_manager.gd"
 
 [display]
 
