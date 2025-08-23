@@ -14,8 +14,9 @@ var _destinationReached = true
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	_query_parameters.map = get_world_2d().get_navigation_map()
-	_query_parameters.simplify_path = true
-	_query_parameters.simplify_epsilon = 16
+	#_query_parameters.simplify_path = true
+	#_query_parameters.simplify_epsilon = 32.0
+	#_query_parameters.path_postprocessing = NavigationPathQueryParameters2D.PATH_POSTPROCESSING_NONE 
 
 
 
@@ -38,16 +39,16 @@ func move_on_path(delta: float) -> void:
 			currentWaypoint = _currentPath.front()
 	
 	var moveVector = global_position.direction_to(currentWaypoint)
-	global_transform.origin = transform.origin.move_toward(currentWaypoint, unitSpeed *delta)
+	global_position += moveVector * unitSpeed * delta
 	
 	
 
 func set_move_target(target_position: Vector2, append: bool = false) -> void:
 	var nextPath := _query_path(target_position)
-	if append:
-		_currentPath.append_array(nextPath)
-	else:
-		_currentPath = nextPath
+	if not append:
+		_currentPath.clear()
+		
+	_currentPath.append_array(nextPath)
 		
 	_destinationReached = false
 
