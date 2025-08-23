@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://crpi7321p6ro"]
+[gd_scene load_steps=6 format=3 uid="uid://crpi7321p6ro"]
 
-[ext_resource type="Texture2D" uid="uid://bml20xph5sqgk" path="res://icon.svg" id="1_v0m34"]
 [ext_resource type="Script" uid="uid://bcb72mqjensh8" path="res://scripts/units/BaseUnit.gd" id="2_cbhrm"]
+[ext_resource type="SpriteFrames" uid="uid://cfgxisk74n7j6" path="res://Resources/UnitFrames/TankBetaBody.tres" id="2_v0m34"]
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_v0m34"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_73l2j"]
 radius = 192.0
@@ -9,12 +11,19 @@ radius = 192.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_v0m34"]
 radius = 32.0
 
-[node name="Node2D" type="Node2D"]
+[node name="Unit" type="Node2D"]
 script = ExtResource("2_cbhrm")
 
-[node name="Unit" type="Sprite2D" parent="."]
+[node name="UnitSprite" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("1_v0m34")
+sprite_frames = ExtResource("2_v0m34")
+animation = &""
+
+[node name="AnimationTree" type="AnimationTree" parent="UnitSprite"]
+tree_root = SubResource("AnimationNodeBlendSpace2D_v0m34")
+parameters/blend_position = Vector2(0, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UnitSprite"]
 
 [node name="AttackRadius" type="Area2D" parent="."]
 
