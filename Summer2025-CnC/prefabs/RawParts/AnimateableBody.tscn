@@ -1,9 +1,10 @@
-[gd_scene load_steps=32 format=3 uid="uid://dplbtm2fn1y5n"]
+[gd_scene load_steps=33 format=3 uid="uid://dplbtm2fn1y5n"]
 
 [ext_resource type="Texture2D" uid="uid://c64uures3be6o" path="res://Assets/Units/TankBetaTurret.png" id="1_ynxbu"]
 [ext_resource type="AnimationLibrary" uid="uid://bwvj761ifv65c" path="res://Resources/UnitFrames/24DirSpriteFrames.res" id="2_7iuw7"]
 [ext_resource type="Script" uid="uid://xt6h3vu5ik1f" path="res://scripts/Nodes/AnimatableBody.gd" id="2_teew4"]
 [ext_resource type="AnimationNodeBlendSpace2D" uid="uid://njeraauq8qx0" path="res://Resources/UnitFrames/24DirTree.res" id="4_ynxbu"]
+[ext_resource type="Script" uid="uid://brh3bfneim3sw" path="res://scripts/Nodes/UnitSpriteAnimator.gd" id="5_rky57"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rky57"]
 atlas = ExtResource("1_ynxbu")
@@ -328,11 +329,14 @@ script = ExtResource("2_teew4")
 texture = ExtResource("1_ynxbu")
 animationLibary = ExtResource("2_7iuw7")
 animationTree = ExtResource("4_ynxbu")
+setupPlayer = true
+setupAnimationTree = true
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = ExtResource("4_ynxbu")
 anim_player = NodePath("../AnimationPlayer")
-parameters/blend_position = Vector2(-0.283892, -0.142857)
+parameters/blend_position = Vector2(1, 0)
+script = ExtResource("5_rky57")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

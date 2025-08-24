@@ -14,8 +14,21 @@ class_name AnimateableBody extends AnimatedSprite2D
 ##THIS WILL WIPE YOUR EXISTING TREE
 @export var setupAnimationTree : bool = false
 
+@export_category("In Game Settings")
+var currentAngle := 0.0
+@onready var animationHelper := $AnimationTree as UnitSpriteAnimator
+
+func _process(delta: float) -> void:
+	if Engine.is_editor_hint(): return
+	
+	currentAngle += delta
+	animationHelper.look_toward_angle = currentAngle
+	
+	
 
 func _import_base_directions() -> void:
+	if not Engine.is_editor_hint(): return
+	
 	var raw_size := texture.get_size()
 	raw_size.x /= numCols
 	
@@ -48,6 +61,7 @@ func _import_base_directions() -> void:
 
 		if setupPlayer:
 			var newAnimation := Animation.new()
+			newAnimation.length = 0.1
 			var trackIndex := newAnimation.add_track(Animation.TYPE_VALUE)
 			newAnimation.track_set_path(trackIndex, NodePath(animationPropPath))
 			newAnimation.track_insert_key(trackIndex, 0.0, animationName)
@@ -59,6 +73,8 @@ func _import_base_directions() -> void:
 				var animationRoot = AnimationNodeAnimation.new()
 				animationRoot.animation = (animationLibary.resource_path.get_file().get_slice(".",0) +"/"+ animationName)
 
-				animationTree.add_blend_point(animationRoot, Vector2.from_angle(-angle))
+				var realAngle = Vector2.from_angle(angle)
+				realAngle.y *= -1
+				animationTree.add_blend_point(animationRoot, realAngle)
 
 const animationPropPath = ".:animation"
