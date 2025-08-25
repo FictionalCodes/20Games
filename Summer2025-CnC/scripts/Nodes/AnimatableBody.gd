@@ -15,14 +15,14 @@ class_name AnimateableBody extends AnimatedSprite2D
 @export var setupAnimationTree : bool = false
 
 @export_category("In Game Settings")
-var currentAngle := 0.0
+var lookDir := Vector2.ZERO
+
 @onready var animationHelper := $AnimationTree as UnitSpriteAnimator
 
 func _process(delta: float) -> void:
 	if Engine.is_editor_hint(): return
 	
-	currentAngle += delta
-	animationHelper.look_toward_angle = currentAngle
+	animationHelper.look_toward_angle = lookDir.angle() 
 	
 	
 
@@ -32,9 +32,8 @@ func _import_base_directions() -> void:
 	var raw_size := texture.get_size()
 	raw_size.x /= numCols
 	
-	if sprite_frames == null:
-		sprite_frames = SpriteFrames.new()
-		sprite_frames.resource_scene_unique_id = SpriteFrames.generate_scene_unique_id()
+	sprite_frames = SpriteFrames.new()
+	sprite_frames.resource_scene_unique_id = SpriteFrames.generate_scene_unique_id()
 		
 	sprite_frames.clear_all()
 	

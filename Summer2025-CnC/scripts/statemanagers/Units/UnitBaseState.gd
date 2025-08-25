@@ -1,4 +1,4 @@
-class_name UnitState extends Node
+class_name UnitBaseState extends BaseState
 
 enum UnitState{
 	Idle = 1,
@@ -12,7 +12,10 @@ enum UnitState{
 @export var unit: BaseUnit
 
 func can_be_hurt() -> bool:
-	return false
+	return true
 
 func can_shoot() -> bool:
 	return true
+
+func Update(delta: float) -> int:
+	unit.currentCommand

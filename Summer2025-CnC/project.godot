@@ -95,8 +95,18 @@ pointing/android/enable_long_press_as_right_click=true
 2d_render/layer_2="Objects"
 2d_render/layer_3="Units"
 2d_render/layer_4="Overlay"
+2d_physics/layer_1="Terrain"
 2d_navigation/layer_1="Ground"
+2d_physics/layer_2="Water"
 2d_navigation/layer_2="Water"
+2d_physics/layer_3="Buildings"
+2d_physics/layer_4="Vehicles"
+2d_physics/layer_5="Infantry"
+2d_physics/layer_6="Aircraft"
+2d_physics/layer_7="Team1"
+2d_physics/layer_8="Team2"
+2d_physics/layer_9="Neutral"
+2d_physics/layer_10="Damage"
 
 [navigation]
 

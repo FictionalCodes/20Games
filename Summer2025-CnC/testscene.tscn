@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://cb2nk8yv8bwcq"]
 
 [ext_resource type="Script" uid="uid://dfvuxyygci7tr" path="res://addons/TopDownCamera2D/top_down_camera_2d.gd" id="1_jotil"]
+[ext_resource type="PackedScene" uid="uid://crpi7321p6ro" path="res://prefabs/baseunit.tscn" id="2_612pj"]
 [ext_resource type="Script" uid="uid://cd5e2hgox57sc" path="res://scripts/gamemanagers/GameInputManager.gd" id="3_612pj"]
-[ext_resource type="Script" uid="uid://bcb72mqjensh8" path="res://scripts/units/BaseUnit.gd" id="3_asog6"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_44gc5"]
 vertices = PackedVector2Array(458.891, 1024.38, 458.438, 1024.37, 812.313, 1028.87, -385.078, -222.398, -385.047, -222.398, -721.781, -209.672, 1774.78, 1408.69, 1769.98, 1028.59, 1769.99, 1028.79, 3296.44, 1947.18, -4790.26, 2101.63, 1257.69, 1427.45, 3451.12, -4727.57, 1757.37, -303.594, -4289.83, -2985.71, 1753.43, -304.477, 1257.38, 1420.83, 1257.91, 1420.8, 812.148, 1026.41, 816.242, 1026.44, 1262.89, 1277.73, 419.352, 622.523, -417.672, 629.43, -390.313, 85.4297, 1305.43, 71.5703, 784.203, 615.922, 786.023, 620, 1753.43, -303.43, -746.281, 1017.64, 784.508, 620, 793.383, 734.531)
@@ -25,8 +25,8 @@ metadata/_custom_type_script = "uid://dfvuxyygci7tr"
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 navigation_polygon = SubResource("NavigationPolygon_44gc5")
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="NavigationRegion2D"]
-motion_mode = 1
+[node name="Unit" parent="NavigationRegion2D" instance=ExtResource("2_612pj")]
+position = Vector2(40, 240)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="NavigationRegion2D"]
 
@@ -35,11 +35,6 @@ polygon = PackedVector2Array(747, 962, -681, 954, -659, -148, 1694, -237, 1709, 
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="NavigationRegion2D/StaticBody2D"]
 polygon = PackedVector2Array(-655, -148, 1690, -238, 1710, 1347, 1324, 1361, 1372, 0, -451, 18, -485, 694, 726, 684, 744, 964, -675, 946)
-
-[node name="Unit" type="Node2D" parent="NavigationRegion2D"]
-position = Vector2(183, 231)
-script = ExtResource("3_asog6")
-unitSpeed = 300.0
 
 [node name="GameInputManager" type="Node2D" parent="." node_paths=PackedStringArray("testUnit")]
 script = ExtResource("3_612pj")

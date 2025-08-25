@@ -1,4 +1,4 @@
-class_name BaseState extends Node
+class_name BaseState extends Node2D
 
 func EnterState() -> void:
 	process_mode = Node.PROCESS_MODE_INHERIT
@@ -6,7 +6,7 @@ func EnterState() -> void:
 func ExitState() -> void:
 	process_mode = Node.PROCESS_MODE_DISABLED
 
-func Update(_delta:float) -> int:
+func Update(delta:float) -> int:
 	return 0
 
 func can_shoot() -> bool:
