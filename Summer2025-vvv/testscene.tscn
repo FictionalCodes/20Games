@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://wc02icp8p6fb"]
+
+[ext_resource type="PackedScene" uid="uid://dnbsefc375cli" path="res://prefabs/Player.tscn" id="1_jotil"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="CharacterBody2D" parent="." instance=ExtResource("1_jotil")]
+position = Vector2(53, 26)
