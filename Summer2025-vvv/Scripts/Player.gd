@@ -1,8 +1,10 @@
 class_name Player extends CharacterBody2D
 
-const GRAVITY: float = 350.0
+@export var GRAVITY: float = 350.0
 
 @export var speed : float = 200.0
+@export var flipBonusSpeedNumber: float = 600
+@export var flipBonusSpeedTimer : float = 0.25
 
 @onready var sprite : PlayerAnimator = $Sprite2D
 
@@ -18,13 +20,16 @@ func _unhandled_key_input(event: InputEvent) -> void:
 func flip_gravity() -> void:
 	up_direction *= -1
 	sprite.do_jump_anim()
+	flipBoostTime = 0.0
 
+var flipBoostTime = 0.0
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
-	
+	if flipBoostTime < 1.0:
+		flipBoostTime += delta
 	var leftRight := Input.get_axis("left", "right") * speed
-	
-	velocity = Vector2(leftRight, GRAVITY * -up_direction.y)
+	var fallSpeed = clampf(lerpf(flipBonusSpeedNumber, GRAVITY, flipBoostTime/flipBonusSpeedTimer), GRAVITY, flipBonusSpeedNumber)
+	velocity = Vector2(leftRight, fallSpeed * -up_direction.y)
 	move_and_slide()
 	sprite.do_animation_update(velocity)
 
