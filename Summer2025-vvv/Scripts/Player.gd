@@ -1,10 +1,10 @@
 class_name Player extends CharacterBody2D
 
-const GRAVITY: float = 400.0
+const GRAVITY: float = 350.0
 
 @export var speed : float = 200.0
 
-@onready var sprite : AnimatedSprite2D = $Sprite2D
+@onready var sprite : PlayerAnimator = $Sprite2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -17,7 +17,7 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		
 func flip_gravity() -> void:
 	up_direction *= -1
-	sprite.flip_v = !sprite.flip_v
+	sprite.do_jump_anim()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
@@ -26,6 +26,7 @@ func _physics_process(delta: float) -> void:
 	
 	velocity = Vector2(leftRight, GRAVITY * -up_direction.y)
 	move_and_slide()
+	sprite.do_animation_update(velocity)
 
 
 func _on_kill_area_body_entered(body: Node2D) -> void:
