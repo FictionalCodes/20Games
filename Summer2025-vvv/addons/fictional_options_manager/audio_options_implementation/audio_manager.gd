@@ -1,4 +1,4 @@
-class_name AudioManager
+class_name AudioManagerExample
 extends Node
 ## Global class to provider a wrapper aroud the AudioServer
 ## Binds to the OptionsManager section "Audio"

@@ -1,8 +1,18 @@
-[gd_scene load_steps=22 format=3 uid="uid://dnbsefc375cli"]
+[gd_scene load_steps=34 format=3 uid="uid://dnbsefc375cli"]
 
 [ext_resource type="Script" uid="uid://bp3rrtbsu38gc" path="res://Scripts/Player.gd" id="1_glu7e"]
 [ext_resource type="Texture2D" uid="uid://bgcl6yjvc8gu5" path="res://assets/NeonIndustry/Hero.png" id="2_glu7e"]
 [ext_resource type="Script" uid="uid://ettydrcq64mg" path="res://Scripts/PlayerAnimator.gd" id="3_ay6yh"]
+[ext_resource type="AudioStream" uid="uid://c7s6wsdfmsoyx" path="res://assets/sfx/Jump 3.wav" id="4_64pgi"]
+[ext_resource type="AudioStream" uid="uid://bsfn8xyu2v5er" path="res://assets/sfx/Jump 10.wav" id="5_0ep8a"]
+[ext_resource type="AudioStream" uid="uid://cfobxnj7jsu0g" path="res://assets/sfx/Jump 37 (1).wav" id="6_70wo7"]
+[ext_resource type="AudioStream" uid="uid://dxdoeofy1dx04" path="res://assets/sfx/Jump 37.wav" id="7_rwuho"]
+[ext_resource type="AudioStream" uid="uid://clc1p5mgkx2qn" path="res://assets/sfx/Powerup 14 (2).wav" id="8_beuee"]
+[ext_resource type="AudioStream" uid="uid://de4kolfqk0ctc" path="res://assets/sfx/comfusedrobot4.mp3" id="9_632n6"]
+[ext_resource type="AudioStream" uid="uid://dybcrgekjvcey" path="res://assets/sfx/comfusedrobot5.mp3" id="10_sf8ex"]
+[ext_resource type="AudioStream" uid="uid://cm4rq8a75qoil" path="res://assets/sfx/comfusedrobot6.mp3" id="11_8mk5r"]
+[ext_resource type="AudioStream" uid="uid://rlhyufux4wao" path="res://assets/sfx/comfusedrobot.mp3" id="12_1y3c5"]
+[ext_resource type="AudioStream" uid="uid://d1f45pyy71he4" path="res://assets/sfx/comfusedrobot2.mp3" id="13_v0g1t"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ay6yh"]
 atlas = ExtResource("2_glu7e")
@@ -135,19 +145,38 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_44gc5"]
 size = Vector2(14, 15)
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_glu7e"]
-radius = 6.0
-height = 14.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ay6yh"]
+size = Vector2(15, 16)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_yhksc"]
+random_pitch = 5.0
+random_volume_offset_db = 2.0
+streams_count = 4
+stream_0/stream = ExtResource("4_64pgi")
+stream_1/stream = ExtResource("5_0ep8a")
+stream_2/stream = ExtResource("6_70wo7")
+stream_3/stream = ExtResource("7_rwuho")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_64pgi"]
+random_pitch = 3.0
+random_volume_offset_db = 2.0
+streams_count = 5
+stream_0/stream = ExtResource("9_632n6")
+stream_1/stream = ExtResource("10_sf8ex")
+stream_2/stream = ExtResource("11_8mk5r")
+stream_3/stream = ExtResource("12_1y3c5")
+stream_4/stream = ExtResource("13_v0g1t")
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 4
 collision_mask = 3
 floor_constant_speed = true
-floor_max_angle = 0.349066
+floor_block_on_wall = false
+floor_max_angle = 0.174533
 platform_on_leave = 2
 platform_floor_layers = 4294967043
-platform_wall_layers = 1
 script = ExtResource("1_glu7e")
+_respawn_timer = 1.0
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(1, 0)
@@ -161,19 +190,23 @@ shape = SubResource("RectangleShape2D_44gc5")
 
 [node name="KillArea" type="Area2D" parent="."]
 collision_layer = 4
-collision_mask = 2
+collision_mask = 18
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KillArea"]
-shape = SubResource("CapsuleShape2D_glu7e")
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_ay6yh")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position_smoothing_enabled = true
-drag_horizontal_enabled = true
-drag_vertical_enabled = true
-drag_left_margin = 0.3
-drag_top_margin = 0.3
-drag_right_margin = 0.3
-drag_bottom_margin = 0.3
-editor_draw_drag_margin = true
+[node name="JumpEffect" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_yhksc")
+max_polyphony = 3
+bus = &"Effects"
 
+[node name="CheckpointEffect" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_beuee")
+bus = &"Effects"
+
+[node name="DeathEffect" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_64pgi")
+
+[connection signal="area_entered" from="KillArea" to="." method="_interactable_enter"]
 [connection signal="body_entered" from="KillArea" to="." method="_on_kill_area_body_entered" flags=3]

@@ -1,16 +1,16 @@
 class_name AudioOptions extends OptionsSection
 
-var MasterVolume: float = 100.0:
+var MasterVolume: float = 25.0:
 	get: return MasterVolume
 	set(value):
 		MasterVolume = value
 		notify_change()
-var MusicVolume: float = 100.0:
+var MusicVolume: float = 25.0:
 	get: return MusicVolume
 	set(value):
 		MusicVolume = value
 		notify_change()
-var EffectVolume: float = 100.0:
+var EffectVolume: float = 25.0:
 	get: return EffectVolume
 	set(value):
 		EffectVolume = value

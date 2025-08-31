@@ -5,11 +5,8 @@ const deathanim := &"death"
 const idleanim := &"idle"
 const jumpanim := &"jump"
 
-var _lock_animation = false
 
 func do_animation_update(motion: Vector2) -> void:
-	if _lock_animation: return
-	
 	if motion.is_zero_approx():
 		animation = idleanim
 	elif !is_zero_approx(motion.x):
@@ -18,5 +15,10 @@ func do_animation_update(motion: Vector2) -> void:
 
 
 func do_jump_anim() -> void:
-	flip_v = !flip_v
 	animation = jumpanim
+
+func sort_flip_dir(dir: Vector2) -> void:
+	flip_v = dir == Vector2.DOWN
+
+func go_to_death() -> void:
+	animation = deathanim
