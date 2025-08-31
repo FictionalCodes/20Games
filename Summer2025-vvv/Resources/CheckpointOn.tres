@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://sdmqjw2rv7u"]
+
+[ext_resource type="Texture2D" uid="uid://birmn3lvr62xl" path="res://assets/NeonIndustry/Interactable.png" id="1_mprub"]
+
+[resource]
+atlas = ExtResource("1_mprub")
+region = Rect2(80, 96, 16, 16)

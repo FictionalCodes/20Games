@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="AnimConfig" load_steps=3 format=3 uid="uid://cuh7ulykvblxh"]
+
+[ext_resource type="Script" uid="uid://b3ougceg6lmya" path="res://addons/sprite_anim_importer/ani_config.gd" id="1_vog6h"]
+[ext_resource type="Texture2D" uid="uid://bsdeqtw0rr8jj" path="res://Assets/Units/TankBetaBody.png" id="2_xts20"]
+
+[resource]
+script = ExtResource("1_vog6h")
+texture = ExtResource("2_xts20")
+frame_width = 174
+frame_height = 108
+columns = 1
+rows = 4
+duration = 1.0
+anim_prefix = "idle"
+row_ani_names = Array[String](["down", "left", "right", "up", "down_left", "down_right", "up_right", "up_left"])
