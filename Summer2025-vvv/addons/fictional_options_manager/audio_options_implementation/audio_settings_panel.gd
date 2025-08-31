@@ -19,7 +19,7 @@ func set_slider_values(options:AudioOptions) -> void:
 	# update the sliders without sending the value changed signal (we get caught in infinite loop here)
 	_masterSlider.set_value_no_signal(_options.MasterVolume)
 	_effectsSlider.set_value_no_signal(_options.EffectVolume)
-	_musicSlider.set_value_no_signal(_options.MasterVolume)
+	_musicSlider.set_value_no_signal(_options.MusicVolume)
 	
 
 
@@ -33,4 +33,7 @@ func _on_effects_volume_slider_value_changed(value: float) -> void:
 	_options.EffectVolume = value
 
 func _on_tree_exiting() -> void:
+	save()
+	
+func save() -> void:
 	OptionsManager.save_configuration()

@@ -83,6 +83,3 @@ func _do_respawn() -> void:
 	set_up(currentSpawnPoint.gravityDir)
 	global_position = currentSpawnPoint.global_position
 	respawning = false
-
-
-		

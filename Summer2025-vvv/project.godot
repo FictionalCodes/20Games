@@ -15,9 +15,9 @@ General/option_sections=[&"AudioOptions"]
 [application]
 
 config/name="Summer2025-vvv"
-run/main_scene="uid://wc02icp8p6fb"
+run/main_scene="uid://c7nhflx8extkt"
 config/features=PackedStringArray("4.4", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="uid://ge6mymlqaeyq"
 
 [autoload]
 
@@ -87,4 +87,5 @@ pause={
 textures/canvas_textures/default_texture_filter=3
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+textures/vram_compression/import_etc2_astc=true
 2d/snap/snap_2d_transforms_to_pixel=true
