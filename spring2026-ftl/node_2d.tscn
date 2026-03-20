@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://de1snkcbsk0wh"]
+
+[ext_resource type="Script" uid="uid://c3gbbxrg1hv8c" path="res://node_2d.gd" id="1_wtcfe"]
+[ext_resource type="PackedScene" uid="uid://df0dwm6eqmxlj" path="res://7segproto.tscn" id="2_0e48y"]
+
+[node name="Node2D" type="Node2D" unique_id=548689435]
+script = ExtResource("1_wtcfe")
+
+[node name="Node" type="Node" parent="." unique_id=1627193382]
+
+[node name="Node2" type="Node" parent="." unique_id=2005276408]
+
+[node name="Marker2D" type="Marker2D" parent="Node2" unique_id=1418544439]
+
+[node name="PanelContainer" parent="." unique_id=1466319436 instance=ExtResource("2_0e48y")]

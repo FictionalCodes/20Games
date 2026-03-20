@@ -1,0 +1,104 @@
+[gd_scene format=3 uid="uid://df0dwm6eqmxlj"]
+
+[node name="PanelContainer" type="GridContainer" unique_id=1466319436]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -310.5
+offset_top = -212.0
+offset_right = 163.0
+offset_bottom = 557.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 3
+
+[node name="BTL" type="Control" parent="." unique_id=1941930428]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="SegTop" type="ColorRect" parent="." unique_id=1213274882]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="BTR" type="Control" parent="." unique_id=1452579870]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="SegTR" type="ColorRect" parent="." unique_id=941738329]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 3
+
+[node name="BTM" type="Control" parent="." unique_id=1043540499]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="SegTL" type="ColorRect" parent="." unique_id=1750018232]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 3
+
+[node name="BML" type="Control" parent="." unique_id=607647601]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="SegM" type="ColorRect" parent="." unique_id=246165430]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="BML2" type="Control" parent="." unique_id=1152703230]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="SegTR2" type="ColorRect" parent="." unique_id=759702625]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 3
+
+[node name="BTM2" type="Control" parent="." unique_id=1418996716]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="SegTL2" type="ColorRect" parent="." unique_id=1027892029]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 3
+
+[node name="BTL2" type="Control" parent="." unique_id=1103216991]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="SegTop2" type="ColorRect" parent="." unique_id=1201872043]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="BTR2" type="Control" parent="." unique_id=54424232]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
