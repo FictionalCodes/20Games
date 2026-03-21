@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://ryst2kfnr5ad"]
+
+[ext_resource type="Script" uid="uid://b31mon4ximjyu" path="res://scenes/sector_map/sector_node.gd" id="1_1xhca"]
+[ext_resource type="Texture2D" uid="uid://n4y7l6v8lvo6" path="res://sprites/circle_sprite.png" id="1_ykjct"]
+
+[node name="SectorNode" type="Node2D" unique_id=1235572068]
+z_index = 2
+script = ExtResource("1_1xhca")
+
+[node name="Texture" type="TextureRect" parent="." unique_id=66575209]
+unique_name_in_owner = true
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+texture = ExtResource("1_ykjct")
+expand_mode = 1
+stretch_mode = 4
+metadata/_edit_use_anchors_ = true
