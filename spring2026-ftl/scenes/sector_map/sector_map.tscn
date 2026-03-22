@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://3phvc8a387d2"]
 
+[ext_resource type="Theme" uid="uid://b4o3l7sijd3en" path="res://resources/ui_themes/event_ui_theme.tres" id="1_1i8mk"]
 [ext_resource type="Script" uid="uid://cuqnht4rmlh7m" path="res://scenes/sector_map/sector_map.gd" id="1_lo5wh"]
 [ext_resource type="Texture2D" uid="uid://xx5kqnq6hgoh" path="res://icon.svg" id="2_1i8mk"]
 
@@ -10,6 +11,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_1i8mk")
 script = ExtResource("1_lo5wh")
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=1988144093]

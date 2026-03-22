@@ -1,3 +1,6 @@
 [gd_resource type="Theme" format=3 uid="uid://b4o3l7sijd3en"]
 
+[ext_resource type="FontFile" uid="uid://q27igpp78lv8" path="res://assets/fonts/Pixel Digivolve.otf" id="1_ckdne"]
+
 [resource]
+default_font = ExtResource("1_ckdne")
