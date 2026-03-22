@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://bishyeepwjugt"]
+
+[ext_resource type="Script" uid="uid://cdu37dartv81u" path="res://scripts/shipcontrol/ui/ship_system_ui.gd" id="1_b1nx1"]
+[ext_resource type="Texture2D" uid="uid://n4y7l6v8lvo6" path="res://assets/sprites/circle_sprite.png" id="1_uiutx"]
+
+[node name="ShipSystemUi" type="VBoxContainer" unique_id=2132044685]
+offset_right = 8.0
+offset_bottom = 8.0
+alignment = 2
+script = ExtResource("1_b1nx1")
+
+[node name="CurrentPowerLabel" type="Label" parent="." unique_id=2023274560]
+layout_mode = 2
+text = "Current Power"
+
+[node name="MaxPowerLabel" type="Label" parent="." unique_id=1898979932]
+layout_mode = 2
+text = "Max Power"
+
+[node name="TextureProgressBar" type="TextureRect" parent="." unique_id=1844002343]
+layout_mode = 2
+expand_mode = 2
+
+[node name="Button" type="Button" parent="." unique_id=1613986824]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+size_flags_vertical = 3
+button_mask = 3
+icon = ExtResource("1_uiutx")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="System_Name" type="Label" parent="." unique_id=2091807553]
+layout_mode = 2
+text = "Test"
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input" flags=3]

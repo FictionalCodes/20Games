@@ -30,7 +30,6 @@ buses/default_bus_layout="uid://dqv1uwep64a16"
 
 AudioMixer="*uid://c66km0q4gy04u"
 OptionsManager="*uid://c0o0lowrkci11"
-ResourceLoading="*uid://dfhy0owdg6pu"
 GlobalCache="*uid://chi2xn6n6gedv"
 
 [display]

@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://urmj4vmkay8j"]
+
+[ext_resource type="Script" uid="uid://dfcbq3k88x8lf" path="res://scripts/shipcontrol/ui/ship_ui_overlay.gd" id="1_3tk1m"]
+[ext_resource type="PackedScene" uid="uid://bishyeepwjugt" path="res://scenes/shipUI/ship_system_ui.tscn" id="2_bme0t"]
+
+[node name="ShipUiOverlay" type="MarginContainer" unique_id=1880634943]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3tk1m")
+systemBaseUI = ExtResource("2_bme0t")
+
+[node name="SystemsContainer" type="HBoxContainer" parent="." unique_id=1872626551]
+layout_mode = 2
+size_flags_vertical = 8
+alignment = 2
