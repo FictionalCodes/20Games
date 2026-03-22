@@ -2,5 +2,14 @@
 
 [ext_resource type="FontFile" uid="uid://q27igpp78lv8" path="res://assets/fonts/Pixel Digivolve.otf" id="1_ckdne"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ckdne"]
+bg_color = Color(0.7372549, 0.7764706, 0.8, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+corner_detail = 1
+
 [resource]
 default_font = ExtResource("1_ckdne")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_ckdne")
