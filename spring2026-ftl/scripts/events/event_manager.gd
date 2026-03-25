@@ -4,7 +4,7 @@ class_name EventManager extends Node
 
 # PUBLIC VARIABLES
 var events : Dictionary[String, Event]
-var json_data_path : String = "res://data/FTLCloneEventData.json"
+var json_data_path : String = "res://data/event_data.json"
 
 
 # load json data 
@@ -25,7 +25,9 @@ func parse_event_data_from_json(id, json_data : Dictionary) -> void:
 	
 	event.event_type = json_data["EventType"]
 	event.event_flavour = json_data["EventFlavour"]
-	event.event_text = json_data["EventText"]
-	event.event_choices = json_data["EventChoices"]
+	for dialogue in json_data["EventText"]:
+		event.event_dialogue.append(dialogue)
+	for dialogue_choice in json_data["DialogueChoices"]:
+		event.event_dialogue_options.append(dialogue_choice)
 	
 	events.get_or_add(id, event)

@@ -1,0 +1,18 @@
+{
+	"Events": {
+		"1": {
+			"EventType": "Unique",
+			"EventFlavour": "Start",
+			"EventText": [
+				"Hail Captain!",
+				"Thank the stars you made it.",
+				"The empire caught us by suprise. We barely got out alive. This is it. We're all that's left of the fleet.",
+				"Our ship is badly damaged, and some our systems our down, but we must get back and running and get to the [color=yellow]beacon[/color] at the end of this sector before the empire hunt us down."
+				],
+			"DialogueChoices": [
+				"Make it so",
+				"Engage"
+				]
+			}
+	}
+}

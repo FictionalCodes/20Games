@@ -53,17 +53,5 @@ theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/PanelContainer/MarginContainer" unique_id=1978782273]
+[node name="DialogueBox" type="VBoxContainer" parent="PanelContainer/MarginContainer/PanelContainer/MarginContainer" unique_id=1978782273]
 layout_mode = 2
-
-[node name="DialogueLabel" type="Label" parent="PanelContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1652043325]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-autowrap_mode = 3
-
-[node name="DialogueChoiceButton" type="Button" parent="PanelContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=223570899]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Press Button to Continue"
-alignment = 0
