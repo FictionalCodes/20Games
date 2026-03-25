@@ -1,10 +1,18 @@
 class_name EventManager extends Node
 
-## doc header
+## doc comment
 
-# PUBLIC VARIABLES
+#signals
+#enums
+# constants
+# static variables
+# @export variables
+
+# remaining regular variables
 var events : Dictionary[String, Event]
 var json_data_path : String = "res://data/event_data.json"
+
+# @onready variables
 
 
 # load json data 
@@ -29,5 +37,7 @@ func parse_event_data_from_json(id, json_data : Dictionary) -> void:
 		event.event_dialogue.append(dialogue)
 	for dialogue_choice in json_data["DialogueChoices"]:
 		event.event_dialogue_options.append(dialogue_choice)
+	#for reward in json_data["Rewards"]:
+			#event.event_rewards.append(reward) #TODO fix this later, I am too tired now
 	
 	events.get_or_add(id, event)

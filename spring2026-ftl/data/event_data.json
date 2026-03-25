@@ -11,8 +11,22 @@
 				],
 			"DialogueChoices": [
 				"Make it so",
-				"Engage"
 				]
+			},
+		"2": {
+			"EventType": "Non-combat",
+			"EventFlavour": "Civilian",
+			"EventText": [
+				"Well met, traveller.",
+				"Our long range sensors detect that your ship, along with several ships with imperial markings, recently jumped to the sector.",
+				"We don't have much to offer you, but we can refuel you. Better than it falling into the hands of the empire if we fall"
+				],
+			"DialogueChoices": [
+				"Thanks, we appreciate the support",
+				],
+			"Rewards": {
+				"Fuel" : 10
+				}
 			}
 	}
 }
