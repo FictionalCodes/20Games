@@ -17,16 +17,18 @@
 			"EventType": "Non-combat",
 			"EventFlavour": "Civilian",
 			"EventText": [
-				"Well met, traveller.",
-				"Our long range sensors detect that your ship, along with several ships with imperial markings, recently jumped to the sector.",
-				"We don't have much to offer you, but we can refuel you. Better than it falling into the hands of the empire if we fall"
+				"As you jump into this beacon a small space station orbiting a moon hails you.",
+				"Greetings, captain.",
+				"Our long range sensors detected a large battle with the empire. We're preparing for them. This is our home we will not give it up.",
+				"We don't have much to offer you, but we can refuel you and give you some parts. Better than it falling into the hands of the empire if we fall"
 				],
 			"DialogueChoices": [
 				"Thanks, we appreciate the support",
 				],
-			"Rewards": {
-				"Fuel" : 10
-				}
+			"Rewards": [
+				["Fuel", 3],
+				["Scrap", 10]
+				]
 			}
 	}
 }
