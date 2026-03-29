@@ -31,6 +31,8 @@ buses/default_bus_layout="uid://dqv1uwep64a16"
 AudioMixer="*uid://c66km0q4gy04u"
 OptionsManager="*uid://c0o0lowrkci11"
 GlobalCache="*uid://chi2xn6n6gedv"
+ResourceLoading="*uid://ck030kondt37s"
+FTLConstants="*uid://rp8fl6pdoimh"
 
 [display]
 

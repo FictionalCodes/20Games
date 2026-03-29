@@ -1,13 +1,13 @@
-[gd_scene format=3 uid="uid://bishyeepwjugt"]
+[gd_scene format=3 uid="uid://bndhuwspl4tts"]
 
-[ext_resource type="Script" uid="uid://cdu37dartv81u" path="res://scripts/shipcontrol/ui/ship_system_ui.gd" id="1_b1nx1"]
-[ext_resource type="Texture2D" uid="uid://n4y7l6v8lvo6" path="res://assets/sprites/circle_sprite.png" id="1_uiutx"]
+[ext_resource type="Texture2D" uid="uid://n4y7l6v8lvo6" path="res://assets/sprites/circle_sprite.png" id="2_egcxn"]
+[ext_resource type="Script" uid="uid://bskjlohxadisk" path="res://scripts/shipcontrol/ui/power_display_basic.gd" id="2_poe7a"]
 
-[node name="ShipSystemUi" type="VBoxContainer" unique_id=2132044685]
+[node name="PowerDisplay" type="VBoxContainer" unique_id=2132044685]
 offset_right = 8.0
 offset_bottom = 8.0
 alignment = 2
-script = ExtResource("1_b1nx1")
+script = ExtResource("2_poe7a")
 
 [node name="CurrentPowerLabel" type="Label" parent="." unique_id=2023274560]
 layout_mode = 2
@@ -26,7 +26,7 @@ custom_minimum_size = Vector2(25, 25)
 layout_mode = 2
 size_flags_vertical = 3
 button_mask = 3
-icon = ExtResource("1_uiutx")
+icon = ExtResource("2_egcxn")
 flat = true
 icon_alignment = 1
 expand_icon = true
@@ -34,5 +34,3 @@ expand_icon = true
 [node name="System_Name" type="Label" parent="." unique_id=2091807553]
 layout_mode = 2
 text = "Test"
-
-[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
