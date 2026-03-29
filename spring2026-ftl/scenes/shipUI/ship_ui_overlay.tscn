@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://cdu37dartv81u" path="res://scripts/shipcontrol/ui/ship_system_ui.gd" id="2_8jwvs"]
 [ext_resource type="Texture2D" uid="uid://n4y7l6v8lvo6" path="res://assets/sprites/circle_sprite.png" id="3_1v3bs"]
 [ext_resource type="PackedScene" uid="uid://bgsnv2co25el2" path="res://scenes/shipUI/ship_reactor_display.tscn" id="4_3mf6g"]
+[ext_resource type="PackedScene" uid="uid://cyjforxiu4gi8" path="res://scenes/shipUI/resource_display.tscn" id="4_16ij7"]
 
 [sub_resource type="PackedScene" id="PackedScene_16ij7"]
 _bundled = {
@@ -20,7 +21,7 @@ _bundled = {
 "version": 3
 }
 
-[node name="OverlayMargin" type="MarginContainer" unique_id=1880634943 node_paths=PackedStringArray("_systems_container_left", "_systems_container_right", "ship_reactor_display")]
+[node name="OverlayMargin" type="MarginContainer" unique_id=1880634943 node_paths=PackedStringArray("_systems_container_left", "_systems_container_right", "ship_reactor_display", "fuel_display", "missiles_display", "drones_display", "hp_display", "scrap_display")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -28,38 +29,66 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_3tk1m")
 systemBaseUI = SubResource("PackedScene_16ij7")
-_systems_container_left = NodePath("VBoxContainer/PanelContainer/SystemsContainerLeft")
-_systems_container_right = NodePath("VBoxContainer/PanelContainer/SystemsContainerRight")
-ship_reactor_display = NodePath("VBoxContainer/ShipStatus/PowerDetailContainer/ShipReactorDisplay")
+_systems_container_left = NodePath("TempStacker/PanelContainer/SystemsContainerLeft")
+_systems_container_right = NodePath("TempStacker/PanelContainer/SystemsContainerRight")
+ship_reactor_display = NodePath("TempStacker/Temp/PowerDetailContainer/ShipReactorDisplay")
+fuel_display = NodePath("HBoxContainer/Fuel")
+missiles_display = NodePath("HBoxContainer/Missiles")
+drones_display = NodePath("HBoxContainer/Robots")
+hp_display = NodePath("HBoxContainer/HP")
+scrap_display = NodePath("HBoxContainer/Scrap")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1246566404]
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1076091511]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="Fuel" parent="HBoxContainer" unique_id=2138473711 instance=ExtResource("4_16ij7")]
+layout_mode = 2
+resource_name = "F"
+
+[node name="Missiles" parent="HBoxContainer" unique_id=566184050 instance=ExtResource("4_16ij7")]
+layout_mode = 2
+resource_name = "M"
+
+[node name="Robots" parent="HBoxContainer" unique_id=906037219 instance=ExtResource("4_16ij7")]
+layout_mode = 2
+resource_name = "D"
+
+[node name="HP" parent="HBoxContainer" unique_id=958200551 instance=ExtResource("4_16ij7")]
+layout_mode = 2
+resource_name = "HP"
+
+[node name="Scrap" parent="HBoxContainer" unique_id=489307839 instance=ExtResource("4_16ij7")]
+layout_mode = 2
+resource_name = "SC"
+
+[node name="TempStacker" type="VBoxContainer" parent="." unique_id=1246566404]
 layout_mode = 2
 size_flags_vertical = 8
 alignment = 2
 
-[node name="ShipStatus" type="PanelContainer" parent="VBoxContainer" unique_id=854513664]
+[node name="Temp" type="PanelContainer" parent="TempStacker" unique_id=854513664]
 layout_mode = 2
 size_flags_vertical = 8
 
-[node name="PowerDetailContainer" type="HBoxContainer" parent="VBoxContainer/ShipStatus" unique_id=1296619450]
+[node name="PowerDetailContainer" type="HBoxContainer" parent="TempStacker/Temp" unique_id=1296619450]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
 
-[node name="ShipReactorDisplay" parent="VBoxContainer/ShipStatus/PowerDetailContainer" unique_id=2132044685 instance=ExtResource("4_3mf6g")]
+[node name="ShipReactorDisplay" parent="TempStacker/Temp/PowerDetailContainer" unique_id=2132044685 instance=ExtResource("4_3mf6g")]
 layout_mode = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer" unique_id=1060471378]
+[node name="PanelContainer" type="PanelContainer" parent="TempStacker" unique_id=1060471378]
 layout_mode = 2
-size_flags_vertical = 8
+size_flags_vertical = 3
 
-[node name="SystemsContainerLeft" type="HBoxContainer" parent="VBoxContainer/PanelContainer" unique_id=1872626551]
+[node name="SystemsContainerLeft" type="HBoxContainer" parent="TempStacker/PanelContainer" unique_id=1872626551]
 layout_mode = 2
 size_flags_horizontal = 0
-size_flags_vertical = 8
 
-[node name="SystemsContainerRight" type="HBoxContainer" parent="VBoxContainer/PanelContainer" unique_id=258264269]
+[node name="SystemsContainerRight" type="HBoxContainer" parent="TempStacker/PanelContainer" unique_id=258264269]
 layout_mode = 2
 size_flags_horizontal = 8
-size_flags_vertical = 8
 alignment = 2

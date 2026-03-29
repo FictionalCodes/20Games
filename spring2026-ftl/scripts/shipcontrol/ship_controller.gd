@@ -14,15 +14,42 @@ class_name ShipController extends Node
 	set(val): 
 		current_HP = val
 		hp_updated.emit(current_HP)
+		
+
+@export var fuel : int : 
+	get: return fuel
+	set(val): 
+		fuel = val
+		resources_updated.emit(self)
+@export var missiles : int : 
+	get: return missiles
+	set(val): 
+		missiles = val
+		resources_updated.emit(self)
+@export var robots : int : 
+	get: return robots
+	set(val): 
+		robots = val
+		resources_updated.emit(self)
+@export var scrap : int : 
+	get: return scrap
+	set(val): 
+		scrap = val
+		resources_updated.emit(self)
+
 
 @onready var overlay : ShipOverlay = $CanvasLayer/ShipUiOverlay
 
 signal hp_updated
 signal power_updated
+signal resources_updated
 
 func _ready() -> void:
 	create_base_systems()
-	power_updated.connect(overlay.ship_reactor_display.update_display)
+	power_updated.connect(overlay.ship_reactor_display.update_display, ConnectFlags.CONNECT_DEFERRED)
+	resources_updated.connect(overlay.update_status, ConnectFlags.CONNECT_DEFERRED)
+	resources_updated.emit(self)
+	power_updated.emit(power_avalible, total_power)
 
 func get_power(amount: int = 1) -> bool:
 	if power_avalible >= amount:
