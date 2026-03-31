@@ -14,9 +14,10 @@ var recharge_amount : float = 0.05
 signal shields_updated(new_number: int, recharging: bool)
 signal charge_progress(charge_percent: float)
 
-func _init(name: String, type: ShipSystemTypes) -> void:
-	super._init(name, type)
+func _init() -> void:
+	super._init("Shields", ShipSystemTypes.SHIELDS)
 	power_step = 2
+	initalise_system(2)
 	
 	power_update.connect(update_shielding, ConnectFlags.CONNECT_DEFERRED)
 

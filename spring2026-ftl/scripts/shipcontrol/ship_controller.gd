@@ -74,6 +74,7 @@ func _create_base_systems() -> void:
 	add_system(ShipSystemHelpers.CreateTogglePowerSystem("Oxygen", ShipSystemBase.ShipSystemTypes.OXY, get_power, return_power))
 	add_system(ShipSystemHelpers.CreateTogglePowerSystem("Engine", ShipSystemBase.ShipSystemTypes.ENGINE, get_power, return_power))
 	add_system(ShipSystemHelpers.CreateShieldSystem(get_power, return_power))
+	add_system(ShipSystemHelpers.CreateWeaponsSystem(get_power, return_power))
 	
 func add_system(systype: ShipSystemBase) -> void:
 	_overlay.add_system(systype)

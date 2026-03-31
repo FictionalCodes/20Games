@@ -13,6 +13,14 @@ ui_layer = NodePath("UILayer")
 [node name="ShipSceneLayer" type="CanvasLayer" parent="." unique_id=1481032901]
 
 [node name="ShipTest" parent="ShipSceneLayer" unique_id=753024476 instance=ExtResource("2_le7bl")]
+total_power = null
+power_avalible = null
+total_HP = null
+current_HP = null
+fuel = null
+missiles = null
+robots = null
+scrap = null
 
 [node name="UILayer" type="CanvasLayer" parent="." unique_id=871769128]
 layer = 3
