@@ -15,8 +15,8 @@ func _ready() -> void:
 	_connect_signals()
 	_set_label_text()
 	tooltip.hide()
-	area.hide()
-
+	#area.hide()
+	
 
 func _connect_signals() -> void:
 	node_texture.mouse_entered.connect(_on_mouse_entered)
@@ -26,7 +26,13 @@ func _connect_signals() -> void:
 ## Connect all neighbouring nodes
 func connect_neighbours() -> void:
 	neighbours = area.get_overlapping_areas()
-	
+	for neighbour in neighbours:
+		var line = Line2D.new()
+		line.width = 2.0
+		line.default_color = Color.YELLOW
+		line.add_point(global_position)
+		line.add_point(neighbour.global_position)
+		add_child(line)
 
 
 func _set_label_text() -> void:
@@ -35,7 +41,7 @@ func _set_label_text() -> void:
 
 func _on_mouse_entered() -> void:
 	tooltip.show()
-	print(neighbours)
+	connect_neighbours()
 
 
 func _on_mouse_exited() -> void:

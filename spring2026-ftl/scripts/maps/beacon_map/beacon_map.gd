@@ -19,7 +19,7 @@ var beacons : Array
 func _ready() -> void:
 	_generate_node_coordinates()
 	_draw_nodes()
-	_connect_nodes()
+	_connect_nodes() # TODO need to fix timings
 
 
 # Generate node coordinates and put them into an array
@@ -50,7 +50,6 @@ func _draw_nodes() -> void:
 	for node in node_coordinates:
 		var beacon = _spawn_node(node)
 		beacons.append(beacon)
-
 
 
 # Spawns a new node at the provided vector
