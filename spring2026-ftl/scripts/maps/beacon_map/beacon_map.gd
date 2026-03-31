@@ -11,6 +11,10 @@ const BEACON_NODE = preload("uid://byegbnsb2s0c4")
 # remaining regular variables
 var node_coordinates : Array
 var beacons : Array
+var start_beacon : Vector2
+var exit_beacon : Vector2
+var current_beacon : Vector2
+
 
 # @onready variables
 @onready var map_background: ColorRect = %MapBackground
@@ -18,11 +22,13 @@ var beacons : Array
 
 func _ready() -> void:
 	_generate_node_coordinates()
+	_set_start_beacon()
+	_set_exit_beacon()
 	_draw_nodes()
-	_connect_nodes() # TODO need to fix timings
+	#_connect_nodes() # TODO need to fix timings
 
 
-# Generate node coordinates and put them into an array
+## Generate node coordinates and put them into an array
 func _generate_node_coordinates() -> void:
 	var map_size : Vector2 = %MapBackground.custom_minimum_size - Vector2(64,64)
 	var number_of_nodes = randi_range(15, 20)
@@ -33,7 +39,25 @@ func _generate_node_coordinates() -> void:
 		node_coordinates.append(coordinate)
 
 
-# halton sequence is a quasi-random pattern for distrubiting relatively equally points on a 2d plane. 
+## Set the start beacon to the left-most beacon
+func _set_start_beacon() -> void:
+	for coordinate in node_coordinates:
+		if not start_beacon:
+			start_beacon = coordinate
+		elif coordinate.x < start_beacon.x:
+			start_beacon = coordinate
+
+
+## Set the exit beacon to the right-most beacon
+func _set_exit_beacon() -> void:
+	for coordinate in node_coordinates:
+		if not exit_beacon:
+			exit_beacon = coordinate
+		elif coordinate.x > exit_beacon.x:
+			exit_beacon = coordinate
+
+
+## halton sequence is a quasi-random pattern for distrubiting relatively equally points on a 2d plane. 
 func _halton_sequence(index : int, base : int) -> float:
 	var result : float
 	var f : float = 1.0
@@ -44,18 +68,21 @@ func _halton_sequence(index : int, base : int) -> float:
 	return result;
 
 
-
-# Draw the nodes on the map
+## Draw the nodes on the map
 func _draw_nodes() -> void:
 	for node in node_coordinates:
 		var beacon = _spawn_node(node)
 		beacons.append(beacon)
 
 
-# Spawns a new node at the provided vector
+## Spawns a new node at the provided vector
 func _spawn_node(spawn_position : Vector2) -> Node2D:
 	var node = BEACON_NODE.instantiate()
 	node.position = spawn_position
+	if spawn_position == start_beacon:
+		node.set_beacon_as_current()
+	if spawn_position == exit_beacon:
+		node.set_beacon_as_exit()
 	map_background.add_child(node)
 	return node
 
@@ -66,6 +93,6 @@ func _connect_nodes() -> void:
 		beacon.connect_neighbours()
 
 
-# Hides the beacon map returning to the current ship scene
+## Hides the beacon map returning to the current ship scene
 func hide_beacon_map() -> void:
 	queue_free()
