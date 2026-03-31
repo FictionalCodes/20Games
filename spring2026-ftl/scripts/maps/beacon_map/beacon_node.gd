@@ -1,17 +1,14 @@
 class_name BeaconNode extends Node2D
 
-## doc comment
+## The beacon node is a component of the beacon map. 
 
-#signals
-#enums
-# constants
-# static variables
 # @export variables
-# remaining regular variables
-# @onready variables
-@onready var node_texture: TextureRect = %NodeTexture
-@onready var tooltip: PanelContainer = %Tooltip
-@onready var area: Area2D = $Area2D
+@export var node_texture: TextureRect
+@export var tooltip: PanelContainer
+@export var area: Area2D
+
+# regular variables
+var neighbours : Array[Area2D]
 
 
 func _ready() -> void:
@@ -24,7 +21,12 @@ func _ready() -> void:
 func _connect_signals() -> void:
 	node_texture.mouse_entered.connect(_on_mouse_entered)
 	node_texture.mouse_exited.connect(_on_mouse_exited)
-	area.body_entered.connect(_on_body_entered)
+	
+
+## Connect all neighbouring nodes
+func connect_neighbours() -> void:
+	neighbours = area.get_overlapping_areas()
+	
 
 
 func _set_label_text() -> void:
@@ -33,11 +35,8 @@ func _set_label_text() -> void:
 
 func _on_mouse_entered() -> void:
 	tooltip.show()
+	print(neighbours)
 
 
 func _on_mouse_exited() -> void:
 	tooltip.hide()
-
-
-func _on_body_entered(body) -> void:
-	print(body)

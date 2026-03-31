@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://dbauo13hqpcuk"]
+
+[ext_resource type="Script" uid="uid://cn4eox1c2qxo7" path="res://scripts/gameController/game_controller.gd" id="1_4gen7"]
+[ext_resource type="PackedScene" uid="uid://qc7k145mdrht" path="res://scenes/ship_test.tscn" id="2_le7bl"]
+[ext_resource type="Script" uid="uid://cpm4j5co3ceh7" path="res://scripts/gameController/jump_button.gd" id="3_38d0i"]
+
+[node name="GameController" type="Node" unique_id=177249793 node_paths=PackedStringArray("ship_scene_layer", "ship", "ui_layer")]
+script = ExtResource("1_4gen7")
+ship_scene_layer = NodePath("ShipSceneLayer")
+ship = NodePath("ShipSceneLayer/ShipTest")
+ui_layer = NodePath("UILayer")
+
+[node name="ShipSceneLayer" type="CanvasLayer" parent="." unique_id=1481032901]
+
+[node name="ShipTest" parent="ShipSceneLayer" unique_id=753024476 instance=ExtResource("2_le7bl")]
+
+[node name="UILayer" type="CanvasLayer" parent="." unique_id=871769128]
+layer = 3
+
+[node name="Control" type="Control" parent="UILayer" unique_id=482943018]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="JumpButton" type="Button" parent="UILayer/Control" unique_id=853865634 node_paths=PackedStringArray("game_controller")]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -4.0
+offset_right = 4.0
+offset_bottom = 8.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+text = "JUMP!"
+script = ExtResource("3_38d0i")
+game_controller = NodePath("../../..")

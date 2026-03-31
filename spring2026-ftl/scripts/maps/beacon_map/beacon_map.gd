@@ -1,9 +1,6 @@
 class_name BeaconMap extends Control
 
-## doc comment
-
-#signals
-#enums
+## The beacon map allows the player to jump to a new beacon within the current sector to progress the game. 
 
 # constants
 const BEACON_NODE = preload("uid://byegbnsb2s0c4")
@@ -13,6 +10,7 @@ const BEACON_NODE = preload("uid://byegbnsb2s0c4")
 
 # remaining regular variables
 var node_coordinates : Array
+var beacons : Array
 
 # @onready variables
 @onready var map_background: ColorRect = %MapBackground
@@ -21,12 +19,12 @@ var node_coordinates : Array
 func _ready() -> void:
 	_generate_node_coordinates()
 	_draw_nodes()
+	_connect_nodes()
 
 
-# this function generations the position vectors of nodes
+# Generate node coordinates and put them into an array
 func _generate_node_coordinates() -> void:
 	var map_size : Vector2 = %MapBackground.custom_minimum_size - Vector2(64,64)
-	print(map_size)
 	var number_of_nodes = randi_range(15, 20)
 	for number in number_of_nodes:
 		var x_coordinate = _halton_sequence(number + 1, 2) * map_size.x
@@ -35,7 +33,7 @@ func _generate_node_coordinates() -> void:
 		node_coordinates.append(coordinate)
 
 
-# halton sequence is a quasi-random
+# halton sequence is a quasi-random pattern for distrubiting relatively equally points on a 2d plane. 
 func _halton_sequence(index : int, base : int) -> float:
 	var result : float
 	var f : float = 1.0
@@ -47,14 +45,28 @@ func _halton_sequence(index : int, base : int) -> float:
 
 
 
-# this function draws the nodes on the map
+# Draw the nodes on the map
 func _draw_nodes() -> void:
 	for node in node_coordinates:
-		_spawn_node(node)
+		var beacon = _spawn_node(node)
+		beacons.append(beacon)
 
 
-# this function spawns a new node at the provided vector
-func _spawn_node(spawn_position : Vector2) -> void:
+
+# Spawns a new node at the provided vector
+func _spawn_node(spawn_position : Vector2) -> Node2D:
 	var node = BEACON_NODE.instantiate()
 	node.position = spawn_position
 	map_background.add_child(node)
+	return node
+
+
+## Connect the nodes to neighbouring nodes
+func _connect_nodes() -> void:
+	for beacon in beacons:
+		beacon.connect_neighbours()
+
+
+# Hides the beacon map returning to the current ship scene
+func hide_beacon_map() -> void:
+	queue_free()

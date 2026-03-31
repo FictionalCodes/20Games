@@ -1,19 +1,30 @@
 {
-	"Events": {
-		"1": {
-			"EventType": "Unique",
-			"EventFlavour": "Start",
-			"EventText": [
-				"Hail Captain!",
-				"Thank the stars you made it.",
-				"The empire caught us by suprise. We barely got out alive. This is it. We're all that's left of the fleet.",
-				"Our ship is badly damaged, and some our systems our down, but we must get back and running and get to the [color=yellow]beacon[/color] at the end of this sector before the empire hunt us down."
-				],
-			"DialogueChoices": [
-				"Make it so",
-				]
-			},
-		"2": {
+	"Events": [
+	{
+		"id": 1,
+		"EventType": "Unique",
+		"EventFlavour": "Start",
+		"EventText": [
+			"You have arrived at the emergency rendezvous point, having survived a particularly gruelling battle with the empire. Many of the warning indicators and alarms are flasing on the control panels.[br] ",
+			"You look out of viewport into the cold dead of space. Not a single alliance vessel has made it.[br] ",
+			],
+		"DialogueChoices" : [
+				{ 
+					"OptionText" : "Let's repair the ship",
+					"OptionCost" : [
+							{"Type": "S", "Amount": 14},
+							{"Type": "F", "Amount": 2}
+					],
+					"Outcomes" : [
+					{	"OutcomeText" : "[br]The ship has been repaired. You conduct a wider sensor scan but still detect nothing. The cold hard realisation sets in. You're all that's left. You must make it back.[br] ",
+						"Rewards" : [],
+						}
+					]
+				},
+			]
+		},
+	 	{
+			"id": 2,
 			"EventType": "Non-combat",
 			"EventFlavour": "Civilian",
 			"EventText": [
@@ -23,12 +34,40 @@
 				"We don't have much to offer you, but we can refuel you and give you some parts. Better than it falling into the hands of the empire if we fall"
 				],
 			"DialogueChoices": [
-				"Thanks, we appreciate the support",
-				],
-			"Rewards": [
-				["Fuel", 3],
-				["Scrap", 10]
-				]
-			}
-	}
+				{ 
+					"OptionText" : "Thanks, we appreciate the support",
+					"OptionCost" : [],
+					"Outcomes": [
+					{	"OutcomeText" : "[br]A shuttle with a haggard tired crew dock and give you a small stash of supplies",
+						"Rewards": [
+						{"Type": "F", "Amount": 3},
+						{"Type": "S", "Amount": 10}
+						]
+					}
+					]
+				},
+				{
+					"OptionText": "You can do better than that.....",
+					"OptionCost" : [],
+					"Outcomes": [
+					{	
+						"OutcomeType": "Resources",
+						"OutcomeText" : "[br]A shuttle with a haggard tired crew dock and give you a small stash of supplies, they look very upset with you",
+						"Weight": 75,
+						"Rewards": [
+							{"Type": "F", "Amount": 5},
+							{"Type": "S", "Amount": 25}
+						]
+					},
+					{	
+						"OutcomeType": "Resources",
+						"OutcomeText" : "[br]They cut comms and ignore your attempts to get them back",
+						"Weight": 25,
+						"Rewards": []
+					}
+					]
+				}
+			]
+		}
+	]
 }

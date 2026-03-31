@@ -3,6 +3,7 @@
 [ext_resource type="Theme" uid="uid://b4o3l7sijd3en" path="res://resources/ui_themes/event_ui_theme.tres" id="1_7nptf"]
 [ext_resource type="Script" uid="uid://binpbpepidwbi" path="res://scripts/maps/beacon_map/beacon_map.gd" id="2_ygjx1"]
 [ext_resource type="LabelSettings" uid="uid://7vw77qc43ava" path="res://resources/ui_themes/event_ui_label_large.tres" id="3_111k3"]
+[ext_resource type="Script" uid="uid://b4rpeynmqy04f" path="res://scenes/mapsUI/beacon_map/cancel_button.gd" id="4_3fdrf"]
 
 [node name="BeaconMap" type="Control" unique_id=2139146857]
 layout_mode = 3
@@ -100,7 +101,9 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Civilian Sector"
 
-[node name="Button" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=962237161]
+[node name="CancelButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=962237161 node_paths=PackedStringArray("beacon_map")]
 layout_mode = 2
 size_flags_horizontal = 10
 text = "Cancel"
+script = ExtResource("4_3fdrf")
+beacon_map = NodePath("../../../../..")

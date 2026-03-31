@@ -5,17 +5,25 @@
 [ext_resource type="Theme" uid="uid://b4o3l7sijd3en" path="res://resources/ui_themes/event_ui_theme.tres" id="3_yqk3s"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3cx0c"]
-radius = 64.0
+radius = 342.28644
 
-[node name="BeaconNode" type="Node2D" unique_id=1233732012 groups=["beacons"]]
+[node name="BeaconNode" type="Node2D" unique_id=1233732012 node_paths=PackedStringArray("node_texture", "tooltip", "area") groups=["beacons"]]
+z_index = 1
 script = ExtResource("1_kmgy4")
+node_texture = NodePath("NodeTexture")
+tooltip = NodePath("Tooltip")
+area = NodePath("Area2D")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=483515311]
+collision_layer = 48
+collision_mask = 48
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=1318384531]
 polygon = PackedVector2Array(0, -6, 6, 0, 0, 6, -6, 0)
 
 [node name="Area2D" type="Area2D" parent="." unique_id=290181083]
+collision_layer = 48
+collision_mask = 48
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=935190412]
 shape = SubResource("CircleShape2D_3cx0c")

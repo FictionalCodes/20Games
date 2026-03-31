@@ -9,10 +9,11 @@ class_name Event extends Node
 # @export variables
 
 # remaining regular variables
+var event_id : int
 var event_type : String
 var event_flavour : String
 var event_dialogue : Array[String]
-var event_dialogue_options : Array[String]
-var event_rewards: Array
+var event_dialogue_options : Array
+#var event_rewards: Array
 
 # @onready variables

@@ -11,7 +11,7 @@ corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 corner_detail = 1
 
-[node name="EventUI" type="Control" unique_id=1511186054]
+[node name="EventUI" type="Control" unique_id=1511186054 node_paths=PackedStringArray("dialogue_box")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -20,6 +20,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_mwpbs")
 script = ExtResource("2_xgapx")
+dialogue_box = NodePath("PanelContainer/MarginContainer/PanelContainer/MarginContainer/DialogueBox")
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=180658306]
 layout_mode = 1

@@ -33,6 +33,7 @@ OptionsManager="*uid://c0o0lowrkci11"
 GlobalCache="*uid://chi2xn6n6gedv"
 ResourceLoading="*uid://ck030kondt37s"
 FTLConstants="*uid://rp8fl6pdoimh"
+EventLoader="*uid://cm1to8utfcii2"
 
 [display]
 
@@ -50,6 +51,11 @@ enabled=PackedStringArray("res://addons/fictional_options_manager/plugin.cfg", "
 
 pointing/android/enable_long_press_as_right_click=true
 pointing/android/enable_pan_and_scale_gestures=true
+
+[layer_names]
+
+2d_physics/layer_5="beacons"
+2d_physics/layer_6="beacon_areas"
 
 [rendering]
 
