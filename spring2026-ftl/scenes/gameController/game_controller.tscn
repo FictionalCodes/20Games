@@ -17,23 +17,17 @@ ui_layer = NodePath("UILayer")
 [node name="UILayer" type="CanvasLayer" parent="." unique_id=871769128]
 layer = 3
 
-[node name="Control" type="Control" parent="UILayer" unique_id=482943018]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="JumpButton" type="Button" parent="UILayer/Control" unique_id=853865634 node_paths=PackedStringArray("game_controller")]
-layout_mode = 1
+[node name="Control" type="MarginContainer" parent="UILayer" unique_id=783367159]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -4.0
-offset_right = 4.0
-offset_bottom = 8.0
+offset_left = -27.0
+offset_right = 27.0
+offset_bottom = 31.0
 grow_horizontal = 2
+
+[node name="JumpButton" type="Button" parent="UILayer/Control" unique_id=853865634 node_paths=PackedStringArray("game_controller")]
+layout_mode = 2
 size_flags_horizontal = 4
 text = "JUMP!"
 script = ExtResource("3_38d0i")

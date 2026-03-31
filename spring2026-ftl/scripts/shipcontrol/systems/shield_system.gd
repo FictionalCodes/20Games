@@ -12,6 +12,7 @@ var recharging : bool :
 var recharge_amount : float = 0.05
 
 signal shields_updated(new_number: int, recharging: bool)
+signal charge_progress(charge_percent: float)
 
 func _init(name: String, type: ShipSystemTypes) -> void:
 	super._init(name, type)
@@ -27,9 +28,11 @@ func update_shielding() -> void:
 var recharge_counter : float = 0.0
 func update(delta: float) -> void:
 	if recharging:
-		recharge_counter += delta
-		if recharge_counter > recharge_time:
+		recharge_counter += recharge_amount * delta
+		if recharge_counter > 1.0:
 			shield_number_current += 1
+			recharge_counter = 0
+		charge_progress.emit(recharge_amount)
 	else:
 		recharge_counter = 0
 

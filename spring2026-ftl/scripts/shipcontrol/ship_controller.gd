@@ -50,6 +50,7 @@ signal _power_updated
 signal _resources_updated
 
 func _ready() -> void:
+	power_avalible = total_power
 	_create_base_systems()
 	_power_updated.connect(_overlay.ship_reactor_display.update_display, ConnectFlags.CONNECT_DEFERRED)
 	_resources_updated.connect(_overlay.update_status, ConnectFlags.CONNECT_DEFERRED)
@@ -76,15 +77,16 @@ func _create_base_systems() -> void:
 	
 func add_system(systype: ShipSystemBase) -> void:
 	_overlay.add_system(systype)
+	
 	_systems[systype.system_type] = systype
 
 func get_system(systype: ShipSystemBase.ShipSystemTypes) -> void:
 	return _systems.get(systype)
 
 func _process(delta: float) -> void:
-	for sys : ShipSystemBase in _systems.values():
+	for sys in _systems.values():
 		sys.update(delta)
 
 func jumped() -> void:
-	for sys : ShipSystemBase in _systems.values():
+	for sys in _systems.values():
 		sys.jumped()
