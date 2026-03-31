@@ -6,7 +6,7 @@ class_name ShipController extends Node
 	get: return power_avalible
 	set(val): 
 		power_avalible = val
-		power_updated.emit(power_avalible, total_power)
+		_power_updated.emit(power_avalible, total_power)
 		
 @export var total_HP : int
 @export var current_HP : int : 
@@ -20,36 +20,41 @@ class_name ShipController extends Node
 	get: return fuel
 	set(val): 
 		fuel = val
-		resources_updated.emit(self)
+		_resources_updated.emit(self)
 @export var missiles : int : 
 	get: return missiles
 	set(val): 
 		missiles = val
-		resources_updated.emit(self)
+		_resources_updated.emit(self)
 @export var robots : int : 
 	get: return robots
 	set(val): 
 		robots = val
-		resources_updated.emit(self)
+		_resources_updated.emit(self)
 @export var scrap : int : 
 	get: return scrap
 	set(val): 
 		scrap = val
-		resources_updated.emit(self)
+		_resources_updated.emit(self)
 
 
-@onready var overlay : ShipOverlay = $CanvasLayer/ShipUiOverlay
+@onready var _overlay : ShipOverlay = $CanvasLayer/ShipUiOverlay
+
+var _systems: Dictionary[ShipSystemBase.ShipSystemTypes, ShipSystemBase] = {}
+
+var is_dead : bool:
+	get: return current_HP <= 0
 
 signal hp_updated
-signal power_updated
-signal resources_updated
+signal _power_updated
+signal _resources_updated
 
 func _ready() -> void:
-	create_base_systems()
-	power_updated.connect(overlay.ship_reactor_display.update_display, ConnectFlags.CONNECT_DEFERRED)
-	resources_updated.connect(overlay.update_status, ConnectFlags.CONNECT_DEFERRED)
-	resources_updated.emit(self)
-	power_updated.emit(power_avalible, total_power)
+	_create_base_systems()
+	_power_updated.connect(_overlay.ship_reactor_display.update_display, ConnectFlags.CONNECT_DEFERRED)
+	_resources_updated.connect(_overlay.update_status, ConnectFlags.CONNECT_DEFERRED)
+	_resources_updated.emit(self)
+	_power_updated.emit(power_avalible, total_power)
 
 func get_power(amount: int = 1) -> bool:
 	if power_avalible >= amount:
@@ -60,11 +65,26 @@ func get_power(amount: int = 1) -> bool:
 func return_power(amount: int = 1) -> void:
 	power_avalible += amount if power_avalible + amount < total_power else 0
 
-func create_base_systems() -> void:
-	overlay.add_system(ShipSystemHelpers.CreateAutoPowerSystem("Pilot", ShipSystemBase.ShipSystemTypes.PILOT))
-	overlay.add_system(ShipSystemHelpers.CreateAutoPowerSystem("Sensors", ShipSystemBase.ShipSystemTypes.SENSORS))
-	overlay.add_system(ShipSystemHelpers.CreateAutoPowerSystem("Doors", ShipSystemBase.ShipSystemTypes.DOORS))
+func _create_base_systems() -> void:
+	add_system(ShipSystemHelpers.CreateAutoPowerSystem("Pilot", ShipSystemBase.ShipSystemTypes.PILOT))
+	add_system(ShipSystemHelpers.CreateAutoPowerSystem("Sensors", ShipSystemBase.ShipSystemTypes.SENSORS))
+	add_system(ShipSystemHelpers.CreateAutoPowerSystem("Doors", ShipSystemBase.ShipSystemTypes.DOORS))
 	
-	overlay.add_system(ShipSystemHelpers.CreateTogglePowerSystem("Oxygen", ShipSystemBase.ShipSystemTypes.OXY, get_power, return_power))
-	overlay.add_system(ShipSystemHelpers.CreateTogglePowerSystem("Engine", ShipSystemBase.ShipSystemTypes.ENGINE, get_power, return_power))
-	overlay.add_system(ShipSystemHelpers.CreateShieldSystem(get_power, return_power))
+	add_system(ShipSystemHelpers.CreateTogglePowerSystem("Oxygen", ShipSystemBase.ShipSystemTypes.OXY, get_power, return_power))
+	add_system(ShipSystemHelpers.CreateTogglePowerSystem("Engine", ShipSystemBase.ShipSystemTypes.ENGINE, get_power, return_power))
+	add_system(ShipSystemHelpers.CreateShieldSystem(get_power, return_power))
+	
+func add_system(systype: ShipSystemBase) -> void:
+	_overlay.add_system(systype)
+	_systems[systype.system_type] = systype
+
+func get_system(systype: ShipSystemBase.ShipSystemTypes) -> void:
+	return _systems.get(systype)
+
+func _process(delta: float) -> void:
+	for sys : ShipSystemBase in _systems.values():
+		sys.update(delta)
+
+func jumped() -> void:
+	for sys : ShipSystemBase in _systems.values():
+		sys.jumped()

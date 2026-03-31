@@ -12,7 +12,7 @@ const BEACON_MAP = preload("uid://b5jcq2ydeego5")
 # @export variables
 @export_category("Ship Layer")
 @export var ship_scene_layer : CanvasLayer ## The Ship Layer.
-@export var ship: Node2D ## The Ship Scene
+@export var ship: ShipController ## The Ship Scene
 
 @export_category("Event Layer")
 @export var ui_layer: CanvasLayer ## The Event UI Layer.

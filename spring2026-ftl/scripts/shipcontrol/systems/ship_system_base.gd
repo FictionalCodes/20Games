@@ -32,7 +32,7 @@ var current_HP : int = max_power:
 		
 var power_step : int = 1
 
-signal power_update
+signal power_update()
 
 var current_operational_level: int:
 	get: return mini(current_HP, current_power)
@@ -57,3 +57,12 @@ func upgrade() -> bool:
 func _set_current_hp(val: int) -> void:
 	_real_hp = mini(val, max_power)
 	power_update.emit()
+
+@warning_ignore("unused_parameter")
+func update(delta: float) -> void:
+	# exists to be overridden
+	pass
+	
+func jumped() -> void:
+	# exists to be overridden
+	pass

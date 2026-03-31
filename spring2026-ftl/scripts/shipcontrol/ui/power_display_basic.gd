@@ -6,6 +6,6 @@ class_name PowerDisplayBasic extends Container
 func _ready() -> void:
 	pass
 
-func update_display(current: int, max: int) -> void:
+func update_display(current: int, newmax: int) -> void:
 	curr_power.text = "Current Power - %s" % current
-	max_power.text = "Max Power - %s" % max
+	max_power.text = "Max Power - %s" % newmax

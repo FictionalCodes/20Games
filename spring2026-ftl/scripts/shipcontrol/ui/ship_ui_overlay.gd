@@ -12,9 +12,6 @@ class_name ShipOverlay extends Container
 @export var hp_display : ResourceDisplay
 @export var scrap_display : ResourceDisplay
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
 
 func update_status(ship: ShipController) -> void:
 	fuel_display.amount = ship.fuel

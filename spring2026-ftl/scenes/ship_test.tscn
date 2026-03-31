@@ -3,16 +3,16 @@
 [ext_resource type="Script" uid="uid://cgtoxilqtc7o5" path="res://scripts/shipcontrol/ship_controller.gd" id="1_qxdew"]
 [ext_resource type="PackedScene" uid="uid://urmj4vmkay8j" path="res://scenes/shipUI/ship_ui_overlay.tscn" id="2_pjyc0"]
 
-[node name="ShipTest" type="Node2D" unique_id=753024476]
-
-[node name="ShipController" type="Node" parent="." unique_id=894097357]
+[node name="ShipController" type="Node2D" unique_id=771162685]
 script = ExtResource("1_qxdew")
-total_power = 6
-power_avalible = 6
-metadata/_custom_type_script = "uid://cgtoxilqtc7o5"
 
-[node name="CanvasLayer" type="CanvasLayer" parent="ShipController" unique_id=294114291]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=294114291]
 
-[node name="ShipUiOverlay" parent="ShipController/CanvasLayer" unique_id=1880634943 instance=ExtResource("2_pjyc0")]
+[node name="ShipUiOverlay" parent="CanvasLayer" unique_id=1880634943 instance=ExtResource("2_pjyc0")]
 size_flags_horizontal = 3
 size_flags_vertical = 3
+
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/ShipUiOverlay" unique_id=1557626542]
+layout_mode = 2
+step = 1.0
+rounded = true
