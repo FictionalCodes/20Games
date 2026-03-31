@@ -28,11 +28,13 @@ func connect_neighbours() -> void:
 	neighbours = area.get_overlapping_areas()
 	for neighbour in neighbours:
 		var line = Line2D.new()
-		line.width = 2.0
-		line.default_color = Color.YELLOW
-		line.add_point(global_position)
-		line.add_point(neighbour.global_position)
 		add_child(line)
+		line.position = Vector2.ZERO
+		line.width = 2.0	
+		line.default_color = Color.YELLOW
+		line.add_point(Vector2.ZERO)
+		line.add_point(neighbour.global_position - global_position)
+
 
 
 func _set_label_text() -> void:
