@@ -5,14 +5,16 @@
 [ext_resource type="Theme" uid="uid://b4o3l7sijd3en" path="res://resources/ui_themes/event_ui_theme.tres" id="3_yqk3s"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3cx0c"]
-radius = 125.60255
+radius = 107.00467
 
-[node name="BeaconNode" type="Node2D" unique_id=1233732012 node_paths=PackedStringArray("node_texture", "tooltip", "area") groups=["beacons"]]
+[node name="BeaconNode" type="Node2D" unique_id=1233732012 node_paths=PackedStringArray("node_texture", "tooltip", "area", "current_beacon_indicator", "exit_beacon_indicator") groups=["beacons"]]
 z_index = 1
 script = ExtResource("1_kmgy4")
 node_texture = NodePath("NodeTexture")
 tooltip = NodePath("Tooltip")
 area = NodePath("Area2D")
+current_beacon_indicator = NodePath("CurrentBeaconIndicator")
+exit_beacon_indicator = NodePath("ExitBeaconIndicator")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=483515311]
 
@@ -78,7 +80,15 @@ layout_mode = 2
 text = "Description"
 autowrap_mode = 3
 
-[node name="Line2D" type="Line2D" parent="." unique_id=276918961]
-points = PackedVector2Array(0, 0, 20, 0)
-width = 2.0
-default_color = Color(1, 1, 0, 1)
+[node name="CurrentBeaconIndicator" type="Polygon2D" parent="." unique_id=80081180]
+visible = false
+position = Vector2(0, 8)
+polygon = PackedVector2Array(0, -24, 8, -48, -8, -48)
+
+[node name="ExitBeaconIndicator" type="Label" parent="." unique_id=1330435190]
+visible = false
+offset_left = 8.0
+offset_top = -24.0
+offset_right = 48.0
+offset_bottom = -1.0
+text = "Exit"
