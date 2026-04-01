@@ -55,7 +55,7 @@ pointing/android/enable_pan_and_scale_gestures=true
 [layer_names]
 
 2d_physics/layer_5="beacons"
-2d_physics/layer_6="beacon_areas"
+2d_physics/layer_6="beacon_clickzone"
 
 [rendering]
 

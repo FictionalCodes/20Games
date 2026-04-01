@@ -5,9 +5,12 @@
 [ext_resource type="Theme" uid="uid://b4o3l7sijd3en" path="res://resources/ui_themes/event_ui_theme.tres" id="3_yqk3s"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3cx0c"]
-radius = 107.00467
+radius = 112.0
 
-[node name="BeaconNode" type="Node2D" unique_id=1233732012 node_paths=PackedStringArray("node_texture", "tooltip", "area", "current_beacon_indicator", "exit_beacon_indicator") groups=["beacons"]]
+[sub_resource type="CircleShape2D" id="CircleShape2D_8igww"]
+radius = 32.0
+
+[node name="BeaconNode" type="Node2D" unique_id=1233732012 node_paths=PackedStringArray("node_texture", "tooltip", "area", "current_beacon_indicator", "exit_beacon_indicator", "click_zone") groups=["beacons"]]
 z_index = 1
 script = ExtResource("1_kmgy4")
 node_texture = NodePath("NodeTexture")
@@ -15,19 +18,23 @@ tooltip = NodePath("Tooltip")
 area = NodePath("Area2D")
 current_beacon_indicator = NodePath("CurrentBeaconIndicator")
 exit_beacon_indicator = NodePath("ExitBeaconIndicator")
+click_zone = NodePath("ClickZone")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=483515311]
+collision_layer = 16
+collision_mask = 16
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=1318384531]
 polygon = PackedVector2Array(0, -6, 6, 0, 0, 6, -6, 0)
 
 [node name="Area2D" type="Area2D" parent="." unique_id=290181083]
+collision_layer = 16
+collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=935190412]
 shape = SubResource("CircleShape2D_3cx0c")
 
 [node name="NodeTexture" type="TextureRect" parent="." unique_id=1798350059]
-unique_name_in_owner = true
 modulate = Color(1, 1, 0, 1)
 anchors_preset = 8
 anchor_left = 0.5
@@ -40,17 +47,24 @@ offset_right = 6.0
 offset_bottom = 6.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = ExtResource("2_0qg6e")
 expand_mode = 1
 stretch_mode = 4
 
+[node name="ClickZone" type="Area2D" parent="." unique_id=1423659058]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ClickZone" unique_id=301276423]
+shape = SubResource("CircleShape2D_8igww")
+debug_color = Color(0.94381005, 7.315874e-06, 0.60218614, 0.41960785)
+
 [node name="Tooltip" type="PanelContainer" parent="." unique_id=1390968223]
-unique_name_in_owner = true
 z_index = 3
 offset_left = 16.0
 offset_top = 16.0
 offset_right = 336.0
 offset_bottom = 68.0
+mouse_filter = 2
 theme = ExtResource("3_yqk3s")
 
 [node name="MarginContainer" type="MarginContainer" parent="Tooltip" unique_id=1735806255]

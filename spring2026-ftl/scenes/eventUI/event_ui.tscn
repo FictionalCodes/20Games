@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://du31w3ke0e1t1" path="res://scripts/events/event_ui.gd" id="2_xgapx"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xgapx"]
-bg_color = Color(0.2520276, 0.25202766, 0.25202754, 1)
+bg_color = Color(0.31764707, 0.34117648, 0.36078432, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
