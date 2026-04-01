@@ -10,11 +10,12 @@ radius = 112.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_8igww"]
 radius = 32.0
 
-[node name="BeaconNode" type="Node2D" unique_id=1233732012 node_paths=PackedStringArray("node_texture", "tooltip", "area", "current_beacon_indicator", "exit_beacon_indicator", "click_zone") groups=["beacons"]]
+[node name="BeaconNode" type="Node2D" unique_id=1233732012 node_paths=PackedStringArray("node_texture", "tooltip", "tooltip_label", "area", "current_beacon_indicator", "exit_beacon_indicator", "click_zone") groups=["beacons"]]
 z_index = 1
 script = ExtResource("1_kmgy4")
 node_texture = NodePath("NodeTexture")
 tooltip = NodePath("Tooltip")
+tooltip_label = NodePath("Tooltip/MarginContainer/MarginContainer/VBoxContainer/TooltipLabel")
 area = NodePath("Area2D")
 current_beacon_indicator = NodePath("CurrentBeaconIndicator")
 exit_beacon_indicator = NodePath("ExitBeaconIndicator")
@@ -88,10 +89,9 @@ theme_override_constants/margin_bottom = 8
 [node name="VBoxContainer" type="VBoxContainer" parent="Tooltip/MarginContainer/MarginContainer" unique_id=118667656]
 layout_mode = 2
 
-[node name="DescriptionLabel" type="Label" parent="Tooltip/MarginContainer/MarginContainer/VBoxContainer" unique_id=1934413484]
-unique_name_in_owner = true
+[node name="TooltipLabel" type="Label" parent="Tooltip/MarginContainer/MarginContainer/VBoxContainer" unique_id=1934413484]
 layout_mode = 2
-text = "Description"
+text = "An unexplored location"
 autowrap_mode = 3
 
 [node name="CurrentBeaconIndicator" type="Polygon2D" parent="." unique_id=80081180]

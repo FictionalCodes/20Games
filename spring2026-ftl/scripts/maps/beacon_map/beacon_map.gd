@@ -13,7 +13,7 @@ var node_coordinates : Array
 var beacons : Array
 var start_beacon : Vector2
 var exit_beacon : Vector2
-var current_beacon : Vector2
+#var current_beacon : Vector2
 
 
 # @onready variables

@@ -47,6 +47,14 @@ window/stretch/scale_mode="integer"
 
 enabled=PackedStringArray("res://addons/fictional_options_manager/plugin.cfg", "res://addons/fictional_resource_loader/plugin.cfg", "res://addons/trail_2d/plugin.cfg")
 
+[input]
+
+confirm={
+"deadzone": 0.2,
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":1,"position":Vector2(201, 23),"global_position":Vector2(210, 71),"factor":1.0,"button_index":1,"canceled":false,"pressed":true,"double_click":false,"script":null)
+]
+}
+
 [input_devices]
 
 pointing/android/enable_long_press_as_right_click=true
