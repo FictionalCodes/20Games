@@ -5,7 +5,7 @@
 [ext_resource type="LabelSettings" uid="uid://7vw77qc43ava" path="res://resources/ui_themes/event_ui_label_large.tres" id="3_1i8mk"]
 [ext_resource type="Texture2D" uid="uid://n4y7l6v8lvo6" path="res://assets/sprites/circle_sprite.png" id="3_lo5wh"]
 
-[node name="SectorMap" type="Control" unique_id=984460530]
+[node name="SectorMap" type="Control" unique_id=984460530 node_paths=PackedStringArray("close_sector_map_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -14,6 +14,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_1i8mk")
 script = ExtResource("1_lo5wh")
+close_sector_map_button = NodePath("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/CloseButton")
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=1988144093]
 layout_mode = 1
@@ -153,7 +154,7 @@ stretch_mode = 4
 layout_mode = 2
 text = "Nebula"
 
-[node name="Button" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=2056570815]
+[node name="CloseButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=2056570815]
 layout_mode = 2
 size_flags_horizontal = 10
 text = "Close"

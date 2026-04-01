@@ -2,30 +2,37 @@ class_name BeaconMap extends Control
 
 ## The beacon map allows the player to jump to a new beacon within the current sector to progress the game. 
 
+# Signals
+signal show_sector_map
+
 # constants
 const BEACON_NODE = preload("uid://byegbnsb2s0c4")
 
-# static variables
 # @export variables
+@export var next_sector_button : Button
 
 # remaining regular variables
 var node_coordinates : Array
 var beacons : Array
 var start_beacon : Vector2
 var exit_beacon : Vector2
-#var current_beacon : Vector2
-
 
 # @onready variables
 @onready var map_background: ColorRect = %MapBackground
 
 
 func _ready() -> void:
+	_connect_signals()
 	_generate_node_coordinates()
 	_set_start_beacon()
 	_set_exit_beacon()
 	_draw_nodes()
 	#_connect_nodes() # TODO need to fix timings
+
+
+## Connect signals
+func _connect_signals() -> void:
+	next_sector_button.pressed.connect(_on_next_sector_button_pressed)
 
 
 ## Generate node coordinates and put them into an array
@@ -83,6 +90,9 @@ func _spawn_node(spawn_position : Vector2) -> Node2D:
 		node.set_beacon_as_current()
 	if spawn_position == exit_beacon:
 		node.set_beacon_as_exit()
+		node.show_next_sector_button.connect(on_show_next_sector_button)
+	else:
+		node.hide_next_sector_button.connect(on_hide_next_sector_button)
 	map_background.add_child(node)
 	return node
 
@@ -95,4 +105,19 @@ func _connect_nodes() -> void:
 
 ## Hides the beacon map returning to the current ship scene
 func hide_beacon_map() -> void:
-	queue_free()
+	hide()
+
+
+## Show the next sector button
+func on_show_next_sector_button() -> void:
+	next_sector_button.show()
+
+
+## Hide the next sector button
+func on_hide_next_sector_button() -> void:
+	next_sector_button.hide()
+
+
+## Show the sector map
+func _on_next_sector_button_pressed() -> void:
+	show_sector_map.emit()

@@ -2,12 +2,14 @@ class_name SectorMap extends Control
 
 ## doc comment
 
-#signals
-#enums
+# Signals
+signal show_sector_map
+
 # constants
 const SECTOR_NODE = preload("uid://ryst2kfnr5ad")
-# static variables
+
 # @export variables
+@export var close_sector_map_button : Button
 
 # remaining regular variables
 var number_of_columns : int = 8

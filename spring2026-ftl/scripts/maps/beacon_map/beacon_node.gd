@@ -2,6 +2,10 @@ class_name BeaconNode extends Node2D
 
 ## The beacon node is a component of the beacon map. 
 
+# Signals
+signal show_next_sector_button
+signal hide_next_sector_button
+
 # Constants
 const DOTTED_LINE = preload("uid://djyat7v1b4kg7")
 const ANIMATED_LINE = preload("uid://boxbwcs7tsgt8")
@@ -83,13 +87,17 @@ func _on_mouse_exited() -> void:
 	_hide_connections()
 
 
-func _on_click_zone_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+func _on_click_zone_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event.is_action_pressed("confirm") and is_current_beacon == false:
 		for neighbour in neighbours:
 			var beacon = neighbour.get_parent()
 			if beacon.is_current_beacon:
 				set_beacon_as_current()
 				beacon.set_beacon_as_not_current()
+				if is_exit_beacon:
+					show_next_sector_button.emit()
+				else:
+					hide_next_sector_button.emit()
 
 
 ## Set the beacon as the current beacon and show the current beacon indicator
@@ -97,18 +105,21 @@ func set_beacon_as_current() -> void:
 	current_beacon_indicator.show()
 	is_current_beacon = true
 	is_explored = true
-	_set_label_text("Your current location")
+	if not is_exit_beacon:
+		_set_label_text("Your current location.")
 
 
 ## Set the beacon as not the current beacon and hide the current beacon indicator
 func set_beacon_as_not_current() -> void:
 	is_current_beacon = false
 	current_beacon_indicator.hide()
-	_set_label_text("An explored location")
+	if not is_exit_beacon:
+		_set_label_text("An explored location.")
 
 
 ## Set the beacon as the exit beacon and show the exit beacon indicator
 func set_beacon_as_exit() -> void:
 	is_exit_beacon = true
 	exit_beacon_indicator.show()
+	_set_label_text("This is the exit beacon. Go here to jump to the next sector.")
 	

@@ -5,4 +5,4 @@ extends Button
 
 
 func _ready() -> void:
-	pressed.connect(game_controller.show_beacon_map)
+	pressed.connect(game_controller.toggle_beacon_map_visible)
