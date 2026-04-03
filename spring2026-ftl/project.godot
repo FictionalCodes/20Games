@@ -47,6 +47,10 @@ window/stretch/scale_mode="integer"
 
 enabled=PackedStringArray("res://addons/fictional_options_manager/plugin.cfg", "res://addons/fictional_resource_loader/plugin.cfg", "res://addons/trail_2d/plugin.cfg")
 
+[global_group]
+
+sector_node=""
+
 [input]
 
 confirm={

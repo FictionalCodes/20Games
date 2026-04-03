@@ -2,9 +2,6 @@ class_name SectorMap extends Control
 
 ## doc comment
 
-# Signals
-signal show_sector_map
-
 # constants
 const SECTOR_NODE = preload("uid://ryst2kfnr5ad")
 
@@ -15,6 +12,7 @@ const SECTOR_NODE = preload("uid://ryst2kfnr5ad")
 var number_of_columns : int = 8
 var node_cordinates : Array
 var sector_types := ['Civilian', 'Hostile', 'Nebula'] # should be moved to some global enum?
+var current_sector_node = SectorNode
 
 # @onready variables
 @onready var map_background: ColorRect = %MapBackground
@@ -56,22 +54,33 @@ func _get_node_y_positions(number_of_nodes: int) -> Array:
 
 # this function draws the nodes on the map
 func _draw_nodes() -> void:
+	var column_number = 1
 	for column in node_cordinates:
 		for node in column:
-			_spawn_node(node)
+			_spawn_node(node, column_number)
+		column_number += 1
 
 
 # this function spawns a new node at the provided vector
-func _spawn_node(spawn_position : Vector2) -> void:
+func _spawn_node(spawn_position : Vector2, column_number : int) -> void:
 	var node = SECTOR_NODE.instantiate()
+	node.sector_map = self
 	node.position = spawn_position
-	node.sector_type = sector_types.pick_random()
+	node.column = column_number
+	if column_number == 1:
+		node.sector_type = 'Civilian'
+		node.set_as_current_sector()
+	elif column_number == 8:
+		node.sector_type = 'Civilian'
+		node.last_sector = true
+	else:
+		node.sector_type = sector_types.pick_random()
 	map_background.add_child(node)
 
 
 # this function draws the lines on the map
 func _draw_lines() -> void:
-	var previous_column
+	var previous_column = false
 	for column in node_cordinates:
 		for node in column:
 			if previous_column:
