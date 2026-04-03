@@ -5,7 +5,7 @@
 [ext_resource type="LabelSettings" uid="uid://7vw77qc43ava" path="res://resources/ui_themes/event_ui_label_large.tres" id="3_111k3"]
 [ext_resource type="Script" uid="uid://b4rpeynmqy04f" path="res://scenes/mapsUI/beacon_map/cancel_button.gd" id="4_3fdrf"]
 
-[node name="BeaconMap" type="Control" unique_id=2139146857 node_paths=PackedStringArray("next_sector_button")]
+[node name="BeaconMap" type="Control" unique_id=2139146857 node_paths=PackedStringArray("sector_number_label", "next_sector_button", "map_background")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -15,7 +15,9 @@ grow_vertical = 2
 mouse_filter = 2
 theme = ExtResource("1_7nptf")
 script = ExtResource("2_ygjx1")
+sector_number_label = NodePath("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/ColorRect/SectorNumberLabel")
 next_sector_button = NodePath("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/NextSectorButton")
+map_background = NodePath("PanelContainer/MarginContainer/VBoxContainer/MapBackground")
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=605833]
 layout_mode = 1
@@ -57,7 +59,6 @@ size_flags_horizontal = 10
 text = "Next Sector"
 
 [node name="MapBackground" type="ColorRect" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=428448214]
-unique_name_in_owner = true
 custom_minimum_size = Vector2(900, 560)
 layout_mode = 2
 size_flags_vertical = 4

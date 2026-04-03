@@ -26,13 +26,14 @@ scrap = null
 layer = 3
 
 [node name="Control" type="MarginContainer" parent="UILayer" unique_id=783367159]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -27.0
-offset_right = 27.0
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -54.0
 offset_bottom = 31.0
-grow_horizontal = 2
+grow_horizontal = 0
+size_flags_horizontal = 8
+size_flags_vertical = 0
 
 [node name="JumpButton" type="Button" parent="UILayer/Control" unique_id=853865634 node_paths=PackedStringArray("game_controller")]
 layout_mode = 2

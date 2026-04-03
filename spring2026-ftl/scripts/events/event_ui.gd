@@ -2,20 +2,16 @@ class_name EventUI extends Control
 
 ## doc comment
 
-#signals
-#enums
-# constants
-# static variables
 # @export variables
 @export var dialogue_box: VBoxContainer ## It's a box. For dialogue.
 
 # remaining regular variables
+var event_id : int
 var event : Event
 
-# @onready variables
 
 func _ready() -> void:
-	event = EventLoader.events[0]
+	event = EventLoader.events[event_id]
 	_setup_event()
 
 

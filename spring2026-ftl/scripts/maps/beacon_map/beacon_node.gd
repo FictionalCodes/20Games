@@ -3,6 +3,7 @@ class_name BeaconNode extends Node2D
 ## The beacon node is a component of the beacon map. 
 
 # Signals
+signal load_event(event_id : int)
 signal show_next_sector_button
 signal hide_next_sector_button
 
@@ -25,6 +26,7 @@ var lines : Array[Line2D]
 var is_current_beacon : bool
 var is_exit_beacon: bool
 var is_explored: bool
+var event_id : int = 1
 
 
 func _ready() -> void:
@@ -107,6 +109,7 @@ func set_beacon_as_current() -> void:
 	is_explored = true
 	if not is_exit_beacon:
 		_set_label_text("Your current location.")
+	load_event.emit(event_id)
 
 
 ## Set the beacon as not the current beacon and hide the current beacon indicator

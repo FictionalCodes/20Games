@@ -2,6 +2,9 @@ class_name SectorMap extends Control
 
 ## doc comment
 
+# Singnals
+signal load_sector(sector : int)
+
 # constants
 const SECTOR_NODE = preload("uid://ryst2kfnr5ad")
 
@@ -54,23 +57,24 @@ func _get_node_y_positions(number_of_nodes: int) -> Array:
 
 # this function draws the nodes on the map
 func _draw_nodes() -> void:
-	var column_number = 1
+	var sector = 1
 	for column in node_cordinates:
 		for node in column:
-			_spawn_node(node, column_number)
-		column_number += 1
+			_spawn_node(node, sector)
+		sector += 1
 
 
 # this function spawns a new node at the provided vector
-func _spawn_node(spawn_position : Vector2, column_number : int) -> void:
+func _spawn_node(spawn_position : Vector2, sector : int) -> void:
 	var node = SECTOR_NODE.instantiate()
 	node.sector_map = self
 	node.position = spawn_position
-	node.column = column_number
-	if column_number == 1:
+	node.sector = sector
+	node.load_sector.connect(_on_load_sector)
+	if sector == 1:
 		node.sector_type = 'Civilian'
 		node.set_as_current_sector()
-	elif column_number == 8:
+	elif sector == 8:
 		node.sector_type = 'Civilian'
 		node.last_sector = true
 	else:
@@ -121,3 +125,7 @@ func _spawn_line(node : Vector2, previous_node: Vector2) -> void:
 	line.width = 2
 	line.z_index = 1
 	map_background.add_child(line)
+
+
+func _on_load_sector(sector : int) -> void:
+	load_sector.emit(sector)

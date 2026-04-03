@@ -4,30 +4,33 @@ class_name BeaconMap extends Control
 
 # Signals
 signal show_sector_map
+signal load_event(event_id : int)
 
 # constants
 const BEACON_NODE = preload("uid://byegbnsb2s0c4")
 
 # @export variables
+@export var sector_number_label : Label
 @export var next_sector_button : Button
+@export var map_background : ColorRect
 
 # remaining regular variables
 var node_coordinates : Array
 var beacons : Array
 var start_beacon : Vector2
 var exit_beacon : Vector2
-
-# @onready variables
-@onready var map_background: ColorRect = %MapBackground
+var sector : int
 
 
 func _ready() -> void:
 	_connect_signals()
+	_set_sector_number_label()
 	_generate_node_coordinates()
 	_set_start_beacon()
 	_set_exit_beacon()
 	_draw_nodes()
 	#_connect_nodes() # TODO need to fix timings
+	
 
 
 ## Connect signals
@@ -37,7 +40,7 @@ func _connect_signals() -> void:
 
 ## Generate node coordinates and put them into an array
 func _generate_node_coordinates() -> void:
-	var map_size : Vector2 = %MapBackground.custom_minimum_size - Vector2(64,64)
+	var map_size : Vector2 = map_background.custom_minimum_size - Vector2(64,64)
 	var number_of_nodes = randi_range(15, 20)
 	for number in number_of_nodes:
 		var x_coordinate = _halton_sequence(number + 1, 2) * map_size.x
@@ -86,6 +89,7 @@ func _draw_nodes() -> void:
 func _spawn_node(spawn_position : Vector2) -> Node2D:
 	var node = BEACON_NODE.instantiate()
 	node.position = spawn_position
+	node.load_event.connect(_on_load_event)
 	if spawn_position == start_beacon:
 		node.set_beacon_as_current()
 	if spawn_position == exit_beacon:
@@ -97,10 +101,10 @@ func _spawn_node(spawn_position : Vector2) -> Node2D:
 	return node
 
 
-## Connect the nodes to neighbouring nodes
-func _connect_nodes() -> void:
-	for beacon in beacons:
-		beacon.connect_neighbours()
+### Connect the nodes to neighbouring nodes
+#func _connect_nodes() -> void:
+	#for beacon in beacons:
+		#beacon.connect_neighbours()
 
 
 ## Hides the beacon map returning to the current ship scene
@@ -121,3 +125,11 @@ func on_hide_next_sector_button() -> void:
 ## Show the sector map
 func _on_next_sector_button_pressed() -> void:
 	show_sector_map.emit()
+
+
+func _on_load_event(event_id : int) -> void:
+	load_event.emit(event_id)
+
+
+func _set_sector_number_label() -> void:
+	sector_number_label.text = str(sector)

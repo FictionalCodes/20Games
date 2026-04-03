@@ -2,6 +2,9 @@ class_name SectorNode extends Node2D
 
 ## A Sector Node for the Sector Map. 
 
+# Signals
+signal 	load_sector(sector : int)
+
 # @export variables
 @export var node_texture: TextureRect
 @export var tooltip: PanelContainer
@@ -16,7 +19,7 @@ var sector_type : String
 var current_sector : bool
 var last_sector : bool
 var explored : bool
-var column : int
+var sector : int
 var sector_map : SectorMap
 
 func _ready() -> void:
@@ -60,7 +63,7 @@ func _on_mouse_exited() -> void:
 
 
 func _on_click_zone_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
-	if event.is_action_pressed("confirm") and not current_sector and column == sector_map.current_sector_node.column + 1:
+	if event.is_action_pressed("confirm") and not current_sector and sector == sector_map.current_sector_node.sector + 1:
 		get_tree().call_group("sector_node", "clear_current_sector")
 		set_as_current_sector()
 
@@ -71,6 +74,8 @@ func set_as_current_sector() -> void:
 	sector_map.current_sector_node = self
 	if not explored:
 		_set_sector_as_explored()
+	if sector != 1:
+		load_sector.emit(sector)
 
 
 func clear_current_sector() -> void:
