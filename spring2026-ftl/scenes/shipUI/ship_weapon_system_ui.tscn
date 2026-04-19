@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://exu1g8ea83v7"]
+
+[ext_resource type="Script" uid="uid://cl2sce66f8iis" path="res://scenes/shipUI/ship_weapon_system_ui.gd" id="1_pbakq"]
+[ext_resource type="Texture2D" uid="uid://n4y7l6v8lvo6" path="res://assets/sprites/circle_sprite.png" id="2_jiq5o"]
+
+[node name="WeaponUI" type="HBoxContainer" unique_id=1809601556]
+offset_top = 114.0
+offset_right = 113.0
+offset_bottom = 114.0
+script = ExtResource("1_pbakq")
+
+[node name="ShipSystemUi" type="VBoxContainer" parent="." unique_id=2132044685]
+layout_mode = 2
+alignment = 2
+
+[node name="CurrentPowerLabel" type="Label" parent="ShipSystemUi" unique_id=2023274560]
+layout_mode = 2
+text = "Current Power"
+
+[node name="MaxPowerLabel" type="Label" parent="ShipSystemUi" unique_id=1898979932]
+layout_mode = 2
+text = "Max Power"
+
+[node name="TextureProgressBar" type="TextureRect" parent="ShipSystemUi" unique_id=1844002343]
+layout_mode = 2
+expand_mode = 2
+
+[node name="Button" type="Button" parent="ShipSystemUi" unique_id=1613986824]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+size_flags_vertical = 3
+button_mask = 3
+icon = ExtResource("2_jiq5o")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="System_Name" type="Label" parent="ShipSystemUi" unique_id=2091807553]
+layout_mode = 2
+text = "Test"
+
+[node name="WeaponBoxes" type="HBoxContainer" parent="." unique_id=1540306911]
+layout_mode = 2
+
+[connection signal="pressed" from="ShipSystemUi/Button" to="ShipSystemUi" method="_on_button_pressed"]

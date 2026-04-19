@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://cyjforxiu4gi8"]
+
+[ext_resource type="Script" uid="uid://s5pc2g48j41b" path="res://scripts/shipcontrol/ui/resource_display.gd" id="1_1wowj"]
+
+[node name="ResourceDisplay" type="HBoxContainer" unique_id=958200551]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -5.5
+offset_top = -11.5
+offset_right = 19.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+script = ExtResource("1_1wowj")
+
+[node name="TypeLabel" type="Label" parent="." unique_id=1806003458]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+text = "R"
+
+[node name="Number" type="Label" parent="." unique_id=1626153253]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 1
+text = "0"
