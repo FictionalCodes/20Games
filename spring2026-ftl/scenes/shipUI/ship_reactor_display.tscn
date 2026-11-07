@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://bgsnv2co25el2"]
+
+[ext_resource type="PackedScene" uid="uid://bndhuwspl4tts" path="res://scenes/shipUI/power_display_base.tscn" id="1_e77kf"]
+
+[node name="ShipReactorDisplay" unique_id=2132044685 instance=ExtResource("1_e77kf")]
+
+[node name="System_Name" parent="." index="4" unique_id=2091807553]
+text = "Reactor"

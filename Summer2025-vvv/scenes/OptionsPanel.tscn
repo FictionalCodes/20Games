@@ -1,0 +1,79 @@
+[gd_scene load_steps=2 format=3 uid="uid://ihbtn7st4r8s"]
+
+[ext_resource type="Script" uid="uid://bc2mdc124r6ds" path="res://addons/fictional_options_manager/audio_options_implementation/audio_settings_panel.gd" id="1_u8tap"]
+
+[node name="OptionsPanel" type="PanelContainer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="PanelContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="GridContainer" type="GridContainer" parent="PanelContainer" node_paths=PackedStringArray("_masterSlider", "_musicSlider", "_effectsSlider")]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/v_separation = 8
+columns = 2
+script = ExtResource("1_u8tap")
+_masterSlider = NodePath("MasterVolumeSlider")
+_musicSlider = NodePath("MusicVolumeSlider")
+_effectsSlider = NodePath("EffectsVolumeSlider")
+
+[node name="MasterVolumeLabel" type="Label" parent="PanelContainer/GridContainer"]
+layout_mode = 2
+text = "Master Volume"
+
+[node name="MasterVolumeSlider" type="HSlider" parent="PanelContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+step = 5.0
+tick_count = 10
+ticks_on_borders = true
+
+[node name="MusicVolumeLabel" type="Label" parent="PanelContainer/GridContainer"]
+layout_mode = 2
+text = "Music Volume"
+
+[node name="MusicVolumeSlider" type="HSlider" parent="PanelContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+step = 5.0
+value = 100.0
+tick_count = 10
+ticks_on_borders = true
+
+[node name="EffectsVolumeLabel" type="Label" parent="PanelContainer/GridContainer"]
+layout_mode = 2
+text = "SFX Volume"
+
+[node name="EffectsVolumeSlider" type="HSlider" parent="PanelContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+step = 5.0
+tick_count = 10
+ticks_on_borders = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Button" type="Button" parent="PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Save and Close"
+
+[connection signal="tree_exiting" from="PanelContainer/GridContainer" to="PanelContainer/GridContainer" method="_on_tree_exiting"]
+[connection signal="value_changed" from="PanelContainer/GridContainer/MasterVolumeSlider" to="PanelContainer/GridContainer" method="_on_master_volume_slider_value_changed"]
+[connection signal="value_changed" from="PanelContainer/GridContainer/MusicVolumeSlider" to="PanelContainer/GridContainer" method="_on_music_volume_slider_value_changed"]
+[connection signal="value_changed" from="PanelContainer/GridContainer/EffectsVolumeSlider" to="PanelContainer/GridContainer" method="_on_effects_volume_slider_value_changed"]
+[connection signal="pressed" from="PanelContainer/HBoxContainer/Button" to="PanelContainer/GridContainer" method="save"]

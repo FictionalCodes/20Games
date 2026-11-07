@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://b2nsopoxqpdx8"]
+
+[ext_resource type="Script" uid="uid://sxn356blfwcg" path="res://scripts/shipcontrol/ui/weapon_ui.gd" id="1_gry0h"]
+
+[node name="WeaponUi" type="VBoxContainer" unique_id=370436855]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_gry0h")
+
+[node name="WeaponName" type="Label" parent="." unique_id=1080786296]
+layout_mode = 2
+text = "Power Needed"
+
+[node name="PowerNeeded" type="Label" parent="." unique_id=1056666544]
+layout_mode = 2
+text = "Power Needed"
+
+[node name="WeaponPowerTogglwe" type="CheckButton" parent="." unique_id=1156434427]
+layout_mode = 2
+text = "Power On"
+
+[node name="Charge" type="ProgressBar" parent="." unique_id=664441325]
+layout_mode = 2
+max_value = 1.0
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]

@@ -1,0 +1,6 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://boxbwcs7tsgt8"]
+
+[ext_resource type="Shader" uid="uid://dyul31jmkhplx" path="res://assets/shaders/animated_line.gdshader" id="1_hn0o0"]
+
+[resource]
+shader = ExtResource("1_hn0o0")

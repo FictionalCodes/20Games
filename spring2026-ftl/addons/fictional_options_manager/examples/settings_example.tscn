@@ -1,0 +1,89 @@
+[gd_scene format=3 uid="uid://bafkkxly1ck1a"]
+
+[ext_resource type="Script" uid="uid://c1kfbm0ebjdiw" path="res://addons/fictional_options_manager/examples/subtitle_canvas.gd" id="1_6p6us"]
+[ext_resource type="Script" uid="uid://8k5hf1jvud7y" path="res://addons/fictional_options_manager/examples/setup_scene.gd" id="1_sb57o"]
+[ext_resource type="PackedScene" uid="uid://ihbtn7st4r8s" path="res://addons/fictional_options_manager/audio_options_implementation/audio_panel.tscn" id="2_sb57o"]
+[ext_resource type="Script" uid="uid://dyp1naqgbck30" path="res://addons/fictional_options_manager/examples/options_panel.gd" id="3_mqjpc"]
+
+[node name="TextSettingsExample" type="Control" unique_id=644833013]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_sb57o")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=691004052]
+script = ExtResource("1_6p6us")
+
+[node name="SubtitlesBackground" type="ColorRect" parent="CanvasLayer" unique_id=953301127]
+show_behind_parent = true
+z_index = -1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -290.0
+offset_right = 290.0
+offset_bottom = 80.0
+grow_horizontal = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+color = Color(0.219501, 0.219501, 0.219501, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/SubtitlesBackground" unique_id=384842073]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Subtitles Label" type="RichTextLabel" parent="CanvasLayer/SubtitlesBackground/MarginContainer" unique_id=504837829]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Hey we are gonna test some subtitles so we are just gonna keep adding words here so that it works a bit better"
+shortcut_keys_enabled = false
+horizontal_alignment = 1
+vertical_alignment = 1
+drag_and_drop_selection_enabled = false
+
+[node name="OptionsPanel" type="PanelContainer" parent="." unique_id=313020132]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_mqjpc")
+
+[node name="HBoxContainer" type="VBoxContainer" parent="OptionsPanel" unique_id=750681989]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="CheckButton" type="CheckButton" parent="OptionsPanel/HBoxContainer" unique_id=1858652392]
+layout_mode = 2
+text = "Text On Bottom"
+
+[node name="AudioSettingsPanel" parent="OptionsPanel/HBoxContainer" unique_id=977019668 instance=ExtResource("2_sb57o")]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="OptionsPanel/HBoxContainer" unique_id=639922439]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Save and Close"
+
+[connection signal="toggled" from="OptionsPanel/HBoxContainer/CheckButton" to="OptionsPanel" method="_on_check_button_toggled"]

@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://ihbtn7st4r8s"]
+
+[ext_resource type="Script" uid="uid://crupne06e60p8" path="res://addons/fictional_options_manager/audio_options_implementation/audio_settings_panel.gd" id="1_x4km6"]
+
+[node name="AudioSettingsPanel" type="GridContainer" unique_id=399865739 node_paths=PackedStringArray("_masterSlider", "_musicSlider", "_effectsSlider")]
+custom_minimum_size = Vector2(200, 0)
+offset_right = 200.0
+offset_bottom = 85.0
+size_flags_vertical = 0
+theme_override_constants/v_separation = 8
+columns = 2
+script = ExtResource("1_x4km6")
+_masterSlider = NodePath("MasterVolumeSlider")
+_musicSlider = NodePath("MusicVolumeSlider")
+_effectsSlider = NodePath("EffectsVolumeSlider")
+
+[node name="MasterVolumeLabel" type="Label" parent="." unique_id=1704073895]
+layout_mode = 2
+text = "Master Volume"
+
+[node name="MasterVolumeSlider" type="HSlider" parent="." unique_id=1738680822]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+step = 5.0
+tick_count = 10
+ticks_on_borders = true
+
+[node name="MusicVolumeLabel" type="Label" parent="." unique_id=1019292931]
+layout_mode = 2
+text = "Music Volume"
+
+[node name="MusicVolumeSlider" type="HSlider" parent="." unique_id=259131397]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+step = 5.0
+value = 100.0
+tick_count = 10
+ticks_on_borders = true
+
+[node name="EffectsVolumeLabel" type="Label" parent="." unique_id=308708063]
+layout_mode = 2
+text = "SFX Volume"
+
+[node name="EffectsVolumeSlider" type="HSlider" parent="." unique_id=818710782]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+step = 5.0
+tick_count = 10
+ticks_on_borders = true
+
+[connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]
+[connection signal="value_changed" from="MasterVolumeSlider" to="." method="_on_master_volume_slider_value_changed"]
+[connection signal="value_changed" from="MusicVolumeSlider" to="." method="_on_music_volume_slider_value_changed"]
+[connection signal="value_changed" from="EffectsVolumeSlider" to="." method="_on_effects_volume_slider_value_changed"]

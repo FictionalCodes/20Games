@@ -1,0 +1,379 @@
+[gd_scene load_steps=35 format=3 uid="uid://c7nhflx8extkt"]
+
+[ext_resource type="Theme" uid="uid://dx6dnlv4s8udm" path="res://Resources/new_theme.tres" id="1_ijpji"]
+[ext_resource type="Texture2D" uid="uid://bgcl6yjvc8gu5" path="res://assets/NeonIndustry/Hero.png" id="1_lfjc7"]
+[ext_resource type="PackedScene" uid="uid://ihbtn7st4r8s" path="res://scenes/OptionsPanel.tscn" id="1_liyum"]
+[ext_resource type="Script" uid="uid://c6x5mmlxbknxt" path="res://Scripts/UI/MainMenu.gd" id="1_wxicr"]
+[ext_resource type="PackedScene" uid="uid://wc02icp8p6fb" path="res://scenes/Level1.tscn" id="2_is2fr"]
+[ext_resource type="Texture2D" uid="uid://ctruvkgrqdrla" path="res://assets/Backgrounds/light_stream.png" id="2_lfjc7"]
+[ext_resource type="AudioStream" uid="uid://bk0sd1f8n5ve6" path="res://assets/Music/Three Red Hearts - Connected.ogg" id="5_3xsyx"]
+[ext_resource type="LabelSettings" uid="uid://vp7fp8kflk2t" path="res://Resources/LabelBase.tres" id="5_7txom"]
+[ext_resource type="Texture2D" uid="uid://dp5ojd4t5b8js" path="res://assets/Icons/generic_stick_horizontal.png" id="6_binsn"]
+[ext_resource type="FontFile" uid="uid://cm5ak7x0ehyvd" path="res://assets/Font/Pixel Digivolve.otf" id="6_yqxia"]
+[ext_resource type="Texture2D" uid="uid://h82506svcxc8" path="res://assets/Icons/keyboard_arrows_horizontal_outline.png" id="7_2f1bn"]
+[ext_resource type="Texture2D" uid="uid://b0f0j2eijd5px" path="res://assets/Icons/switch_buttons_down.png" id="8_2f1bn"]
+[ext_resource type="Texture2D" uid="uid://cey57a3h0sj73" path="res://assets/Icons/keyboard_space.png" id="9_i80p0"]
+[ext_resource type="Texture2D" uid="uid://dl5wpsfyxsb05" path="res://assets/Icons/xbox_button_start_outline.png" id="10_cvq0m"]
+[ext_resource type="FontFile" uid="uid://ba07ijfj2h8js" path="res://assets/Font/OpenDyslexicMono-Regular.otf" id="10_i80p0"]
+[ext_resource type="Texture2D" uid="uid://cuqj8sh4ihdt2" path="res://assets/Icons/keyboard_escape.png" id="11_wxicr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ay6yh"]
+atlas = ExtResource("1_lfjc7")
+region = Rect2(0, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p3xyx"]
+atlas = ExtResource("1_lfjc7")
+region = Rect2(16, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wuy1y"]
+atlas = ExtResource("1_lfjc7")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1nynx"]
+atlas = ExtResource("1_lfjc7")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_64pgi"]
+atlas = ExtResource("1_lfjc7")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ep8a"]
+atlas = ExtResource("1_lfjc7")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_70wo7"]
+atlas = ExtResource("1_lfjc7")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rwuho"]
+atlas = ExtResource("1_lfjc7")
+region = Rect2(16, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yhksc"]
+atlas = ExtResource("1_lfjc7")
+region = Rect2(32, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_634ti"]
+atlas = ExtResource("1_lfjc7")
+region = Rect2(48, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_beuee"]
+atlas = ExtResource("1_lfjc7")
+region = Rect2(64, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_632n6"]
+atlas = ExtResource("1_lfjc7")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sf8ex"]
+atlas = ExtResource("1_lfjc7")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8mk5r"]
+atlas = ExtResource("1_lfjc7")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1y3c5"]
+atlas = ExtResource("1_lfjc7")
+region = Rect2(48, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dhn0l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ay6yh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p3xyx")
+}],
+"loop": true,
+"name": &"death",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wuy1y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1nynx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_64pgi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ep8a")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_70wo7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rwuho")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yhksc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_634ti")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_beuee")
+}],
+"loop": false,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_632n6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sf8ex")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8mk5r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1y3c5")
+}],
+"loop": true,
+"name": &"run",
+"speed": 7.0
+}]
+
+[sub_resource type="LabelSettings" id="LabelSettings_0t0xe"]
+font = ExtResource("6_yqxia")
+font_size = 36
+outline_size = 12
+outline_color = Color(0, 0.203922, 1, 1)
+shadow_size = 15
+shadow_color = Color(0.694118, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i80p0"]
+bg_color = Color(0, 0, 0, 1)
+
+[node name="Control" type="PanelContainer"]
+custom_minimum_size = Vector2(540, 360)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -103.5
+offset_top = -62.0
+offset_right = 103.5
+offset_bottom = 62.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_wxicr")
+firstLevel = ExtResource("2_is2fr")
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+z_index = 1
+position = Vector2(138, 92)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_dhn0l")
+animation = &"run"
+autoplay = "run"
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("2_lfjc7")
+expand_mode = 2
+
+[node name="Node2D" type="AspectRatioContainer" parent="."]
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+theme = ExtResource("1_ijpji")
+ratio = 1.75
+
+[node name="MarginContainer" type="MarginContainer" parent="Node2D"]
+layout_mode = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_right = 60
+
+[node name="Label" type="Label" parent="Node2D/MarginContainer"]
+custom_minimum_size = Vector2(225, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "BITFLIP"
+label_settings = SubResource("LabelSettings_0t0xe")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CentralOrganisor" type="HBoxContainer" parent="Node2D/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Node2D/MarginContainer/CentralOrganisor"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+
+[node name="StartButton" type="Button" parent="Node2D/MarginContainer/CentralOrganisor/VBoxContainer"]
+layout_mode = 2
+text = "Start Game"
+
+[node name="OptionsButton" type="Button" parent="Node2D/MarginContainer/CentralOrganisor/VBoxContainer"]
+layout_mode = 2
+text = "Options
+"
+
+[node name="Controls" type="Button" parent="Node2D/MarginContainer/CentralOrganisor/VBoxContainer"]
+layout_mode = 2
+text = "Controls"
+
+[node name="Credits" type="Button" parent="Node2D/MarginContainer/CentralOrganisor/VBoxContainer"]
+layout_mode = 2
+text = "Credits"
+
+[node name="HBoxContainer" type="PanelContainer" parent="Node2D/MarginContainer/CentralOrganisor"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="OptionsPanel" parent="Node2D/MarginContainer/CentralOrganisor/HBoxContainer" instance=ExtResource("1_liyum")]
+visible = false
+layout_mode = 2
+
+[node name="Controls Panel" type="VBoxContainer" parent="Node2D/MarginContainer/CentralOrganisor/HBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="CenterContainer" type="VBoxContainer" parent="Node2D/MarginContainer/CentralOrganisor/HBoxContainer/Controls Panel"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="Node2D/MarginContainer/CentralOrganisor/HBoxContainer/Controls Panel/CenterContainer"]
+layout_mode = 2
+text = "To Move"
+label_settings = ExtResource("5_7txom")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Node2D/MarginContainer/CentralOrganisor/HBoxContainer/Controls Panel/CenterContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+alignment = 1
+
+[node name="Sprite2D" type="TextureRect" parent="Node2D/MarginContainer/CentralOrganisor/HBoxContainer/Controls Panel/CenterContainer/HBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+texture = ExtResource("6_binsn")
+expand_mode = 4
+
+[node name="Sprite2D2" type="TextureRect" parent="Node2D/MarginContainer/CentralOrganisor/HBoxContainer/Controls Panel/CenterContainer/HBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 6
+texture = ExtResource("7_2f1bn")
+expand_mode = 2
+
+[node name="Input Prompt2" type="VBoxContainer" parent="Node2D/MarginContainer/CentralOrganisor/HBoxContainer/Controls Panel"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Node2D/MarginContainer/CentralOrganisor/HBoxContainer/Controls Panel/Input Prompt2"]
+layout_mode = 2
+text = "Flip Gravity"
+label_settings = ExtResource("5_7txom")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Node2D/MarginContainer/CentralOrganisor/HBoxContainer/Controls Panel/Input Prompt2"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Sprite2D" type="TextureRect" parent="Node2D/MarginContainer/CentralOrganisor/HBoxContainer/Controls Panel/Input Prompt2/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("8_2f1bn")
+
+[node name="Sprite2D2" type="TextureRect" parent="Node2D/MarginContainer/CentralOrganisor/HBoxContainer/Controls Panel/Input Prompt2/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("9_i80p0")
+
+[node name="Input Prompt3" type="VBoxContainer" parent="Node2D/MarginContainer/CentralOrganisor/HBoxContainer/Controls Panel"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Node2D/MarginContainer/CentralOrganisor/HBoxContainer/Controls Panel/Input Prompt3"]
+layout_mode = 2
+text = "Pause"
+label_settings = ExtResource("5_7txom")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Node2D/MarginContainer/CentralOrganisor/HBoxContainer/Controls Panel/Input Prompt3"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Sprite2D" type="TextureRect" parent="Node2D/MarginContainer/CentralOrganisor/HBoxContainer/Controls Panel/Input Prompt3/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("10_cvq0m")
+
+[node name="Sprite2D2" type="TextureRect" parent="Node2D/MarginContainer/CentralOrganisor/HBoxContainer/Controls Panel/Input Prompt3/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("11_wxicr")
+
+[node name="Panel" type="PanelContainer" parent="Node2D/MarginContainer/CentralOrganisor/HBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_i80p0")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Node2D/MarginContainer/CentralOrganisor/HBoxContainer/Panel"]
+custom_minimum_size = Vector2(220, 300)
+layout_mode = 2
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0.121569, 0.505882, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/normal_font = ExtResource("10_i80p0")
+theme_override_font_sizes/mono_font_size = 4
+theme_override_font_sizes/normal_font_size = 10
+bbcode_enabled = true
+text = "Programming and Level Design by Fictional
+
+Asset Packs used in this Game
+
+Neon Industry by VEXED - https://v3x3d.itch.io/neon-industry
+
+300 Repeat Background Texture by Game Supply Guy - https://gamesupply.itch.io/300-repeat-background-texture-package
+
+1000 Nintendo Sound Effects by Game Supply Guy - https://gamesupply.itch.io/1000-nintendo-sound-effects
+
+200+ Space SFX Package by Game Supply Guy - https://gamesupply.itch.io/200-space-sound-effects
+
+Pixel Art Space 2D Game Backgrounds by CraftPix - https://craftpix.net/product/pixel-art-space-2d-game-backgrounds/
+
+Three Red Hearts - Prepare To Dev by Abstraction - https://abstractionmusic.com/ - https://tallbeard.itch.io/three-red-hearts-prepare-to-dev
+
+Pixel Digivolve Font by Pixel Sagas - https://www.pixelsagas.com/
+
+Open Dyslexic Mono - https://opendyslexic.org/
+
+Input Prompts by Kenny - www.kenney.nl
+"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_3xsyx")
+autoplay = true
+bus = &"Music"
+
+[connection signal="pressed" from="Node2D/MarginContainer/CentralOrganisor/VBoxContainer/StartButton" to="." method="load_level"]
+[connection signal="pressed" from="Node2D/MarginContainer/CentralOrganisor/VBoxContainer/OptionsButton" to="Node2D/MarginContainer/CentralOrganisor/HBoxContainer/OptionsPanel" method="show"]
+[connection signal="pressed" from="Node2D/MarginContainer/CentralOrganisor/VBoxContainer/OptionsButton" to="Node2D/MarginContainer/CentralOrganisor/HBoxContainer/Controls Panel" method="hide"]
+[connection signal="pressed" from="Node2D/MarginContainer/CentralOrganisor/VBoxContainer/OptionsButton" to="Node2D/MarginContainer/CentralOrganisor/HBoxContainer/Panel" method="hide"]
+[connection signal="pressed" from="Node2D/MarginContainer/CentralOrganisor/VBoxContainer/Controls" to="Node2D/MarginContainer/CentralOrganisor/HBoxContainer/OptionsPanel" method="hide"]
+[connection signal="pressed" from="Node2D/MarginContainer/CentralOrganisor/VBoxContainer/Controls" to="Node2D/MarginContainer/CentralOrganisor/HBoxContainer/Controls Panel" method="show"]
+[connection signal="pressed" from="Node2D/MarginContainer/CentralOrganisor/VBoxContainer/Controls" to="Node2D/MarginContainer/CentralOrganisor/HBoxContainer/Panel" method="hide"]
+[connection signal="pressed" from="Node2D/MarginContainer/CentralOrganisor/VBoxContainer/Credits" to="Node2D/MarginContainer/CentralOrganisor/HBoxContainer/OptionsPanel" method="hide"]
+[connection signal="pressed" from="Node2D/MarginContainer/CentralOrganisor/VBoxContainer/Credits" to="Node2D/MarginContainer/CentralOrganisor/HBoxContainer/Controls Panel" method="hide"]
+[connection signal="pressed" from="Node2D/MarginContainer/CentralOrganisor/VBoxContainer/Credits" to="Node2D/MarginContainer/CentralOrganisor/HBoxContainer/Panel" method="show"]
+[connection signal="pressed" from="Node2D/MarginContainer/CentralOrganisor/HBoxContainer/OptionsPanel/PanelContainer/HBoxContainer/Button" to="Node2D/MarginContainer/CentralOrganisor/HBoxContainer/OptionsPanel" method="hide"]
+
+[editable path="Node2D/MarginContainer/CentralOrganisor/HBoxContainer/OptionsPanel"]

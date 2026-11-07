@@ -1,0 +1,98 @@
+[gd_scene format=3 uid="uid://urmj4vmkay8j"]
+
+[ext_resource type="Script" uid="uid://dfcbq3k88x8lf" path="res://scripts/shipcontrol/ui/ship_ui_overlay.gd" id="1_3tk1m"]
+[ext_resource type="Script" uid="uid://cdu37dartv81u" path="res://scripts/shipcontrol/ui/ship_system_ui.gd" id="2_8jwvs"]
+[ext_resource type="Texture2D" uid="uid://n4y7l6v8lvo6" path="res://assets/sprites/circle_sprite.png" id="3_1v3bs"]
+[ext_resource type="PackedScene" uid="uid://bgsnv2co25el2" path="res://scenes/shipUI/ship_reactor_display.tscn" id="4_3mf6g"]
+[ext_resource type="PackedScene" uid="uid://cyjforxiu4gi8" path="res://scenes/shipUI/resource_display.tscn" id="4_16ij7"]
+[ext_resource type="PackedScene" uid="uid://exu1g8ea83v7" path="res://scenes/shipUI/ship_weapon_system_ui.tscn" id="4_pmchw"]
+
+[sub_resource type="PackedScene" id="PackedScene_16ij7"]
+_bundled = {
+"conn_count": 1,
+"conns": PackedInt32Array(4, 0, 24, 23, 2, 0, 0),
+"editable_instances": [],
+"id_paths": [],
+"names": PackedStringArray("ShipSystemUi", "offset_right", "offset_bottom", "alignment", "script", "VBoxContainer", "CurrentPowerLabel", "layout_mode", "text", "Label", "MaxPowerLabel", "TextureProgressBar", "expand_mode", "TextureRect", "Button", "custom_minimum_size", "size_flags_vertical", "button_mask", "icon", "flat", "icon_alignment", "expand_icon", "System_Name", "_on_button_pressed", "pressed"),
+"node_count": 6,
+"node_ids": PackedInt32Array(2132044685, 2023274560, 1898979932, 1844002343, 1613986824, 2091807553),
+"node_paths": [],
+"nodes": PackedInt32Array(-1, -1, 5, 0, -1, 4, 1, 0, 2, 0, 3, 1, 4, 2, 0, 0, 0, 9, 6, -1, 2, 7, 1, 8, 3, 0, 0, 0, 9, 10, -1, 2, 7, 1, 8, 4, 0, 0, 0, 13, 11, -1, 2, 7, 1, 12, 1, 0, 0, 0, 14, 14, -1, 8, 15, 5, 7, 1, 16, 6, 17, 6, 18, 7, 19, 8, 20, 9, 21, 8, 0, 0, 0, 9, 22, -1, 2, 7, 1, 8, 10, 0),
+"variants": [8.0, 2, ExtResource("2_8jwvs"), "Current Power", "Max Power", Vector2(25, 25), 3, ExtResource("3_1v3bs"), true, 1, "Test"],
+"version": 3
+}
+
+[node name="OverlayMargin" type="MarginContainer" unique_id=1880634943 node_paths=PackedStringArray("_systems_container_left", "_systems_container_right", "ship_reactor_display", "fuel_display", "missiles_display", "drones_display", "hp_display", "scrap_display")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3tk1m")
+systemBaseUI = SubResource("PackedScene_16ij7")
+_systems_container_left = NodePath("TempStacker/PanelContainer/SystemsContainerLeft")
+_systems_container_right = NodePath("TempStacker/PanelContainer/SystemsContainerRight")
+ship_reactor_display = NodePath("TempStacker/Temp/PowerDetailContainer/ShipReactorDisplay")
+fuel_display = NodePath("HBoxContainer/Fuel")
+missiles_display = NodePath("HBoxContainer/Missiles")
+drones_display = NodePath("HBoxContainer/Robots")
+hp_display = NodePath("HBoxContainer/HP")
+scrap_display = NodePath("HBoxContainer/Scrap")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1076091511]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="Fuel" parent="HBoxContainer" unique_id=2138473711 instance=ExtResource("4_16ij7")]
+layout_mode = 2
+resource_name = "F"
+
+[node name="Missiles" parent="HBoxContainer" unique_id=566184050 instance=ExtResource("4_16ij7")]
+layout_mode = 2
+resource_name = "M"
+
+[node name="Robots" parent="HBoxContainer" unique_id=906037219 instance=ExtResource("4_16ij7")]
+layout_mode = 2
+resource_name = "D"
+
+[node name="HP" parent="HBoxContainer" unique_id=958200551 instance=ExtResource("4_16ij7")]
+layout_mode = 2
+resource_name = "HP"
+
+[node name="Scrap" parent="HBoxContainer" unique_id=489307839 instance=ExtResource("4_16ij7")]
+layout_mode = 2
+resource_name = "SC"
+
+[node name="TempStacker" type="VBoxContainer" parent="." unique_id=1246566404]
+layout_mode = 2
+size_flags_vertical = 8
+alignment = 2
+
+[node name="Temp" type="PanelContainer" parent="TempStacker" unique_id=854513664]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="PowerDetailContainer" type="HBoxContainer" parent="TempStacker/Temp" unique_id=1296619450]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+
+[node name="ShipReactorDisplay" parent="TempStacker/Temp/PowerDetailContainer" unique_id=2132044685 instance=ExtResource("4_3mf6g")]
+layout_mode = 2
+
+[node name="WeaponUI" parent="TempStacker/Temp/PowerDetailContainer" unique_id=1809601556 instance=ExtResource("4_pmchw")]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="TempStacker" unique_id=1060471378]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SystemsContainerLeft" type="HBoxContainer" parent="TempStacker/PanelContainer" unique_id=1872626551]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="SystemsContainerRight" type="HBoxContainer" parent="TempStacker/PanelContainer" unique_id=258264269]
+layout_mode = 2
+size_flags_horizontal = 8
+alignment = 2
