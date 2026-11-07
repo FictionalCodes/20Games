@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="Aut26-Bunnies"
+run/main_scene="uid://bhue0x73w3chf"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 

@@ -1,3 +1,22 @@
 [gd_scene format=3 uid="uid://bhue0x73w3chf"]
 
+[ext_resource type="PackedScene" uid="uid://ohjkjaog0bs8" path="res://terrain.tscn" id="1_44gc5"]
+[ext_resource type="Texture2D" uid="uid://cxuwbgy16bivx" path="res://icon.svg" id="2_44gc5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xvyo4"]
+size = Vector2(60, 60)
+
 [node name="Node2D" type="Node2D" unique_id=1412732840]
+
+[node name="Terrain" parent="." unique_id=993015836 instance=ExtResource("1_44gc5")]
+radius = 20
+
+[node name="RigidBody2D" type="RigidBody2D" parent="." unique_id=1501335344]
+position = Vector2(488, -16)
+
+[node name="Icon" type="Sprite2D" parent="RigidBody2D" unique_id=20059336]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_44gc5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D" unique_id=1892940123]
+shape = SubResource("RectangleShape2D_xvyo4")
