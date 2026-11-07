@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=6 format=3 uid="uid://pcv3pcmsvpvh"]
+[gd_resource type="Theme" format=3 uid="uid://pcv3pcmsvpvh"]
 
 [ext_resource type="FontFile" uid="uid://c3ypp5gar1qb1" path="res://assets/UI/fonts/OpenDyslexicMono-Regular.otf" id="1_b8uwv"]
 [ext_resource type="StyleBox" uid="uid://b4i54dqx8rph3" path="res://ui/button-standard-lighter.tres" id="1_t1ly5"]

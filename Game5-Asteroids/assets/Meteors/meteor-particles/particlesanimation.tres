@@ -1,4 +1,4 @@
-[gd_resource type="AnimatedTexture" load_steps=5 format=3 uid="uid://dhbhb8x8lvrwr"]
+[gd_resource type="AnimatedTexture" format=3 uid="uid://dhbhb8x8lvrwr"]
 
 [ext_resource type="Texture2D" uid="uid://4nkt5k8bu1sr" path="res://assets/Meteors/meteor-particles/mini1.tres" id="1_2k203"]
 [ext_resource type="Texture2D" uid="uid://blj8emtkeuwnu" path="res://assets/Meteors/meteor-particles/mini2.tres" id="2_xl88e"]
