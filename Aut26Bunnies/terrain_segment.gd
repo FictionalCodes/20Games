@@ -1,6 +1,5 @@
-class_name Terrain extends Node2D
+class_name TerrainChunk extends Node2D
 
-@export var radius : int = 20
 @onready var _poly := $Polygon2D as Polygon2D
 @onready var _colision := $CollisionPolygon2D
 var carve_area : Polygon2D
@@ -16,30 +15,17 @@ func _ready() -> void:
 func _set_poly(new_pol: PackedVector2Array):
 		_poly.polygon = new_pol
 		_colision.set_deferred("polygon", new_pol)
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
 	
-
-func _unhandled_input(event: InputEvent) -> void:
-	var mouseEv := event as InputEventMouseButton
-	if mouseEv != null and event.button_index == MOUSE_BUTTON_LEFT:
-		var carve := _make_mouse_circle(mouseEv.position)
+func do_carve(carve: PackedVector2Array) -> void:
+		
 		var newPolys = Geometry2D.clip_polygons(_poly.polygon, carve)
 		if newPolys.is_empty():
 			queue_free()
 		else: 
 			_set_poly(newPolys[0])
 			for i in range(1, newPolys.size()):
-				var newTerrainBlock := terrainScene.instantiate() as Terrain
+				var newTerrainBlock := terrainScene.instantiate() as TerrainChunk
 				newTerrainBlock.polyPoints = newPolys[i]
+				newTerrainBlock.modulate = Color(randf(), randf(), randf())
+
 				get_parent().add_child(newTerrainBlock)
-		
-func _make_mouse_circle(mouse_pos: Vector2) -> PackedVector2Array:
-	var nb_points = 15
-	var pol : PackedVector2Array
-	for i in range(nb_points):
-		var angle = lerp(-PI, PI, float(i)/nb_points)
-		pol.push_back(mouse_pos + Vector2(cos(angle), sin(angle)) * radius)
-	return pol

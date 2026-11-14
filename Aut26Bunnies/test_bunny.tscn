@@ -1,0 +1,82 @@
+[gd_scene format=3 uid="uid://tynoinc5fdwo"]
+
+[ext_resource type="Texture2D" uid="uid://75163fvv1a7s" path="res://assets/bunnysheets/Bunny Sprite Sheet.png" id="1_lmlgf"]
+[ext_resource type="AnimationLibrary" uid="uid://blbo2vq4vrwut" path="res://resources/animations/BunnyAnims.res" id="2_lgct2"]
+[ext_resource type="Script" uid="uid://dd4prwnkbcj2" path="res://ControllableBunny.gd" id="3_rossh"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_rossh"]
+friction = 0.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xvyo4"]
+radius = 5.0
+height = 12.0
+
+[sub_resource type="Animation" id="Animation_rossh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Icon:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Icon:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1vdl0"]
+_data = {
+&"RESET": SubResource("Animation_rossh")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xvyo4"]
+radius = 7.0
+
+[node name="TestBunny" type="RigidBody2D" unique_id=14919500]
+mass = 2.5
+physics_material_override = SubResource("PhysicsMaterial_rossh")
+gravity_scale = 0.5
+lock_rotation = true
+freeze = true
+freeze_mode = 1
+continuous_cd = 2
+script = ExtResource("3_rossh")
+bunny_move_speed = 200.0
+controlled = true
+
+[node name="Icon" type="Sprite2D" parent="." unique_id=1195268524]
+position = Vector2(0, -16)
+texture = ExtResource("1_lmlgf")
+hframes = 8
+vframes = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1675505413]
+position = Vector2(0, -6)
+shape = SubResource("CapsuleShape2D_xvyo4")
+debug_color = Color(0.36894256, 0.51252574, 0.89491206, 0.41960785)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=901236332]
+libraries/ = SubResource("AnimationLibrary_1vdl0")
+libraries/BunnyAnims = ExtResource("2_lgct2")
+autoplay = &"BunnyAnims/BunnyIdleRight"
+
+[node name="HitBox" type="Area2D" parent="." unique_id=933461751]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" unique_id=1845208338]
+position = Vector2(0, -7)
+shape = SubResource("CircleShape2D_xvyo4")
+debug_color = Color(0.670973, 0.1812658, 0.20603532, 0.16078432)

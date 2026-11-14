@@ -1,12 +1,12 @@
 [gd_scene format=3 uid="uid://ohjkjaog0bs8"]
 
-[ext_resource type="Script" uid="uid://0ppvi3y2m3kn" path="res://collapsetest.gd" id="1_206su"]
+[ext_resource type="Script" uid="uid://cjmodm0w4o2a7" path="res://terrain_segment.gd" id="1_206su"]
 
-[node name="Terrain" type="StaticBody2D" unique_id=993015836]
+[node name="TerrainSegment" type="StaticBody2D" unique_id=993015836]
 script = ExtResource("1_206su")
 
 [node name="Polygon2D" type="Polygon2D" parent="." unique_id=154421704]
-polygon = PackedVector2Array(539, 109, 996, 111, 989, 435, 487, 423, 162, 263, 384, 107)
+polygon = PackedVector2Array(0, 0, 996, 111, 989, 435, 487, 423, 162, 263, 384, 107)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=1528022831]
 polygon = PackedVector2Array(0, 0, 0, 0)

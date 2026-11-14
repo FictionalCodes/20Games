@@ -1,18 +1,16 @@
 [gd_scene format=3 uid="uid://bhue0x73w3chf"]
 
-[ext_resource type="PackedScene" uid="uid://ohjkjaog0bs8" path="res://terrain.tscn" id="1_44gc5"]
 [ext_resource type="Texture2D" uid="uid://cxuwbgy16bivx" path="res://icon.svg" id="2_44gc5"]
+[ext_resource type="Script" uid="uid://ctr78xyemcrnt" path="res://terrain_manager.gd" id="2_612pj"]
+[ext_resource type="PackedScene" uid="uid://tynoinc5fdwo" path="res://test_bunny.tscn" id="2_asog6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xvyo4"]
 size = Vector2(60, 60)
 
 [node name="Node2D" type="Node2D" unique_id=1412732840]
 
-[node name="Terrain" parent="." unique_id=993015836 instance=ExtResource("1_44gc5")]
-radius = 20
-
 [node name="RigidBody2D" type="RigidBody2D" parent="." unique_id=1501335344]
-position = Vector2(488, -16)
+position = Vector2(823, 180)
 
 [node name="Icon" type="Sprite2D" parent="RigidBody2D" unique_id=20059336]
 scale = Vector2(0.5, 0.5)
@@ -20,3 +18,25 @@ texture = ExtResource("2_44gc5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D" unique_id=1892940123]
 shape = SubResource("RectangleShape2D_xvyo4")
+
+[node name="TestBunny" parent="." unique_id=1674582657 instance=ExtResource("2_asog6")]
+position = Vector2(351, 167)
+
+[node name="RigidBody2D3" type="RigidBody2D" parent="." unique_id=1505328220]
+position = Vector2(321, 274)
+
+[node name="Icon" type="Sprite2D" parent="RigidBody2D3" unique_id=813918743]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_44gc5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D3" unique_id=601749120]
+shape = SubResource("RectangleShape2D_xvyo4")
+
+[node name="TerrainManager" type="Node2D" parent="." unique_id=942560300]
+position = Vector2(561, 353)
+script = ExtResource("2_612pj")
+radius = 50
+
+[node name="Unchunked" type="Polygon2D" parent="TerrainManager" unique_id=93869899]
+polygon = PackedVector2Array(-480.3838, -213.03976, -247.62816, -187.10013, 63.16667, -152.46336, 81.616196, -53.039764, 318.29205, -124.030716, 515.6162, -102.039764, 423.6162, -43.039764, 511.1225, 105.955414, 508.6162, 221.96024, 281.14783, 216.5227, 170.6162, 22.960236, 6.6161957, 209.96024, -148.00307, 133.83997, -459.3838, 198.96024, -389.3838, 2.9602356, -212.53862, -24.41745, -96.383804, -106.039764, -264.30768, -152.83107)
+uv = PackedVector2Array(106.8103, 92.52475, 395.04077, 88.3475, 215.41895, 209.48776, 161.11475, 21.511505, 102.63306, 138.47452)
